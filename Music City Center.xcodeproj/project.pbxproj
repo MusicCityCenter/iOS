@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
+		4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */; };
+		4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
+		4B8E50D518A04A93009F4266 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50D318A04A93009F4266 /* InfoPlist.strings */; };
+		4B8E50D718A04A93009F4266 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50D618A04A93009F4266 /* main.m */; };
+		4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */; };
+		4B8E50DE18A04A93009F4266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50DC18A04A93009F4266 /* Main.storyboard */; };
+		4B8E50E118A04A93009F4266 /* MCCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50E018A04A93009F4266 /* MCCViewController.m */; };
+		4B8E50E318A04A93009F4266 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50E218A04A93009F4266 /* Images.xcassets */; };
+		4B8E50EA18A04A93009F4266 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50E918A04A93009F4266 /* XCTest.framework */; };
+		4B8E50EB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
+		4B8E50EC18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
+		4B8E50F418A04A94009F4266 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50F218A04A94009F4266 /* InfoPlist.strings */; };
+		4B8E50F618A04A94009F4266 /* Music_City_CenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4B8E50ED18A04A93009F4266 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B8E50BF18A04A93009F4266 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B8E50C618A04A93009F4266;
+			remoteInfo = "Music City Center";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4B8E50C718A04A93009F4266 /* Music City Center.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music City Center.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B8E50CA18A04A93009F4266 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4B8E50CE18A04A93009F4266 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4B8E50D218A04A93009F4266 /* Music City Center-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Music City Center-Info.plist"; sourceTree = "<group>"; };
+		4B8E50D418A04A93009F4266 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4B8E50D618A04A93009F4266 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4B8E50D818A04A93009F4266 /* Music City Center-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Music City Center-Prefix.pch"; sourceTree = "<group>"; };
+		4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCAppDelegate.h; sourceTree = "<group>"; };
+		4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCAppDelegate.m; sourceTree = "<group>"; };
+		4B8E50DD18A04A93009F4266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4B8E50DF18A04A93009F4266 /* MCCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCViewController.h; sourceTree = "<group>"; };
+		4B8E50E018A04A93009F4266 /* MCCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCViewController.m; sourceTree = "<group>"; };
+		4B8E50E218A04A93009F4266 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4B8E50E818A04A93009F4266 /* Music City CenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Music City CenterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B8E50E918A04A93009F4266 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4B8E50F118A04A94009F4266 /* Music City CenterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Music City CenterTests-Info.plist"; sourceTree = "<group>"; };
+		4B8E50F318A04A94009F4266 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Music_City_CenterTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4B8E50C418A04A93009F4266 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */,
+				4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */,
+				4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B8E50E518A04A93009F4266 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50EA18A04A93009F4266 /* XCTest.framework in Frameworks */,
+				4B8E50EC18A04A93009F4266 /* UIKit.framework in Frameworks */,
+				4B8E50EB18A04A93009F4266 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4B8E50BE18A04A93009F4266 = {
+			isa = PBXGroup;
+			children = (
+				4B8E50D018A04A93009F4266 /* Music City Center */,
+				4B8E50EF18A04A93009F4266 /* Music City CenterTests */,
+				4B8E50C918A04A93009F4266 /* Frameworks */,
+				4B8E50C818A04A93009F4266 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4B8E50C818A04A93009F4266 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50C718A04A93009F4266 /* Music City Center.app */,
+				4B8E50E818A04A93009F4266 /* Music City CenterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4B8E50C918A04A93009F4266 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50CA18A04A93009F4266 /* Foundation.framework */,
+				4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */,
+				4B8E50CE18A04A93009F4266 /* UIKit.framework */,
+				4B8E50E918A04A93009F4266 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B8E50D018A04A93009F4266 /* Music City Center */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
+				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
+				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
+				4B8E50DF18A04A93009F4266 /* MCCViewController.h */,
+				4B8E50E018A04A93009F4266 /* MCCViewController.m */,
+				4B8E50E218A04A93009F4266 /* Images.xcassets */,
+				4B8E50D118A04A93009F4266 /* Supporting Files */,
+			);
+			path = "Music City Center";
+			sourceTree = "<group>";
+		};
+		4B8E50D118A04A93009F4266 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50D218A04A93009F4266 /* Music City Center-Info.plist */,
+				4B8E50D318A04A93009F4266 /* InfoPlist.strings */,
+				4B8E50D618A04A93009F4266 /* main.m */,
+				4B8E50D818A04A93009F4266 /* Music City Center-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4B8E50EF18A04A93009F4266 /* Music City CenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */,
+				4B8E50F018A04A94009F4266 /* Supporting Files */,
+			);
+			path = "Music City CenterTests";
+			sourceTree = "<group>";
+		};
+		4B8E50F018A04A94009F4266 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50F118A04A94009F4266 /* Music City CenterTests-Info.plist */,
+				4B8E50F218A04A94009F4266 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4B8E50C618A04A93009F4266 /* Music City Center */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B8E50F918A04A94009F4266 /* Build configuration list for PBXNativeTarget "Music City Center" */;
+			buildPhases = (
+				4B8E50C318A04A93009F4266 /* Sources */,
+				4B8E50C418A04A93009F4266 /* Frameworks */,
+				4B8E50C518A04A93009F4266 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Music City Center";
+			productName = "Music City Center";
+			productReference = 4B8E50C718A04A93009F4266 /* Music City Center.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4B8E50E718A04A93009F4266 /* Music City CenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B8E50FC18A04A94009F4266 /* Build configuration list for PBXNativeTarget "Music City CenterTests" */;
+			buildPhases = (
+				4B8E50E418A04A93009F4266 /* Sources */,
+				4B8E50E518A04A93009F4266 /* Frameworks */,
+				4B8E50E618A04A93009F4266 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4B8E50EE18A04A93009F4266 /* PBXTargetDependency */,
+			);
+			name = "Music City CenterTests";
+			productName = "Music City CenterTests";
+			productReference = 4B8E50E818A04A93009F4266 /* Music City CenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4B8E50BF18A04A93009F4266 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MCC;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Music City Center";
+				TargetAttributes = {
+					4B8E50E718A04A93009F4266 = {
+						TestTargetID = 4B8E50C618A04A93009F4266;
+					};
+				};
+			};
+			buildConfigurationList = 4B8E50C218A04A93009F4266 /* Build configuration list for PBXProject "Music City Center" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4B8E50BE18A04A93009F4266;
+			productRefGroup = 4B8E50C818A04A93009F4266 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4B8E50C618A04A93009F4266 /* Music City Center */,
+				4B8E50E718A04A93009F4266 /* Music City CenterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4B8E50C518A04A93009F4266 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50E318A04A93009F4266 /* Images.xcassets in Resources */,
+				4B8E50D518A04A93009F4266 /* InfoPlist.strings in Resources */,
+				4B8E50DE18A04A93009F4266 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B8E50E618A04A93009F4266 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50F418A04A94009F4266 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4B8E50C318A04A93009F4266 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
+				4B8E50D718A04A93009F4266 /* main.m in Sources */,
+				4B8E50E118A04A93009F4266 /* MCCViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B8E50E418A04A93009F4266 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B8E50F618A04A94009F4266 /* Music_City_CenterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4B8E50EE18A04A93009F4266 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B8E50C618A04A93009F4266 /* Music City Center */;
+			targetProxy = 4B8E50ED18A04A93009F4266 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4B8E50D318A04A93009F4266 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B8E50D418A04A93009F4266 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4B8E50DC18A04A93009F4266 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B8E50DD18A04A93009F4266 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4B8E50F218A04A94009F4266 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B8E50F318A04A94009F4266 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4B8E50F718A04A94009F4266 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4B8E50F818A04A94009F4266 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4B8E50FA18A04A94009F4266 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Music City Center/Music City Center-Prefix.pch";
+				INFOPLIST_FILE = "Music City Center/Music City Center-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4B8E50FB18A04A94009F4266 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Music City Center/Music City Center-Prefix.pch";
+				INFOPLIST_FILE = "Music City Center/Music City Center-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		4B8E50FD18A04A94009F4266 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Music City Center.app/Music City Center";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Music City Center/Music City Center-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Music City CenterTests/Music City CenterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		4B8E50FE18A04A94009F4266 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Music City Center.app/Music City Center";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Music City Center/Music City Center-Prefix.pch";
+				INFOPLIST_FILE = "Music City CenterTests/Music City CenterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B8E50C218A04A93009F4266 /* Build configuration list for PBXProject "Music City Center" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B8E50F718A04A94009F4266 /* Debug */,
+				4B8E50F818A04A94009F4266 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B8E50F918A04A94009F4266 /* Build configuration list for PBXNativeTarget "Music City Center" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B8E50FA18A04A94009F4266 /* Debug */,
+				4B8E50FB18A04A94009F4266 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4B8E50FC18A04A94009F4266 /* Build configuration list for PBXNativeTarget "Music City CenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B8E50FD18A04A94009F4266 /* Debug */,
+				4B8E50FE18A04A94009F4266 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4B8E50BF18A04A93009F4266 /* Project object */;
+}
