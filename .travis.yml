@@ -1,3 +1,3 @@
 language: objective-c
-xcode_project: MyNewProject.xcodeproj
-xcode_scheme: MyNewProjectTests
+xcode_project: Music City Center.xcodeproj
+xcode_scheme: Music City Center
