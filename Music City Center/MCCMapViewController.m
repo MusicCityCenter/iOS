@@ -22,6 +22,7 @@ static NSString * const identifier = @"Cell";
     
     [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
                                                 forCellReuseIdentifier:identifier];
+    self.searchDisplayController.searchResultsTableView.alpha = 0.7;
 }
 
 - (void)didReceiveMemoryWarning
