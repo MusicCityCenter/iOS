@@ -6,25 +6,48 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCViewController.h"
+#import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
 
-@interface MCCViewController ()
+static NSString * const identifier = @"Cell";
+
+@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
-@implementation MCCViewController
+@implementation MCCMapViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
+                                                forCellReuseIdentifier:identifier];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier
+                                                            forIndexPath:indexPath];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:identifier];
+    }
+    
+    return cell;
 }
 
 @end
