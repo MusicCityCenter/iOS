@@ -21,6 +21,7 @@
 		4B8E50EC18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
 		4B8E50F418A04A94009F4266 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50F218A04A94009F4266 /* InfoPlist.strings */; };
 		4B8E50F618A04A94009F4266 /* Music_City_CenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */; };
+		4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		4B8E50F118A04A94009F4266 /* Music City CenterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Music City CenterTests-Info.plist"; sourceTree = "<group>"; };
 		4B8E50F318A04A94009F4266 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Music_City_CenterTests.m; sourceTree = "<group>"; };
+		4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorViewController.h; sourceTree = "<group>"; };
+		4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
 				4B8E50DF18A04A93009F4266 /* MCCViewController.h */,
 				4B8E50E018A04A93009F4266 /* MCCViewController.m */,
+				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
+				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 			);
@@ -253,6 +258,7 @@
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
 				4B8E50D718A04A93009F4266 /* main.m in Sources */,
 				4B8E50E118A04A93009F4266 /* MCCViewController.m in Sources */,
+				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +467,7 @@
 				4B8E50FB18A04A94009F4266 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4B8E50FC18A04A94009F4266 /* Build configuration list for PBXNativeTarget "Music City CenterTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +476,7 @@
 				4B8E50FE18A04A94009F4266 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
