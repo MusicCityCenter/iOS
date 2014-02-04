@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCCViewController : UIViewController
+@interface MCCMapViewController : UIViewController
 
 @end

@@ -14,7 +14,7 @@
 		4B8E50D718A04A93009F4266 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50D618A04A93009F4266 /* main.m */; };
 		4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */; };
 		4B8E50DE18A04A93009F4266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50DC18A04A93009F4266 /* Main.storyboard */; };
-		4B8E50E118A04A93009F4266 /* MCCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50E018A04A93009F4266 /* MCCViewController.m */; };
+		4B8E50E118A04A93009F4266 /* MCCMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50E018A04A93009F4266 /* MCCMapViewController.m */; };
 		4B8E50E318A04A93009F4266 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50E218A04A93009F4266 /* Images.xcassets */; };
 		4B8E50EA18A04A93009F4266 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50E918A04A93009F4266 /* XCTest.framework */; };
 		4B8E50EB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
@@ -46,8 +46,8 @@
 		4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCAppDelegate.h; sourceTree = "<group>"; };
 		4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCAppDelegate.m; sourceTree = "<group>"; };
 		4B8E50DD18A04A93009F4266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4B8E50DF18A04A93009F4266 /* MCCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCViewController.h; sourceTree = "<group>"; };
-		4B8E50E018A04A93009F4266 /* MCCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCViewController.m; sourceTree = "<group>"; };
+		4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCMapViewController.h; sourceTree = "<group>"; };
+		4B8E50E018A04A93009F4266 /* MCCMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCCMapViewController.m; sourceTree = "<group>"; };
 		4B8E50E218A04A93009F4266 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4B8E50E818A04A93009F4266 /* Music City CenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Music City CenterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8E50E918A04A93009F4266 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -118,8 +118,8 @@
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
-				4B8E50DF18A04A93009F4266 /* MCCViewController.h */,
-				4B8E50E018A04A93009F4266 /* MCCViewController.m */,
+				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
+				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
@@ -257,7 +257,7 @@
 			files = (
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
 				4B8E50D718A04A93009F4266 /* main.m in Sources */,
-				4B8E50E118A04A93009F4266 /* MCCViewController.m in Sources */,
+				4B8E50E118A04A93009F4266 /* MCCMapViewController.m in Sources */,
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
