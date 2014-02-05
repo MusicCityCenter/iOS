@@ -11,7 +11,11 @@
 
 static NSString * const identifier = @"Cell";
 
-@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+
+@property (strong, nonatomic) NSArray* contents;
+@property (strong, nonatomic) NSMutableArray* searchContents;
 
 @end
 
@@ -20,9 +24,16 @@ static NSString * const identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.contents = [NSArray arrayWithObjects:@"Davidson Ballroom", @"Grand Ballroom", @"Room 101", nil];
+    
+    
     [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
                                                 forCellReuseIdentifier:identifier];
+    
     self.searchDisplayController.searchResultsTableView.alpha = 0.7;
+    
+    [self.searchDisplayController.searchBar removeFromSuperview];
+    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -31,10 +42,22 @@ static NSString * const identifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)findMatches {
+    self.searchContents = [[NSMutableArray alloc] init];
+    for (NSString* str in self.contents) {
+        NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text options:NSCaseInsensitiveSearch];
+        if (range.location != NSNotFound) {
+            [self.searchContents addObject:str];
+        }
+    }
+}
+
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    [self findMatches];
+    return [self.searchContents count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -43,10 +66,7 @@ static NSString * const identifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier
                                                             forIndexPath:indexPath];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:identifier];
-    }
+    cell.textLabel.text = [self.searchContents objectAtIndex:indexPath.row];
     
     return cell;
 }
