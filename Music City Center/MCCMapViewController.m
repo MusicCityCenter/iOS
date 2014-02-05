@@ -21,6 +21,13 @@ static NSString * const identifier = @"Cell";
 
 @implementation MCCMapViewController
 
+- (NSMutableArray *)searchContents {
+    if (!_searchContents) {
+        _searchContents = [[NSMutableArray alloc] init];
+    }
+    return _searchContents;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -68,7 +75,7 @@ static NSString * const identifier = @"Cell";
 
 // Find all matching strings
 - (void)findMatches {
-    self.searchContents = [[NSMutableArray alloc] init];
+    [self.searchContents removeAllObjects];
     for (NSString* str in self.contents) {
         NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text options:NSCaseInsensitiveSearch];
         if (range.location != NSNotFound) {
