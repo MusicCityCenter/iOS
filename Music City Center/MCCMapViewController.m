@@ -64,7 +64,11 @@ static NSString * const identifier = @"Cell";
     
     // Set the table background view to be a toolbar - the toolbar provides the 'blur' effect
     // **** This is kind of a hack, so I'm not sure if we should actually do this ****
-    self.searchDisplayController.searchResultsTableView.backgroundView = [[UIToolbar alloc] init];
+    UIToolbar* blur = [[UIToolbar alloc] init];
+    
+    blur.barStyle = UIBarStyleBlackTranslucent;
+    
+    self.searchDisplayController.searchResultsTableView.backgroundView = blur;
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,6 +104,7 @@ static NSString * const identifier = @"Cell";
     cell.textLabel.text = [self.searchContents objectAtIndex:indexPath.row];
     
     // Set the backround to clear so you can see the blur effect underneath
+    cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
