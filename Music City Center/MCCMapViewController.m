@@ -11,12 +11,13 @@
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
 
-static NSString * const identifier = @"Cell";
+static NSString * const kCellIdentifier = @"Cell";
+static CGFloat const kBlurOffset = 64.0f;
 
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
-@property (strong, nonatomic) NSArray* contents;
-@property (strong, nonatomic) NSMutableArray* searchContents;
+@property (strong, nonatomic) NSArray *contents;
+@property (strong, nonatomic) NSMutableArray *searchContents;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -27,10 +28,35 @@ static NSString * const identifier = @"Cell";
 
 #pragma mark - Custom Getters
 
+- (NSArray *)contents {
+    if (!_contents) {
+        _contents = @[// L4
+                      @"Grand Ballroom", @"L4 Balcony",
+                      @"Room 401", @"Room 402", @"Room 403",
+                      // L3
+                      @"Hall A1", @"Hall A2", @"Hall B", @"Hall C", @"Hall D",
+                      @"L3 Terrace", @"Lounge",
+                      // L2
+                      @"L2 Balcony",
+                      @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205",
+                      @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210",
+                      @"Room 211", @"Room 212", @"Room 213", @"Room 214",
+                      // L1M
+                      @"Davidson Ballroom", @"Board Room A", @"Board Room B", @"L1M Balcony",
+                      // L1
+                      @"L1 Terrace",
+                      @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105",
+                      @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110"];
+    }
+    
+    return _contents;
+}
+
 - (NSMutableArray *)searchContents {
     if (!_searchContents) {
-        _searchContents = [[NSMutableArray alloc] init];
+        _searchContents = [NSMutableArray array];
     }
+    
     return _searchContents;
 }
 
@@ -48,29 +74,8 @@ static NSString * const identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.contents = [NSArray arrayWithObjects:
-                     // L4
-                     @"Grand Ballroom", @"L4 Balcony",
-                     @"Room 401", @"Room 402", @"Room 403",
-                     // L3
-                     @"Hall A1", @"Hall A2", @"Hall B", @"Hall C", @"Hall D",
-                     @"L3 Terrace", @"Lounge",
-                     // L2
-                     @"L2 Balcony",
-                     @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205",
-                     @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210",
-                     @"Room 211", @"Room 212", @"Room 213", @"Room 214",
-                     // L1M
-                     @"Davidson Ballroom", @"Board Room A", @"Board Room B", @"L1M Balcony",
-                     // L1
-                     @"L1 Terrace",
-                     @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105",
-                     @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110",
-                     nil];
-    
-    
     [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
-                                                forCellReuseIdentifier:identifier];
+                                                forCellReuseIdentifier:kCellIdentifier];
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
     
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
@@ -81,7 +86,6 @@ static NSString * const identifier = @"Cell";
     [self.view addSubview:self.blurView];
     
     // Put the search bar in the nav bar
-    //[self.searchDisplayController.searchBar removeFromSuperview];
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
 }
 
@@ -91,31 +95,19 @@ static NSString * const identifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-// Find all matching strings
-- (void)findMatches {
-    [self.searchContents removeAllObjects];
-    for (NSString *str in self.contents) {
-        NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text options:NSCaseInsensitiveSearch];
-        if (range.location != NSNotFound) {
-            [self.searchContents addObject:str];
-        }
-    }
-}
-
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [self findMatches];
+    
     return [self.searchContents count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    cell.textLabel.text = [self.searchContents objectAtIndex:indexPath.row];
+    cell.textLabel.text = self.searchContents[indexPath.row];
     
     // Set the backround to clear so you can see the blur effect underneath
     cell.textLabel.textColor = [UIColor whiteColor];
@@ -132,8 +124,8 @@ static NSString * const identifier = @"Cell";
     CGRect deviceSize = [UIScreen mainScreen].bounds;
     
     [UIView animateWithDuration:0.25f animations:^(void){
-        self.blurView.frame = CGRectMake(0, 66.0f, deviceSize.size.width, deviceSize.size.height);
-        self.blurView.layer.contentsRect = CGRectMake(0.0f, (66.0f / deviceSize.size.height), 1.0f, 1.0f);
+        self.blurView.frame = CGRectMake(0, kBlurOffset, deviceSize.size.width, deviceSize.size.height);
+        self.blurView.layer.contentsRect = CGRectMake(0.0f, (kBlurOffset / deviceSize.size.height), 1.0f, 1.0f);
         self.blurView.layer.contentsScale = 2.0f;
     }];
 }
@@ -157,6 +149,22 @@ static NSString * const identifier = @"Cell";
     [picture processImageWithCompletionHandler:^{
         [self.blurFilter removeAllTargets];
     }];
+}
+
+#pragma mark - Helper Method
+
+// Find all matching strings
+- (void)findMatches {
+    [self.searchContents removeAllObjects];
+    
+    for (NSString *str in self.contents) {
+        NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text
+                                   options:NSCaseInsensitiveSearch];
+        
+        if (range.location != NSNotFound) {
+            [self.searchContents addObject:str];
+        }
+    }
 }
 
 @end
