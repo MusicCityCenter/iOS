@@ -24,14 +24,24 @@ static NSString * const identifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.contents = [NSArray arrayWithObjects:@"Grand Ballroom", @"L4 Balcony", @"Room 401", @"Room 402", @"Room 403",
+    self.contents = [NSArray arrayWithObjects:
+                     // L4
+                     @"Grand Ballroom", @"L4 Balcony",
+                     @"Room 401", @"Room 402", @"Room 403",
+                     // L3
                      @"Hall A1", @"Hall A2", @"Hall B", @"Hall C", @"Hall D",
                      @"L3 Terrace", @"Lounge",
+                     // L2
                      @"L2 Balcony",
-                     @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205", @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210", @"Room 211", @"Room 212", @"Room 213", @"Room 214",
+                     @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205",
+                     @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210",
+                     @"Room 211", @"Room 212", @"Room 213", @"Room 214",
+                     // L1M
                      @"Davidson Ballroom", @"Board Room A", @"Board Room B", @"L1M Balcony",
+                     // L1
                      @"L1 Terrace",
-                     @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105", @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110",
+                     @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105",
+                     @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110",
                      nil];
     
     
