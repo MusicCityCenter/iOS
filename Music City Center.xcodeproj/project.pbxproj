@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
 		4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */; };
 		4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		4B8E50C718A04A93009F4266 /* Music City Center.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music City Center.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8E50CA18A04A93009F4266 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
+				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
+				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
 			);
 			path = "Music City Center";
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				4B8E50D718A04A93009F4266 /* main.m in Sources */,
 				4B8E50E118A04A93009F4266 /* MCCMapViewController.m in Sources */,
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
+				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
