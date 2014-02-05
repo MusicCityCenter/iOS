@@ -13,7 +13,6 @@
 
 static NSString * const identifier = @"Cell";
 
-
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSArray* contents;
@@ -26,7 +25,14 @@ static NSString * const identifier = @"Cell";
 
 @implementation MCCMapViewController
 
-#pragma mark - Custom Getter
+#pragma mark - Custom Getters
+
+- (NSMutableArray *)searchContents {
+    if (!_searchContents) {
+        _searchContents = [[NSMutableArray alloc] init];
+    }
+    return _searchContents;
+}
 
 - (GPUImageiOSBlurFilter *)blurFilter {
     if (!_blurFilter) {
@@ -38,13 +44,6 @@ static NSString * const identifier = @"Cell";
 }
 
 #pragma mark - View Controller Lifecycle
-
-- (NSMutableArray *)searchContents {
-    if (!_searchContents) {
-        _searchContents = [[NSMutableArray alloc] init];
-    }
-    return _searchContents;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,19 +81,8 @@ static NSString * const identifier = @"Cell";
     [self.view addSubview:self.blurView];
     
     // Put the search bar in the nav bar
-    [self.searchDisplayController.searchBar removeFromSuperview];
+    //[self.searchDisplayController.searchBar removeFromSuperview];
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
-    
-    // Set the tableview background to clear so the toolbar can be seen underneath
-    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
-    
-    // Set the table background view to be a toolbar - the toolbar provides the 'blur' effect
-    // **** This is kind of a hack, so I'm not sure if we should actually do this ****
-    UIToolbar* blur = [[UIToolbar alloc] init];
-    
-    blur.barStyle = UIBarStyleBlackTranslucent;
-    
-    self.searchDisplayController.searchResultsTableView.backgroundView = blur;
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,7 +94,7 @@ static NSString * const identifier = @"Cell";
 // Find all matching strings
 - (void)findMatches {
     [self.searchContents removeAllObjects];
-    for (NSString* str in self.contents) {
+    for (NSString *str in self.contents) {
         NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text options:NSCaseInsensitiveSearch];
         if (range.location != NSNotFound) {
             [self.searchContents addObject:str];
