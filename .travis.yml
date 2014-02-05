@@ -1,3 +1,5 @@
 language: objective-c
-xcode_project: Music City Center.xcodeproj
+xcode_project: Music City Center.xcworkspace
 xcode_scheme: Music City Center
+
+before_install: gem install cocoapods
