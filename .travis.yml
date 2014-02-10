@@ -1,5 +1,7 @@
 language: objective-c
 xcode_workspace: Music City Center.xcworkspace
 xcode_scheme: Music City Center
+xcode_sdk: iphonesimulator
 
 before_install: gem install cocoapods
+
