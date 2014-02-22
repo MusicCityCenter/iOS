@@ -10,12 +10,10 @@
 #import "MCCFloorplanLocation.h"
 
 @interface MCCFloorplanEdge : NSObject
-{
-}
 
-@property(nonatomic,retain)MCCFloorplanLocation* start;
-@property(nonatomic,retain)MCCFloorplanLocation* end;
-@property(nonatomic)double length;
-@property(nonatomic)double angle;
+@property (strong, nonatomic) MCCFloorplanLocation *start;
+@property (strong, nonatomic) MCCFloorplanLocation *end;
+@property (nonatomic) CGFloat length;
+@property (nonatomic) CGFloat angle;
 
 @end
