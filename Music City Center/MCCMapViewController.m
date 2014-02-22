@@ -28,6 +28,13 @@ static CGFloat const kBlurOffset = 64.0f;
 
 #pragma mark - Custom Getters
 
+// Work Item 8
+// This array should be populated using MCCNav
+// When an item is selected, it should open the appropriate floor plan
+// And display a route to that location (from a randomly selected start
+// point) on top of the floor plan image. Obtaining and displaying the
+// route is the responsibility of the person doing Work Item 9 -- not
+// this person.
 - (NSArray *)contents {
     if (!_contents) {
         _contents = @[// L4
