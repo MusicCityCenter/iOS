@@ -12,6 +12,6 @@
 
 // Called by MCCNav and passed an NSArray of MCCEvent objects
 // after a call to MCCNav getEvents
-- (void) eventsLoaded:(NSArray*)events;
+- (void)eventsLoaded:(NSArray *)events;
 
 @end

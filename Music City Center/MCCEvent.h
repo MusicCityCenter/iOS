@@ -9,17 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface MCCEvent : NSObject
-{
-    
-}
 
-@property(nonatomic) NSInteger month;
-@property(nonatomic) NSInteger day;
-@property(nonatomic) NSInteger year;
-@property(nonatomic,retain) NSString* name;
-@property(nonatomic,retain) NSString* description;
+@property (nonatomic) NSInteger month;
+@property (nonatomic) NSInteger day;
+@property (nonatomic) NSInteger year;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *description;
 
 // An id of a MCCFloorplanLocation
-@property(nonatomic,retain) NSString* locationId;
+@property (nonatomic, copy) NSString *locationId;
 
 @end
