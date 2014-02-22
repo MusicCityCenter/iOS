@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MCCFloorplan.h"
-#import "MCCFloorplanImageMapping.h"
+@class MCCFloorplan;
+@class MCCFloorplanImageMapping;
 
 @interface MCCNavData : NSObject
-{
-}
 
-@property(nonatomic,retain)MCCFloorplan* floorplan;
-@property(nonatomic,retain)MCCFloorplanImageMapping* mapping;
+@property (strong, nonatomic) MCCFloorplan *floorplan;
+@property (strong, nonatomic) MCCFloorplanImageMapping *mapping;
 
 @end
