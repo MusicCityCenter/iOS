@@ -7,18 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MCCNavData.h"
-#import "MCCNavPath.h"
+
+@class MCCNavData;
+@class MCCNavPath;
 
 @protocol MCCNavListener <NSObject>
 
 // This method is used as a callback by the MCCNav class
 // to asynchronously deliver floor info after it is
 // obtained from the server.
-- (void) navDataLoaded:(MCCNavData*)navData;
+- (void)navDataLoaded:(MCCNavData *)navData;
 
 // Called by MCCNav when a path is found between the locations provided
 // to getShortestPath
-- (void) navPathFound:(MCCNavPath*) path;
+- (void)navPathFound:(MCCNavPath *)path;
 
 @end
