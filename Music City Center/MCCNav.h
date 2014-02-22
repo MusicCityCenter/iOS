@@ -11,16 +11,14 @@
 #import "MCCEventListener.h"
 
 @interface MCCNav : NSObject
-{
-}
 
-- (id)initWithServer:(NSString*)host andPort:(int)port andBasePath:(NSString*)basePath;
-- (void)loadFloorplan:(NSString*)floorplanId andInvoke:(id<MCCNavListener>)callback;
-- (void)getShortestPath:(NSString*)floorplanId from:(NSString*)from to:(NSString*)endLocationId andCall:(id<MCCNavListener>)listener;
-- (void)getEvents:(NSString*)floorplanId on:(NSDate*)date andCall:(id<MCCEventListener>)listener;
+@property (nonatomic, copy) NSString *host;
+@property (nonatomic) NSInteger port;
+@property (nonatomic, copy) NSString *basePath;
 
-@property(nonatomic,retain)NSString* host;
-@property(nonatomic,retain)NSString* basePath;
-@property(nonatomic)int port;
+- (instancetype)initWithServer:(NSString *)host port:(NSInteger)port andBasePath:(NSString *)basePath;
+- (void)loadFloorplan:(NSString *)floorplanId andInvoke:(id<MCCNavListener>)callback;
+- (void)shortestPath:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId andCall:(id<MCCNavListener>)listener;
+- (void)events:(NSString *)floorplanId on:(NSDate *)date andCall:(id<MCCEventListener>)listener;
 
 @end

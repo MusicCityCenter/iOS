@@ -9,31 +9,27 @@
 #import "MCCNav.h"
 #import "NSString+URLEncode.h"
 
-
 // Work Item 7
 @implementation MCCNav
 
-- (id)initWithServer:(NSString*)host andPort:(int)port andBasePath:(NSString*)basePath
-{
+- (instancetype)initWithServer:(NSString *)host port:(NSInteger)port andBasePath:(NSString *)basePath {
     self = [super init];
-    if(!self){
-        return nil;
+    
+    if (self) {
+        _host = host;
+        _port = port;
+        
+        // The base path of the web endpoints (e.g., "/mcc/" )
+        _basePath = basePath;
     }
-    
-    self.host = host;
-    self.port = port;
-    
-    // The base path of the web endpoints (e.g., "/mcc/" )
-    self.basePath = basePath;
     
     return self;
 }
 
-- (void)loadFloorplan:(NSString*)floorplanId andInvoke:(id<MCCNavListener>)callback
-{
+- (void)loadFloorplan:(NSString *)floorplanId andInvoke:(id<MCCNavListener>)callback {
     // format: /mcc/floorplan/mapping/{floorplanId}
-    NSString* targetUrl = [self.basePath stringByAppendingString:@"/floorplan/mapping/"];
-   targetUrl = [targetUrl stringByAppendingString:[floorplanId urlencode]];
+    NSString *targetUrl = [self.basePath stringByAppendingString:@"/floorplan/mapping/"];
+    targetUrl = [targetUrl stringByAppendingString:[floorplanId urlencode]];
     
     // Send the HTTP request
     //...
@@ -47,10 +43,9 @@
     
 }
 
-- (void)getShortestPath:(NSString*)floorplanId from:(NSString*)fromLocation to:(NSString*)toLocation
-{
+- (void)shortestPath:(NSString *)floorplanId from:(NSString *)fromLocation to:(NSString *)toLocation {
     // format: /mcc/path/{floorplanId}/{startLocationId}/{endLocationId}
-    NSString* targetUrl = [self.basePath stringByAppendingFormat:@"/path/%@/%@/%@",
+    NSString *targetUrl = [self.basePath stringByAppendingFormat:@"/path/%@/%@/%@",
                            [floorplanId urlencode],
                            [fromLocation urlencode],
                            [toLocation urlencode]
@@ -66,22 +61,20 @@
     // [{"from":"f","to":"g","length":202.71408436514716,"angle":355.18941380563433},{"from":"g","to":"k","length":199.56452590578317,"angle":355.68937417517947}]
 }
 
-- (void)getEvents:(NSString*)floorplanId on:(NSDate*)date
-{
-    NSDateComponents *components = [[NSCalendar currentCalendar]
-                                    components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
-                                    fromDate:date];
+- (void)events:(NSString *)floorplanId on:(NSDate *)date {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                                   fromDate:date];
     
     NSInteger year = [components year];
     NSInteger month = [components month];
     NSInteger day = [components day];
     
     // format: /events/{floorplanId}/on/{month}/{day}/{year}
-    NSString* targetUrl = [self.basePath stringByAppendingFormat:@"/events/%@/on/%i/%i/%i",
+    NSString *targetUrl = [self.basePath stringByAppendingFormat:@"/events/%@/on/%li/%li/%li",
                            [floorplanId urlencode],
-                           month,
-                           day,
-                           year
+                           (long)month,
+                           (long)day,
+                           (long)year
                            ];
     
     // Send the HTTP request
