@@ -7,15 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MCCFloorplanLocation.h"
-#import "MCCFloorplanImageLocation.h"
+
+@class MCCFloorplanLocation;
+@class MCCFloorplanImageLocation;
 
 @interface MCCFloorplanImageMapping : NSObject
-{
-}
 
-- (MCCFloorplanImageLocation*)coordinatesOfLocation:(NSString*)locationId;
+@property (nonatomic, copy) NSString *imageUrl;
 
-@property(nonatomic,retain)NSString* imageUrl;
+- (MCCFloorplanImageLocation *)coordinatesOfLocation:(NSString *)locationId;
 
 @end
