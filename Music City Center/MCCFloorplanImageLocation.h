@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MCCFloorplanImageLocation : NSObject
-{
-}
 
-@property(nonatomic)int x;
-@property(nonatomic)int y;
+@property (nonatomic) NSInteger x;
+@property (nonatomic) NSInteger y;
 
 @end
