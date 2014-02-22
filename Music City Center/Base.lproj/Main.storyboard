@@ -42,9 +42,6 @@
                                 <state key="normal" image="L4">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Uzy-I5-jnh" kind="push" id="YEy-Lu-Bsl"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Js-KJ-VZo" userLabel="L3 Button">
                                 <rect key="frame" x="16" y="197" width="255" height="92"/>
@@ -53,7 +50,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Hgr-bS-eBe" kind="push" id="RUi-Fu-wHi"/>
+                                    <segue destination="2R5-aG-0zK" kind="push" id="c8f-rm-s2G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gST-Fg-Qw2" userLabel="L2 Button">
@@ -62,9 +59,6 @@
                                 <state key="normal" image="L2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="ANl-Vr-aDP" kind="push" id="bNP-3a-rkC"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXN-16-m5y" userLabel="L1 Button">
                                 <rect key="frame" x="40" y="421" width="265" height="72"/>
@@ -72,9 +66,6 @@
                                 <state key="normal" image="L1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Pcf-me-hvt" kind="push" id="JOn-ok-7dC"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-1f-VwB" userLabel="L1M Button">
                                 <rect key="frame" x="40" y="358" width="253" height="66"/>
@@ -82,9 +73,6 @@
                                 <state key="normal" image="L1M">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Rg7-cK-15N" kind="push" id="30f-cv-Hpe"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT2-6e-glG">
                                 <rect key="frame" x="20" y="147" width="55" height="21"/>
@@ -150,133 +138,33 @@
             </objects>
             <point key="canvasLocation" x="38" y="808"/>
         </scene>
-        <!--Floor View Controller - Level 4 - Grand Ballroom-->
-        <scene sceneID="rnJ-bc-lcf">
+        <!--Floor View Controller-->
+        <scene sceneID="Zq7-Jc-1Tz">
             <objects>
-                <viewController id="Uzy-I5-jnh" customClass="MCCFloorViewController" sceneMemberID="viewController">
+                <viewController id="2R5-aG-0zK" customClass="MCCFloorViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dL1-dA-V7u"/>
-                        <viewControllerLayoutGuide type="bottom" id="PTg-Gl-I1g"/>
+                        <viewControllerLayoutGuide type="top" id="1CY-Kb-God"/>
+                        <viewControllerLayoutGuide type="bottom" id="mRt-MO-bXo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="uEJ-p0-HAy">
+                    <view key="view" contentMode="scaleToFill" id="GBX-fc-0s5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="level4" translatesAutoresizingMaskIntoConstraints="NO" id="0uz-fI-h1X">
-                                <rect key="frame" x="10" y="74" width="300" height="484"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKe-oR-PFe" customClass="MBXMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
+                            </mapView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Level 4 - Grand Ballroom" id="Syd-mQ-jfo"/>
+                    <navigationItem key="navigationItem" id="0S0-vT-t8E"/>
                     <connections>
-                        <outlet property="mapImage" destination="0uz-fI-h1X" id="AqE-Nd-dQe"/>
+                        <outlet property="mapView" destination="fKe-oR-PFe" id="7RK-Ee-Ncl"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JK8-5J-i6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FBY-WK-oxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="580" y="-538"/>
-        </scene>
-        <!--Floor View Controller - Level 3 - Exhibit Hall-->
-        <scene sceneID="h82-fA-E1N">
-            <objects>
-                <viewController id="Hgr-bS-eBe" customClass="MCCFloorViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ZvS-mE-FJb"/>
-                        <viewControllerLayoutGuide type="bottom" id="F3U-5G-k8O"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="TJ9-cc-0Kr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="level3" translatesAutoresizingMaskIntoConstraints="NO" id="opD-Aj-0U5">
-                                <rect key="frame" x="10" y="74" width="300" height="484"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Level 3 - Exhibit Hall" id="0vZ-Wu-beV"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MoL-rR-xRK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="580" y="130"/>
-        </scene>
-        <!--Floor View Controller - Level 2 - Meeting Rooms-->
-        <scene sceneID="4Dh-nW-4Dx">
-            <objects>
-                <viewController id="ANl-Vr-aDP" customClass="MCCFloorViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ndp-ea-dIn"/>
-                        <viewControllerLayoutGuide type="bottom" id="IvI-pl-L3m"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FeF-fZ-xgk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="level2" translatesAutoresizingMaskIntoConstraints="NO" id="Yu0-LR-4gk">
-                                <rect key="frame" x="10" y="74" width="300" height="484"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Level 2 - Meeting Rooms" id="s3M-j7-PRt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g5k-gb-iGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="580" y="808"/>
-        </scene>
-        <!--Floor View Controller - Level 1M - Davidson Ballroom-->
-        <scene sceneID="LEf-ro-mQs">
-            <objects>
-                <viewController id="Rg7-cK-15N" customClass="MCCFloorViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Oba-Bv-acm"/>
-                        <viewControllerLayoutGuide type="bottom" id="FPy-qM-gRW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mWU-B8-u3M">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="level1m" translatesAutoresizingMaskIntoConstraints="NO" id="hMB-m7-FME">
-                                <rect key="frame" x="10" y="74" width="300" height="484"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Level 1M - Davidson Ballroom" id="A9z-Sp-eP7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8hc-rl-pHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="580" y="1492"/>
-        </scene>
-        <!--Floor View Controller - Level 1 - Meeting Rooms-->
-        <scene sceneID="Mqj-FL-Tbk">
-            <objects>
-                <viewController id="Pcf-me-hvt" customClass="MCCFloorViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HMb-8f-2CX"/>
-                        <viewControllerLayoutGuide type="bottom" id="W0X-s1-YQj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ppM-iQ-2Aj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="level1" translatesAutoresizingMaskIntoConstraints="NO" id="hle-xB-eWY">
-                                <rect key="frame" x="10" y="74" width="300" height="484"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Level 1 - Meeting Rooms" id="VUh-Mx-QWR"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gKd-5n-Ywb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="580" y="2176"/>
+            <point key="canvasLocation" x="584" y="1153"/>
         </scene>
     </scenes>
     <resources>
@@ -286,11 +174,6 @@
         <image name="L2" width="251" height="79"/>
         <image name="L3" width="255" height="92"/>
         <image name="L4" width="238" height="64"/>
-        <image name="level1" width="302" height="213"/>
-        <image name="level1m" width="302" height="213"/>
-        <image name="level2" width="302" height="213"/>
-        <image name="level3" width="302" height="424"/>
-        <image name="level4" width="302" height="213"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -7,29 +7,26 @@
 //
 
 #import "MCCFloorViewController.h"
+#import <MBXMapKit/MBXMapKit.h>
 
 @interface MCCFloorViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *mapImage;
+@property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 
 @end
 
 @implementation MCCFloorViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    self.mapView.mapID = @"musiccitycenter.du2z9f6r";
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    self.title = @"test";
 }
 
 @end
