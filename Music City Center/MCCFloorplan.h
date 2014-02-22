@@ -9,11 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface MCCFloorplan : NSObject
-{
-}
 
-@property(nonatomic,retain)NSString* floorplanId;
-@property(nonatomic,retain)NSArray* locations;
-@property(nonatomic,retain)NSArray* edges;
+@property (nonatomic, copy) NSString *floorplanId;
+@property (nonatomic, copy) NSArray *locations;
+@property (nonatomic, copy) NSArray *edges;
 
 @end

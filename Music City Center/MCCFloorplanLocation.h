@@ -9,11 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MCCFloorplanLocation : NSObject
-{
-}
 
-@property(nonatomic,retain)NSString* locationId;
-@property(nonatomic,retain)NSString* type;
-
+@property (nonatomic, copy) NSString *locationId;
+@property (nonatomic, copy) NSString *type;
 
 @end

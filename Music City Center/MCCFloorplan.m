@@ -10,15 +10,13 @@
 
 @implementation MCCFloorplan
 
--(id)init
-{
+- (instancetype)init {
     self = [super init];
-    if(!self){
-        return nil;
-    }
     
-    self.locations = [[NSArray alloc] init];
-    self.edges = [[NSArray alloc] init];
+    if (self) {
+        _locations = [NSArray array];
+        _edges = [NSArray array];
+    }
     
     return self;
 }
