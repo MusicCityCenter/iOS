@@ -10,6 +10,6 @@
 
 @interface MCCNavPath : NSObject
 
-@property(nonatomic,retain)NSArray* edges;
+@property (nonatomic, copy) NSArray *edges;
 
 @end
