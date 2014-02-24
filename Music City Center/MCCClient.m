@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCNav.h"
+#import "MCCClient.h"
 #import "NSString+URLEncode.h"
 
 // Work Item 7
-@implementation MCCNav
+@implementation MCCClient
 
 - (instancetype)initWithServer:(NSString *)host port:(NSInteger)port andBasePath:(NSString *)basePath {
     self = [super init];
