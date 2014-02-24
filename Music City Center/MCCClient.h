@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MCCNavListener.h"
-#import "MCCEventListener.h"
+
+@class MCCNavData;
+@class MCCNavPath;
 
 @interface MCCClient : NSObject
 
@@ -17,8 +18,8 @@
 @property (nonatomic, copy) NSString *basePath;
 
 - (instancetype)initWithServer:(NSString *)host port:(NSInteger)port andBasePath:(NSString *)basePath;
-- (void)loadFloorplan:(NSString *)floorplanId andInvoke:(id<MCCNavListener>)callback;
-- (void)shortestPath:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId andCall:(id<MCCNavListener>)listener;
+- (void)fetchFloorplan:(NSString *)floorplanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
+- (void)shortestPathOnFloorplan:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
 - (void)events:(NSString *)floorplanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
 
 @end

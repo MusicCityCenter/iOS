@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void)loadFloorplan:(NSString *)floorplanId andInvoke:(id<MCCNavListener>)callback {
+- (void)fetchFloorplan:(NSString *)floorplanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
     NSString *targetUrl = [self.basePath stringByAppendingString:@"/floorplan/mapping/"];
     targetUrl = [targetUrl stringByAppendingString:[floorplanId urlencode]];
@@ -40,15 +40,14 @@
     //
     // Example Response:
     //{"mapping":{"imageUrl":"/mcc/image/floorplan/windsor","mapping":{"k":{"x":878,"y":556},"g":{"x":679,"y":541},"f":{"x":477,"y":524},"df":{"x":880,"y":359}}},"floorplan":{"locations":[{"id":"g","type":"room"},{"id":"df","type":"room"},{"id":"k","type":"room"},{"id":"f","type":"room"}],"edges":[{"start":"g","end":"k","length":0.0},{"start":"g","end":"f","length":0.0},{"start":"df","end":"k","length":0.0},{"start":"k","end":"g","length":0.0},{"start":"k","end":"df","length":0.0},{"start":"f","end":"g","length":0.0}],"types":{"name":"root","children":[{"name":"room"}]}}}
-    
 }
 
-- (void)shortestPath:(NSString *)floorplanId from:(NSString *)fromLocation to:(NSString *)toLocation {
+- (void)shortestPathOnFloorplan:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
     // format: /mcc/path/{floorplanId}/{startLocationId}/{endLocationId}
     NSString *targetUrl = [self.basePath stringByAppendingFormat:@"/path/%@/%@/%@",
                            [floorplanId urlencode],
-                           [fromLocation urlencode],
-                           [toLocation urlencode]
+                           [from urlencode],
+                           [endLocationId urlencode]
                            ];
     
     // Send the HTTP request
@@ -61,7 +60,7 @@
     // [{"from":"f","to":"g","length":202.71408436514716,"angle":355.18941380563433},{"from":"g","to":"k","length":199.56452590578317,"angle":355.68937417517947}]
 }
 
-- (void)events:(NSString *)floorplanId on:(NSDate *)date {
+- (void)events:(NSString *)floorplanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
                                                                    fromDate:date];
     

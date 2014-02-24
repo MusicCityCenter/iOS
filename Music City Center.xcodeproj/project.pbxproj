@@ -71,7 +71,6 @@
 		4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Music_City_CenterTests.m; sourceTree = "<group>"; };
 		4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorViewController.h; sourceTree = "<group>"; };
 		4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorViewController.m; sourceTree = "<group>"; };
-		841DD66918B8B845009626B8 /* MCCNavListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCNavListener.h; sourceTree = "<group>"; };
 		841DD66A18B8B8F4009626B8 /* MCCFloorplanLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorplanLocation.h; sourceTree = "<group>"; };
 		841DD66B18B8B8F4009626B8 /* MCCFloorplanLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorplanLocation.m; sourceTree = "<group>"; };
 		841DD66D18B8B96C009626B8 /* MCCFloorplan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorplan.h; sourceTree = "<group>"; };
@@ -92,7 +91,6 @@
 		841DD68618B8C501009626B8 /* MCCNavPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCNavPath.m; sourceTree = "<group>"; };
 		841DD68818B8CF88009626B8 /* MCCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEvent.h; sourceTree = "<group>"; };
 		841DD68918B8CF88009626B8 /* MCCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEvent.m; sourceTree = "<group>"; };
-		841DD68B18B8D084009626B8 /* MCCEventListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCCEventListener.h; sourceTree = "<group>"; };
 		8CC4047638FC4D5495B69BDC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,7 +202,6 @@
 		841DD66718B8B7F3009626B8 /* Nav */ = {
 			isa = PBXGroup;
 			children = (
-				841DD66918B8B845009626B8 /* MCCNavListener.h */,
 				841DD66A18B8B8F4009626B8 /* MCCFloorplanLocation.h */,
 				841DD66B18B8B8F4009626B8 /* MCCFloorplanLocation.m */,
 				841DD66D18B8B96C009626B8 /* MCCFloorplan.h */,
@@ -225,7 +222,6 @@
 				841DD68618B8C501009626B8 /* MCCNavPath.m */,
 				841DD68818B8CF88009626B8 /* MCCEvent.h */,
 				841DD68918B8CF88009626B8 /* MCCEvent.m */,
-				841DD68B18B8D084009626B8 /* MCCEventListener.h */,
 			);
 			name = Nav;
 			sourceTree = "<group>";
