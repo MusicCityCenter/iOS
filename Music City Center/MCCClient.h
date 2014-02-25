@@ -6,18 +6,15 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "AFHTTPSessionManager.h"
 
 @class MCCNavData;
 @class MCCNavPath;
 
-@interface MCCClient : NSObject
+@interface MCCClient : AFHTTPSessionManager
 
-@property (nonatomic, copy) NSString *host;
-@property (nonatomic) NSInteger port;
-@property (nonatomic, copy) NSString *basePath;
++ (instancetype)sharedClient;
 
-- (instancetype)initWithServer:(NSString *)host port:(NSInteger)port andBasePath:(NSString *)basePath;
 - (void)fetchFloorplan:(NSString *)floorplanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
 - (void)shortestPathOnFloorplan:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
 - (void)events:(NSString *)floorplanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
