@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
+		2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8447418BC447000B4296F /* MCCResponseSerializer.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
 		4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */; };
 		4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
@@ -49,6 +50,8 @@
 		2394C53480684646969EDC29 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		2DD8447318BC447000B4296F /* MCCResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCResponseSerializer.h; sourceTree = "<group>"; };
+		2DD8447418BC447000B4296F /* MCCResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCResponseSerializer.m; sourceTree = "<group>"; };
 		4B8E50C718A04A93009F4266 /* Music City Center.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music City Center.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8E50CA18A04A93009F4266 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -116,6 +119,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DD8447218BC444C00B4296F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				841DD67C18B8BF6B009626B8 /* MCCClient.h */,
+				841DD67D18B8BF6B009626B8 /* MCCClient.m */,
+				2DD8447318BC447000B4296F /* MCCResponseSerializer.h */,
+				2DD8447418BC447000B4296F /* MCCResponseSerializer.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		4B8E50BE18A04A93009F4266 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				841DD66718B8B7F3009626B8 /* Nav */,
+				2DD8447218BC444C00B4296F /* Networking */,
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
@@ -211,8 +226,6 @@
 				841DD67718B8BD4F009626B8 /* MCCFloorplanEdge.m */,
 				841DD67918B8BE3D009626B8 /* MCCFloorplanImageLocation.h */,
 				841DD67A18B8BE3D009626B8 /* MCCFloorplanImageLocation.m */,
-				841DD67C18B8BF6B009626B8 /* MCCClient.h */,
-				841DD67D18B8BF6B009626B8 /* MCCClient.m */,
 				841DD68518B8C501009626B8 /* MCCNavPath.h */,
 				841DD68618B8C501009626B8 /* MCCNavPath.m */,
 				841DD68818B8CF88009626B8 /* MCCEvent.h */,
@@ -367,6 +380,7 @@
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
 				4B8E50D718A04A93009F4266 /* main.m in Sources */,
 				841DD67818B8BD4F009626B8 /* MCCFloorplanEdge.m in Sources */,
+				2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */,
 				4B8E50E118A04A93009F4266 /* MCCMapViewController.m in Sources */,
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,

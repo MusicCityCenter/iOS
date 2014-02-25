@@ -7,6 +7,7 @@
 //
 
 #import "MCCClient.h"
+#import "MCCResponseSerializer.h"
 
 // Work Item 7
 @implementation MCCClient
@@ -15,7 +16,7 @@
     static MCCClient *_sharedClient;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURL *baseURL = [NSURL URLWithString:@"http://www.nashvillemusiccitycenter.com/"];
+        NSURL *baseURL = [NSURL URLWithString:@"http://1.mccnav.appspot.com/mcc/"];
         
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         
@@ -27,7 +28,7 @@
         
         _sharedClient = [[MCCClient alloc] initWithBaseURL:baseURL
                                       sessionConfiguration:config];
-        //_sharedClient.responseSerializer = [NOTResponseSerializer serializer];
+        _sharedClient.responseSerializer = [MCCResponseSerializer serializer];
     });
     
     return _sharedClient;
