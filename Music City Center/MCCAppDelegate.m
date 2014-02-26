@@ -7,7 +7,6 @@
 //
 
 #import "MCCAppDelegate.h"
-#import "MCCFloorPlanImage.h"
 
 @implementation MCCAppDelegate
 
