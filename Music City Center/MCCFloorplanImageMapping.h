@@ -13,7 +13,7 @@
 
 @interface MCCFloorplanImageMapping : NSObject
 
-@property (nonatomic, copy) NSURL *imageURL;
+@property (strong, nonatomic) NSURL *imageURL;
 
 - (instancetype)initWithImageURL:(NSURL *)imageURL;
 
