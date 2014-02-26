@@ -16,4 +16,8 @@
 @property (strong, nonatomic) MCCFloorplan *floorplan;
 @property (strong, nonatomic) MCCFloorplanImageMapping *mapping;
 
+- (instancetype)initWithFloorplan:(MCCFloorplan *)floorplan andFloorplanImageMapping:(MCCFloorplanImageMapping *)mapping;
+
++ (instancetype)navDataWithFloorplan:(MCCFloorplan *)floorplan andFloorplanImageMapping:(MCCFloorplanImageMapping *)mapping;
+
 @end
