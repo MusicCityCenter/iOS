@@ -10,15 +10,26 @@
 
 @implementation MCCFloorplan
 
-- (instancetype)init {
+#pragma mark - Designated Initializer
+
+- (instancetype)initWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
     self = [super init];
     
     if (self) {
-        _locations = [NSArray array];
-        _edges = [NSArray array];
+        _floorplanId = floorplanId;
+        _locations = locations;
+        _edges = edges;
     }
     
     return self;
+}
+
+#pragma mark - Factory Method
+
++ (instancetype)floorplanWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
+    return [[self alloc] initWithFloorplanId:floorplanId
+                                   locations:locations
+                                    andEdges:edges];
 }
 
 @end

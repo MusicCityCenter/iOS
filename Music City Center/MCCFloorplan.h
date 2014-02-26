@@ -14,4 +14,8 @@
 @property (nonatomic, copy) NSArray *locations;
 @property (nonatomic, copy) NSArray *edges;
 
+- (instancetype)initWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges;
+
++ (instancetype)floorplanWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges;
+
 @end
