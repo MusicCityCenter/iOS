@@ -10,4 +10,24 @@
 
 @implementation MCCFloorplanLocation
 
+#pragma mark - Designated Initializer
+
+- (instancetype)initWithLocationId:(NSString *)locationId andType:(NSString *)type {
+    self = [super init];
+    
+    if (self) {
+        _locationId = locationId;
+        _type = type;
+    }
+    
+    return self;
+}
+
+#pragma mark - Factory Method
+
++ (instancetype)floorplanLocationWithLocationId:(NSString *)locationId andType:(NSString *)type {
+    return [[self alloc] initWithLocationId:locationId
+                                    andType:type];
+}
+
 @end

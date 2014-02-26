@@ -13,4 +13,8 @@
 @property (nonatomic, copy) NSString *locationId;
 @property (nonatomic, copy) NSString *type;
 
+- (instancetype)initWithLocationId:(NSString *)locationId andType:(NSString *)type;
+
++ (instancetype)floorplanLocationWithLocationId:(NSString *)locationId andType:(NSString *)type;
+
 @end
