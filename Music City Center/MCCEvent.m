@@ -8,6 +8,6 @@
 
 #import "MCCEvent.h"
 
-@implementation MCCEvents
+@implementation MCCEvent
 
 @end
