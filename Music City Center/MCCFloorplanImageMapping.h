@@ -13,7 +13,11 @@
 
 @interface MCCFloorplanImageMapping : NSObject
 
-@property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, copy) NSURL *imageURL;
+
+- (instancetype)initWithImageURL:(NSURL *)imageURL;
+
++ (instancetype)floorplanImageMappingWithImageURL:(NSURL *)imageURL;
 
 - (MCCFloorplanImageLocation *)coordinatesOfLocation:(NSString *)locationId;
 

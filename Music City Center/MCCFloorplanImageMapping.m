@@ -10,4 +10,24 @@
 
 @implementation MCCFloorplanImageMapping
 
+#pragma mark - Designated Initializer
+
+- (instancetype)initWithImageURL:(NSURL *)imageURL {
+    self = [super init];
+    
+    if (self) {
+        _imageURL = imageURL;
+    }
+    
+    return self;
+}
+
+#pragma mark - Factory Method
+
++ (instancetype)floorplanImageMappingWithImageURL:(NSURL *)imageURL {
+    return [[self alloc] initWithImageURL:imageURL];
+}
+
+#pragma mark - Instance Methods
+
 @end
