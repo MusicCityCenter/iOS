@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MCCFloorplanLocation.h"
+
+@class MCCFloorplanLocation;
 
 @interface MCCFloorplanEdge : NSObject
 
-@property (strong, nonatomic) MCCFloorplanLocation *start;
-@property (strong, nonatomic) MCCFloorplanLocation *end;
+@property (strong, nonatomic) MCCFloorplanLocation *startLocation;
+@property (strong, nonatomic) MCCFloorplanLocation *endLocation;
 @property (nonatomic) CGFloat length;
 @property (nonatomic) CGFloat angle;
+
+- (instancetype)initWithStartLocation:(MCCFloorplanLocation *)startLocation endLocation:(MCCFloorplanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle;
+
++ (instancetype)floorplanEdgeWithStartLocation:(MCCFloorplanLocation *)startLocation endLocation:(MCCFloorplanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle;
 
 @end
