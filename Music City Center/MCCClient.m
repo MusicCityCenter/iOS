@@ -16,7 +16,7 @@
     static MCCClient *_sharedClient;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURL *baseURL = [NSURL URLWithString:@"http://1.mccnav.appspot.com/mcc/"];
+        NSURL *baseURL = [NSURL URLWithString:@"http://0-1-dot-mcc-backend.appspot.com/mcc/"];
         
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
         
