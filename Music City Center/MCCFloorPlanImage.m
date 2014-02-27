@@ -22,28 +22,37 @@
 
 @implementation MCCFloorPlanImage
 
-+ (instancetype)floorPlanImageWithsizeX:(NSInteger)x sizeY:(NSInteger)y andCoordinatesAtTopLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr bottomLeft:(CLLocationCoordinate2D)bl {
-    MCCFloorPlanImage *_ret = [[MCCFloorPlanImage alloc] init];
-    if (_ret) {
-        _ret.sizeX = x;
-        _ret.sizeY = y;
-        _ret.topLeft = tl;
-        _ret.topRight = tr;
-        _ret.bottomLeft = bl;
-        _ret.e = _ret.topLeft.longitude;
-        _ret.f = _ret.topLeft.latitude;
++ (instancetype)floorPlanImageWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr andBottomLeft:(CLLocationCoordinate2D)bl {
+    
+    return [[self alloc] initWithsizeX:x
+                                 sizeY:y
+                               topLeft:tl
+                              topRight:tr
+                         andBottomLeft:bl];
+}
+
+- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr andBottomLeft:(CLLocationCoordinate2D)bl {
+    self = [super init];
+    if (self) {
+        _sizeX = x;
+        _sizeY = y;
+        _topLeft = tl;
+        _topRight = tr;
+        _bottomLeft = bl;
+        _e = self.topLeft.longitude;
+        _f = self.topLeft.latitude;
         
-        CLLocationCoordinate2D tmptr = CLLocationCoordinate2DMake(_ret.topRight.latitude - _ret.topLeft.latitude,
-                                                                _ret.topRight.longitude - _ret.topLeft.longitude);
-        CLLocationCoordinate2D tmpbl = CLLocationCoordinate2DMake(_ret.bottomLeft.latitude - _ret.topLeft.latitude,
-                                                                  _ret.bottomLeft.longitude - _ret.topLeft.longitude);
+        CLLocationCoordinate2D tmptr = CLLocationCoordinate2DMake(self.topRight.latitude - self.topLeft.latitude,
+                                                                self.topRight.longitude - self.topLeft.longitude);
+        CLLocationCoordinate2D tmpbl = CLLocationCoordinate2DMake(self.bottomLeft.latitude - self.topLeft.latitude,
+                                                                  self.bottomLeft.longitude - self.topLeft.longitude);
         
-        _ret.a = tmptr.longitude / _ret.sizeX;
-        _ret.c = tmptr.latitude / _ret.sizeX;
-        _ret.b = tmpbl.longitude / _ret.sizeY;
-        _ret.d = tmpbl.latitude / _ret.sizeY;
+        _a = tmptr.longitude / self.sizeX;
+        _c = tmptr.latitude / self.sizeX;
+        _b = tmpbl.longitude / self.sizeY;
+        _d = tmpbl.latitude / self.sizeY;
     }
-    return _ret;
+    return self;
 }
 
 -(CLLocationCoordinate2D)getLatLongFromLocation:(MCCFloorplanImageLocation *)loc {
