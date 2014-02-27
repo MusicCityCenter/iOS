@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MCCFloorplanImageLocation.h"
-
 @import CoreLocation;
+
+@class MCCFloorplanImageLocation;
 
 @interface MCCFloorPlanImage : NSObject
 
@@ -21,7 +20,7 @@
 @property (nonatomic) CLLocationCoordinate2D bottomLeft;
 
 
-- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr bottomLeft:(CLLocationCoordinate2D)bl;
+- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y andCoordinatesAtTopLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr bottomLeft:(CLLocationCoordinate2D)bl;
 
 - (CLLocationCoordinate2D)getLatLongFromLocation:(MCCFloorplanImageLocation *)loc;
 
