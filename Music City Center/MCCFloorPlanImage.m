@@ -7,6 +7,7 @@
 //
 
 #import "MCCFloorPlanImage.h"
+#import "MCCFloorplanImageLocation.h"
 
 @interface MCCFloorPlanImage ()
 
@@ -21,7 +22,7 @@
 
 @implementation MCCFloorPlanImage
 
-- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr bottomLeft:(CLLocationCoordinate2D)bl {
+- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y andCoordinatesAtTopLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr bottomLeft:(CLLocationCoordinate2D)bl {
     self = [super init];
     if (self) {
         _sizeX = x;
