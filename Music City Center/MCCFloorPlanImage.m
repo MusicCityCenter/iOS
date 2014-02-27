@@ -22,31 +22,34 @@
 
 @implementation MCCFloorPlanImage
 
-+ (instancetype)floorPlanImageWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr andBottomLeft:(CLLocationCoordinate2D)bl {
++ (instancetype)floorPlanImageWithsizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     
-    return [[self alloc] initWithsizeX:x
-                                 sizeY:y
-                               topLeft:tl
-                              topRight:tr
-                         andBottomLeft:bl];
+    return [[self alloc] initWithsizeX:sizeX
+                                 sizeY:sizeY
+                               topLeft:topLeft
+                              topRight:topRight
+                         andBottomLeft:bottomLeft];
 }
 
-- (instancetype)initWithsizeX:(NSInteger)x sizeY:(NSInteger)y topLeft:(CLLocationCoordinate2D)tl topRight:(CLLocationCoordinate2D)tr andBottomLeft:(CLLocationCoordinate2D)bl {
+- (instancetype)initWithsizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     self = [super init];
     if (self) {
-        _sizeX = x;
-        _sizeY = y;
-        _topLeft = tl;
-        _topRight = tr;
-        _bottomLeft = bl;
+        _sizeX = sizeX;
+        _sizeY = sizeY;
+        _topLeft = topLeft;
+        _topRight = topRight;
+        _bottomLeft = bottomLeft;
+        
+        // Set the offset
         _e = self.topLeft.longitude;
         _f = self.topLeft.latitude;
         
+        // Translate so that (0,0) maps to (0,0)
         CLLocationCoordinate2D tmptr = CLLocationCoordinate2DMake(self.topRight.latitude - self.topLeft.latitude,
                                                                 self.topRight.longitude - self.topLeft.longitude);
         CLLocationCoordinate2D tmpbl = CLLocationCoordinate2DMake(self.bottomLeft.latitude - self.topLeft.latitude,
                                                                   self.bottomLeft.longitude - self.topLeft.longitude);
-        
+        // Calculate matrix
         _a = tmptr.longitude / self.sizeX;
         _c = tmptr.latitude / self.sizeX;
         _b = tmpbl.longitude / self.sizeY;
