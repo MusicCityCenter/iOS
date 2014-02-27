@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 #import "MCCFloorplanImageLocation.h"
+
+@import CoreLocation;
 
 @interface MCCFloorPlanImage : NSObject
 
