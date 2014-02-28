@@ -146,9 +146,13 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+<<<<<<< HEAD
     MCCEvent *event = self.searchContents[indexPath.row];
     
     [self performSegueWithIdentifier:@"openMapView" sender:event];
+=======
+    [self performSegueWithIdentifier:@"openMapView" sender:self];
+>>>>>>> Clicking on an event opens the MapView
 }
 
 #pragma mark - Search Display Delegate
