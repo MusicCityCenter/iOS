@@ -20,10 +20,10 @@
 @property (nonatomic) CLLocationCoordinate2D bottomLeft;
 
 
-- (instancetype)initWithsizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
+- (instancetype)initWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
 
-+ (instancetype)floorPlanImageWithsizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
++ (instancetype)floorPlanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
 
-- (CLLocationCoordinate2D)getLatLongFromLocation:(MCCFloorplanImageLocation *)loc;
+- (CLLocationCoordinate2D)coordinateFromFloorplanImageLocation:(MCCFloorplanImageLocation *)floorplanImageLocation;
 
 @end
