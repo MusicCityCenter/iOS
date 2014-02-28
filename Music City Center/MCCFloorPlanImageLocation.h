@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MCCFloorplanImageLocation : NSObject
+@interface MCCFloorPlanImageLocation : NSObject
 
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 
 - (instancetype)initWithX:(NSInteger)x andY:(NSInteger)y;
 
-+ (instancetype)floorplanImageLocationWithX:(NSInteger)x andY:(NSInteger)y;
++ (instancetype)floorPlanImageLocationWithX:(NSInteger)x andY:(NSInteger)y;
 
 @end

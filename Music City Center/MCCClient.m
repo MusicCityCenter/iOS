@@ -34,9 +34,9 @@
     return _sharedClient;
 }
 
-- (void)fetchFloorplan:(NSString *)floorplanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
+- (void)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
-    NSString *targetUrl = [NSString stringWithFormat:@"floorplan/mapping/%@", floorplanId];
+    NSString *targetUrl = [NSString stringWithFormat:@"floorplan/mapping/%@", floorPlanId];
     
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
@@ -49,9 +49,9 @@
                                        }];
 }
 
-- (void)shortestPathOnFloorplan:(NSString *)floorplanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
+- (void)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
     // format: /mcc/path/{floorplanId}/{startLocationId}/{endLocationId}
-    NSString *targetUrl = [NSString stringWithFormat:@"path/%@/%@/%@", floorplanId, from, endLocationId];
+    NSString *targetUrl = [NSString stringWithFormat:@"path/%@/%@/%@", floorPlanId, from, endLocationId];
     
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
@@ -64,7 +64,7 @@
                                        }];
 }
 
-- (void)events:(NSString *)floorplanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
+- (void)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
                                                                    fromDate:date];
     
@@ -73,7 +73,7 @@
     NSInteger day = [components day];
     
     // format: /events/{floorplanId}/on/{month}/{day}/{year}
-    NSString *targetUrl = [NSString stringWithFormat:@"events/%@/on/%li/%li/%li", floorplanId, (long)month, (long)day, (long)year];
+    NSString *targetUrl = [NSString stringWithFormat:@"events/%@/on/%li/%li/%li", floorPlanId, (long)month, (long)day, (long)year];
     
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil

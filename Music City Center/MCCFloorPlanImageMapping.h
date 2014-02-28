@@ -8,17 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class MCCFloorplanLocation;
-@class MCCFloorplanImageLocation;
+@class MCCFloorPlanLocation;
+@class MCCFloorPlanImageLocation;
 
-@interface MCCFloorplanImageMapping : NSObject
+@interface MCCFloorPlanImageMapping : NSObject
 
 @property (strong, nonatomic) NSURL *imageURL;
 
 - (instancetype)initWithImageURL:(NSURL *)imageURL;
 
-+ (instancetype)floorplanImageMappingWithImageURL:(NSURL *)imageURL;
++ (instancetype)floorPlanImageMappingWithImageURL:(NSURL *)imageURL;
 
-- (MCCFloorplanImageLocation *)coordinatesOfLocation:(NSString *)locationId;
+- (MCCFloorPlanImageLocation *)coordinatesOfLocation:(NSString *)locationId;
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorplanImageMapping.h"
+#import "MCCFloorPlanImageMapping.h"
 
-@implementation MCCFloorplanImageMapping
+@implementation MCCFloorPlanImageMapping
 
 #pragma mark - Designated Initializer
 
@@ -24,7 +24,7 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorplanImageMappingWithImageURL:(NSURL *)imageURL {
++ (instancetype)floorPlanImageMappingWithImageURL:(NSURL *)imageURL {
     return [[self alloc] initWithImageURL:imageURL];
 }
 

@@ -15,23 +15,23 @@
                                                     data:data
                                                    error:error];
     
-    // Hydrate the JSON in responseObject into actual objects like MCCFloorplan
+    // Hydrate the JSON in responseObject into actual objects like MCCFloorPlan
     //
-    // E.g. for an MCCFloorplan:
+    // E.g. for an MCCFloorPlan:
     //
     // NSArray *locationsJSONArray = responseObject[@"locations"];
     // NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[locationJSONArray count]];
     //
     // for (NSDictionary *locationJSONDictionary in locationsJSONArray) {
-    //     [locations addObject:[MCCFloorplanLocation floorplanLocationWithLocationId:locationJSONDictionary[@"id"]
+    //     [locations addObject:[MCCFloorPlanLocation floorPlanLocationWithLocationId:locationJSONDictionary[@"id"]
     //                                                                        andType:locationJSONDictionary[@"type"]]];
     // }
     
-    // Create MCCFloorplan with locations, etc.
+    // Create MCCFloorPlan with locations, etc.
     
-    // responseObject = floorplan;
+    // responseObject = floorPlan;
     
-    // Example Floorplan Mapping Response:
+    // Example FloorPlan Mapping Response:
     //{"mapping":{"imageUrl":"/mcc/image/floorplan/windsor","mapping":{"k":{"x":878,"y":556},"g":{"x":679,"y":541},"f":{"x":477,"y":524},"df":{"x":880,"y":359}}},"floorplan":{"locations":[{"id":"g","type":"room"},{"id":"df","type":"room"},{"id":"k","type":"room"},{"id":"f","type":"room"}],"edges":[{"start":"g","end":"k","length":0.0},{"start":"g","end":"f","length":0.0},{"start":"df","end":"k","length":0.0},{"start":"k","end":"g","length":0.0},{"start":"k","end":"df","length":0.0},{"start":"f","end":"g","length":0.0}],"types":{"name":"root","children":[{"name":"room"}]}}}
     
     // Example Path Response:

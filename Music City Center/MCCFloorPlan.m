@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorplan.h"
+#import "MCCFloorPlan.h"
 
-@implementation MCCFloorplan
+@implementation MCCFloorPlan
 
 #pragma mark - Designated Initializer
 
-- (instancetype)initWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
+- (instancetype)initWithFloorPlanId:(NSString *)floorPlanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
     self = [super init];
     
     if (self) {
-        _floorplanId = floorplanId;
+        _floorPlanId = floorPlanId;
         _locations = locations;
         _edges = edges;
     }
@@ -26,8 +26,8 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorplanWithFloorplanId:(NSString *)floorplanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
-    return [[self alloc] initWithFloorplanId:floorplanId
++ (instancetype)floorplanWithFloorplanId:(NSString *)floorPlanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
+    return [[self alloc] initWithFloorPlanId:floorPlanId
                                    locations:locations
                                     andEdges:edges];
 }

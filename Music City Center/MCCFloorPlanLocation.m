@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorplanLocation.h"
+#import "MCCFloorPlanLocation.h"
 
-@implementation MCCFloorplanLocation
+@implementation MCCFloorPlanLocation
 
 #pragma mark - Designated Initializer
 
@@ -25,7 +25,7 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorplanLocationWithLocationId:(NSString *)locationId andType:(NSString *)type {
++ (instancetype)floorPlanLocationWithLocationId:(NSString *)locationId andType:(NSString *)type {
     return [[self alloc] initWithLocationId:locationId
                                     andType:type];
 }

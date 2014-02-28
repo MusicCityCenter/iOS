@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorplanEdge.h"
+#import "MCCFloorPlanEdge.h"
 
-@implementation MCCFloorplanEdge
+@implementation MCCFloorPlanEdge
 
 #pragma mark - Designated Initializer
 
-- (instancetype)initWithStartLocation:(MCCFloorplanLocation *)startLocation endLocation:(MCCFloorplanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle {
+- (instancetype)initWithStartLocation:(MCCFloorPlanLocation *)startLocation endLocation:(MCCFloorPlanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle {
     self = [super init];
     
     if (self) {
@@ -27,7 +27,7 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorplanEdgeWithStartLocation:(MCCFloorplanLocation *)startLocation endLocation:(MCCFloorplanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle {
++ (instancetype)floorPlanEdgeWithStartLocation:(MCCFloorPlanLocation *)startLocation endLocation:(MCCFloorPlanLocation *)endLocation length:(CGFloat)length andAngle:(CGFloat)angle {
     return [[self alloc] initWithStartLocation:startLocation
                                    endLocation:endLocation
                                         length:length

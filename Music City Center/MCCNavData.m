@@ -12,11 +12,11 @@
 
 #pragma mark - Designated Initializer
 
-- (instancetype)initWithFloorplan:(MCCFloorplan *)floorplan andFloorplanImageMapping:(MCCFloorplanImageMapping *)mapping {
+- (instancetype)initWithFloorPlan:(MCCFloorPlan *)floorPlan andFloorPlanImageMapping:(MCCFloorPlanImageMapping *)mapping {
     self = [super init];
     
     if (self) {
-        _floorplan = floorplan;
+        _floorPlan = floorPlan;
         _mapping = mapping;
     }
     
@@ -25,9 +25,9 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)navDataWithFloorplan:(MCCFloorplan *)floorplan andFloorplanImageMapping:(MCCFloorplanImageMapping *)mapping {
-    return [[self alloc] initWithFloorplan:floorplan
-                  andFloorplanImageMapping:mapping];
++ (instancetype)navDataWithFloorPlan:(MCCFloorPlan *)floorPlan andFloorPlanImageMapping:(MCCFloorPlanImageMapping *)mapping {
+    return [[self alloc] initWithFloorPlan:floorPlan
+                  andFloorPlanImageMapping:mapping];
 }
 
 @end
