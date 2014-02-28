@@ -10,8 +10,6 @@
 #import "MCCFloorViewController.h"
 #import "MCCClient.h"
 #import "MCCEvent.h"
-#import "MCCFloorPlanImage.h"
-#import "MCCFloorPlanImageLocation.h"
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
 #import <MapKit/MapKit.h>
@@ -27,9 +25,6 @@ static CGFloat const kBlurOffset = 64.0f;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
-
-@property (strong, nonatomic) MCCFloorPlanImage *floor1;
-@property (strong, nonatomic) MCCFloorPlanImageLocation *floor1TopLeft;
 
 @end
 
@@ -114,14 +109,6 @@ static CGFloat const kBlurOffset = 64.0f;
         self.contents = events;
     }];
     
-    self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240 andY:3196];
-    
-    self.floor1 = [MCCFloorPlanImage
-                   floorPlanImageWithSizeX:916
-                   sizeY:628
-                   topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
-                   topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
-                   andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
 }
 
 - (void)didReceiveMemoryWarning
