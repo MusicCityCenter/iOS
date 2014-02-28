@@ -108,7 +108,10 @@ static CGFloat const kBlurOffset = 64.0f;
     [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.contents = events;
     }];
+<<<<<<< HEAD
     
+=======
+>>>>>>> Updated MCCMapViewController so it dynamically populates events using MCCClient
 }
 
 - (void)didReceiveMemoryWarning
@@ -188,11 +191,7 @@ static CGFloat const kBlurOffset = 64.0f;
 // Find all matching strings
 - (void)findMatches {
     [self.searchContents removeAllObjects];
-    
-    MCCEvent *ev = [MCCEvent eventWithMonth:2 day:28 year:2014 name:@"test event" andDetails:@"test details"];
-    
-    self.contents = @[ev];
-    
+
     for (MCCEvent *event in self.contents) {
         NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
                                           options:NSCaseInsensitiveSearch];
