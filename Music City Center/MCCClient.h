@@ -15,8 +15,8 @@
 
 + (instancetype)sharedClient;
 
-- (void)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
-- (void)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
-- (void)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
+- (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
+- (NSURLSessionDataTask *)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
+- (NSURLSessionDataTask *)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
 
 @end

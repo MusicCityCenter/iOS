@@ -34,7 +34,7 @@
     return _sharedClient;
 }
 
-- (void)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
+- (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
     NSString *targetUrl = [NSString stringWithFormat:@"floorplan/mapping/%@", floorPlanId];
     
@@ -47,9 +47,11 @@
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            // Failure
                                        }];
+    
+    return dataTask;
 }
 
-- (void)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
+- (NSURLSessionDataTask *)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
     // format: /mcc/path/{floorplanId}/{startLocationId}/{endLocationId}
     NSString *targetUrl = [NSString stringWithFormat:@"path/%@/%@/%@", floorPlanId, from, endLocationId];
     
@@ -62,9 +64,11 @@
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            // Failure
                                        }];
+    
+    return dataTask;
 }
 
-- (void)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
+- (NSURLSessionDataTask *)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
                                                                    fromDate:date];
     
@@ -84,6 +88,8 @@
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            // Failure
                                        }];
+    
+    return dataTask;
 }
 
 @end
