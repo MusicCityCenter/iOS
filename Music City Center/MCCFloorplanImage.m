@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorPlanImage.h"
+#import "MCCFloorplanImage.h"
 #import "MCCFloorplanImageLocation.h"
 
-@interface MCCFloorPlanImage ()
+@interface MCCFloorplanImage ()
 
 @property (nonatomic) CGFloat a;
 @property (nonatomic) CGFloat b;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation MCCFloorPlanImage
+@implementation MCCFloorplanImage
 
 - (instancetype)initWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     self = [super init];
@@ -49,7 +49,7 @@
     return self;
 }
 
-+ (instancetype)floorPlanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
++ (instancetype)floorplanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     
     return [[self alloc] initWithSizeX:sizeX
                                  sizeY:sizeY
