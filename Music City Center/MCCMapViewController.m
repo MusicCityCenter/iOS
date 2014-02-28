@@ -138,6 +138,12 @@ static CGFloat const kBlurOffset = 64.0f;
     return cell;
 }
 
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"openMapView" sender:self];
+}
+
 #pragma mark - Search Display Delegate
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
@@ -178,6 +184,10 @@ static CGFloat const kBlurOffset = 64.0f;
 // Find all matching strings
 - (void)findMatches {
     [self.searchContents removeAllObjects];
+    
+    MCCEvent *ev = [MCCEvent eventWithMonth:2 day:28 year:2014 name:@"test event" andDetails:@"test details"];
+    
+    self.contents = @[ev];
     
     for (MCCEvent *event in self.contents) {
         NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
