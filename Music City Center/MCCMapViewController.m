@@ -185,10 +185,6 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)findMatches {
     [self.searchContents removeAllObjects];
     
-    MCCEvent *ev = [MCCEvent eventWithMonth:2 day:28 year:2014 name:@"test event" andDetails:@"test details"];
-    
-    self.contents = @[ev];
-    
     for (MCCEvent *event in self.contents) {
         NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
                                           options:NSCaseInsensitiveSearch];
