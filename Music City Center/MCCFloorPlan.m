@@ -26,7 +26,7 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorplanWithFloorplanId:(NSString *)floorPlanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
++ (instancetype)floorPlanWithFloorplanId:(NSString *)floorPlanId locations:(NSArray *)locations andEdges:(NSArray *)edges {
     return [[self alloc] initWithFloorPlanId:floorPlanId
                                    locations:locations
                                     andEdges:edges];

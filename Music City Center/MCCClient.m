@@ -76,8 +76,6 @@
     NSInteger month = [components month];
     NSInteger day = [components day];
     
-    NSLog(@"%li/%li/%li",month,day,year);
-    
     // format: /events/{floorplanId}/on/{month}/{day}/{year}
     NSString *targetUrl = [NSString stringWithFormat:@"events/%@/on/%li/%li/%li", floorPlanId, (long)month, (long)day, (long)year];
     
