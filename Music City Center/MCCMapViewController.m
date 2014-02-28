@@ -10,6 +10,8 @@
 #import "MCCFloorViewController.h"
 #import "MCCClient.h"
 #import "MCCEvent.h"
+#import "MCCFloorPlanImage.h"
+#import "MCCFloorPlanImageLocation.h"
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
 #import <MapKit/MapKit.h>
@@ -25,6 +27,9 @@ static CGFloat const kBlurOffset = 64.0f;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
+
+@property (strong, nonatomic) MCCFloorPlanImage *floor1;
+@property (strong, nonatomic) MCCFloorPlanImageLocation *floor1TopLeft;
 
 @end
 
@@ -108,10 +113,15 @@ static CGFloat const kBlurOffset = 64.0f;
     [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.contents = events;
     }];
-<<<<<<< HEAD
     
-=======
->>>>>>> Updated MCCMapViewController so it dynamically populates events using MCCClient
+    self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240 andY:3196];
+    
+    self.floor1 = [MCCFloorPlanImage
+                   floorPlanImageWithSizeX:916
+                   sizeY:628
+                   topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
+                   topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
+                   andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,13 +156,9 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-<<<<<<< HEAD
     MCCEvent *event = self.searchContents[indexPath.row];
     
     [self performSegueWithIdentifier:@"openMapView" sender:event];
-=======
-    [self performSegueWithIdentifier:@"openMapView" sender:self];
->>>>>>> Clicking on an event opens the MapView
 }
 
 #pragma mark - Search Display Delegate
