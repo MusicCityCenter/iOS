@@ -30,4 +30,8 @@
 
 #pragma mark - Instance Methods
 
+- (MCCFloorPlanImageLocation *)coordinatesOfLocation:(NSString *)locationId {
+    return nil;
+}
+
 @end
