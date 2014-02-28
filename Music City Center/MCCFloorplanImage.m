@@ -36,15 +36,15 @@
         _f = _topLeft.latitude;
         
         // Translate so that (0,0) maps to (0,0)
-        CLLocationCoordinate2D tmpTopRight = CLLocationCoordinate2DMake(_topRight.latitude - _topLeft.latitude,
+        CLLocationCoordinate2D tempTopRight = CLLocationCoordinate2DMake(_topRight.latitude - _topLeft.latitude,
                                                                 _topRight.longitude - _topLeft.longitude);
-        CLLocationCoordinate2D tmpBottomLeft = CLLocationCoordinate2DMake(_bottomLeft.latitude - _topLeft.latitude,
+        CLLocationCoordinate2D tempBottomLeft = CLLocationCoordinate2DMake(_bottomLeft.latitude - _topLeft.latitude,
                                                                   _bottomLeft.longitude - _topLeft.longitude);
         // Calculate matrix
-        _a = tmpTopRight.longitude / _sizeX;
-        _c = tmpTopRight.latitude / _sizeX;
-        _b = tmpBottomLeft.longitude / _sizeY;
-        _d = tmpBottomLeft.latitude / _sizeY;
+        _a = tempTopRight.longitude / _sizeX;
+        _c = tempTopRight.latitude / _sizeX;
+        _b = tempBottomLeft.longitude / _sizeY;
+        _d = tempBottomLeft.latitude / _sizeY;
     }
     return self;
 }
