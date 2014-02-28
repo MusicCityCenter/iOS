@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCFloorplanImage.h"
-#import "MCCFloorplanImageLocation.h"
+#import "MCCFloorPlanImage.h"
+#import "MCCFloorPlanImageLocation.h"
 
-@interface MCCFloorplanImage ()
+@interface MCCFloorPlanImage ()
 
 @property (nonatomic) CGFloat a;
 @property (nonatomic) CGFloat b;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation MCCFloorplanImage
+@implementation MCCFloorPlanImage
 
 - (instancetype)initWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     self = [super init];
@@ -49,7 +49,7 @@
     return self;
 }
 
-+ (instancetype)floorplanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
++ (instancetype)floorPlanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft {
     
     return [[self alloc] initWithSizeX:sizeX
                                  sizeY:sizeY
@@ -60,10 +60,10 @@
 
 
 
-- (CLLocationCoordinate2D)coordinateFromFloorplanImageLocation:(MCCFloorplanImageLocation *)floorplanImageLocation {
+- (CLLocationCoordinate2D)coordinateFromFloorPlanImageLocation:(MCCFloorPlanImageLocation *)floorPlanImageLocation {
     
-    CLLocationDegrees longitude = self.a * floorplanImageLocation.x + self.b * floorplanImageLocation.y + self.e;
-    CLLocationDegrees latitude = self.c * floorplanImageLocation.x + self.d * floorplanImageLocation.y + self.f;
+    CLLocationDegrees longitude = self.a * floorPlanImageLocation.x + self.b * floorPlanImageLocation.y + self.e;
+    CLLocationDegrees latitude = self.c * floorPlanImageLocation.x + self.d * floorPlanImageLocation.y + self.f;
     
     return CLLocationCoordinate2DMake(latitude, longitude);
 }

@@ -8,9 +8,9 @@
 
 @import CoreLocation;
 
-@class MCCFloorplanImageLocation;
+@class MCCFloorPlanImageLocation;
 
-@interface MCCFloorplanImage : NSObject
+@interface MCCFloorPlanImage : NSObject
 
 @property (nonatomic) NSInteger sizeX;
 @property (nonatomic) NSInteger sizeY;
@@ -22,8 +22,8 @@
 
 - (instancetype)initWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
 
-+ (instancetype)floorplanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
++ (instancetype)floorPlanImageWithSizeX:(NSInteger)sizeX sizeY:(NSInteger)sizeY topLeft:(CLLocationCoordinate2D)topLeft topRight:(CLLocationCoordinate2D)topRight andBottomLeft:(CLLocationCoordinate2D)bottomLeft;
 
-- (CLLocationCoordinate2D)coordinateFromFloorplanImageLocation:(MCCFloorplanImageLocation *)floorplanImageLocation;
+- (CLLocationCoordinate2D)coordinateFromFloorPlanImageLocation:(MCCFloorPlanImageLocation *)floorPlanImageLocation;
 
 @end

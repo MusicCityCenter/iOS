@@ -24,9 +24,9 @@
 		4B8E50F418A04A94009F4266 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4B8E50F218A04A94009F4266 /* InfoPlist.strings */; };
 		4B8E50F618A04A94009F4266 /* Music_City_CenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */; };
 		4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */; };
+		4BF4026418BE98210067AD1A /* MCCFloorPlanImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF4026318BE98210067AD1A /* MCCFloorPlanImage.m */; };
 		841DD66C18B8B8F4009626B8 /* MCCFloorPlanLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD66B18B8B8F4009626B8 /* MCCFloorPlanLocation.m */; };
 		841DD66F18B8B96C009626B8 /* MCCFloorPlan.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD66E18B8B96C009626B8 /* MCCFloorPlan.m */; };
-		4BF4026418BE98210067AD1A /* MCCFloorplanImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF4026318BE98210067AD1A /* MCCFloorplanImage.m */; };
 		841DD67218B8BC7D009626B8 /* MCCNavData.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD67118B8BC7D009626B8 /* MCCNavData.m */; };
 		841DD67518B8BCB8009626B8 /* MCCFloorPlanImageMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD67418B8BCB8009626B8 /* MCCFloorPlanImageMapping.m */; };
 		841DD67818B8BD4F009626B8 /* MCCFloorPlanEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD67718B8BD4F009626B8 /* MCCFloorPlanEdge.m */; };
@@ -74,12 +74,12 @@
 		4B8E50F518A04A94009F4266 /* Music_City_CenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Music_City_CenterTests.m; sourceTree = "<group>"; };
 		4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorViewController.h; sourceTree = "<group>"; };
 		4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorViewController.m; sourceTree = "<group>"; };
+		4BF4026218BE98210067AD1A /* MCCFloorPlanImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorPlanImage.h; sourceTree = "<group>"; };
+		4BF4026318BE98210067AD1A /* MCCFloorPlanImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorPlanImage.m; sourceTree = "<group>"; };
 		841DD66A18B8B8F4009626B8 /* MCCFloorPlanLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorPlanLocation.h; sourceTree = "<group>"; };
 		841DD66B18B8B8F4009626B8 /* MCCFloorPlanLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorPlanLocation.m; sourceTree = "<group>"; };
 		841DD66D18B8B96C009626B8 /* MCCFloorPlan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorPlan.h; sourceTree = "<group>"; };
 		841DD66E18B8B96C009626B8 /* MCCFloorPlan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorPlan.m; sourceTree = "<group>"; };
-		4BF4026218BE98210067AD1A /* MCCFloorplanImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorplanImage.h; sourceTree = "<group>"; };
-		4BF4026318BE98210067AD1A /* MCCFloorplanImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFloorplanImage.m; sourceTree = "<group>"; };
 		841DD67018B8BC7D009626B8 /* MCCNavData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCNavData.h; sourceTree = "<group>"; };
 		841DD67118B8BC7D009626B8 /* MCCNavData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCNavData.m; sourceTree = "<group>"; };
 		841DD67318B8BCB8009626B8 /* MCCFloorPlanImageMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFloorPlanImageMapping.h; sourceTree = "<group>"; };
@@ -233,8 +233,8 @@
 				841DD68618B8C501009626B8 /* MCCNavPath.m */,
 				841DD68818B8CF88009626B8 /* MCCEvent.h */,
 				841DD68918B8CF88009626B8 /* MCCEvent.m */,
-				4BF4026218BE98210067AD1A /* MCCFloorplanImage.h */,
-				4BF4026318BE98210067AD1A /* MCCFloorplanImage.m */,
+				4BF4026218BE98210067AD1A /* MCCFloorPlanImage.h */,
+				4BF4026318BE98210067AD1A /* MCCFloorPlanImage.m */,
 			);
 			name = Nav;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,
 				841DD67E18B8BF6B009626B8 /* MCCClient.m in Sources */,
-				4BF4026418BE98210067AD1A /* MCCFloorplanImage.m in Sources */,
+				4BF4026418BE98210067AD1A /* MCCFloorPlanImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
