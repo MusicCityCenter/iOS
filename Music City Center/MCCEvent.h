@@ -14,9 +14,13 @@
 @property (nonatomic) NSInteger day;
 @property (nonatomic) NSInteger year;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *description;
+@property (nonatomic, copy) NSString *details;
 
 // An id of a MCCFloorplanLocation
 @property (nonatomic, copy) NSString *locationId;
+
+- (instancetype)initWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name andDetails:(NSString *)details;
+
++ (instancetype)eventWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name andDetails:(NSString *)details;
 
 @end

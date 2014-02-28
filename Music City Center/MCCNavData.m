@@ -10,4 +10,24 @@
 
 @implementation MCCNavData
 
+#pragma mark - Designated Initializer
+
+- (instancetype)initWithFloorPlan:(MCCFloorPlan *)floorPlan andFloorPlanImageMapping:(MCCFloorPlanImageMapping *)mapping {
+    self = [super init];
+    
+    if (self) {
+        _floorPlan = floorPlan;
+        _mapping = mapping;
+    }
+    
+    return self;
+}
+
+#pragma mark - Factory Method
+
++ (instancetype)navDataWithFloorPlan:(MCCFloorPlan *)floorPlan andFloorPlanImageMapping:(MCCFloorPlanImageMapping *)mapping {
+    return [[self alloc] initWithFloorPlan:floorPlan
+                  andFloorPlanImageMapping:mapping];
+}
+
 @end

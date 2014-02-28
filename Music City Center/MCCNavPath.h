@@ -12,4 +12,8 @@
 
 @property (nonatomic, copy) NSArray *edges;
 
+- (instancetype)initWithEdges:(NSArray *)edges;
+
++ (instancetype)navPathWithEdges:(NSArray *)edges;
+
 @end
