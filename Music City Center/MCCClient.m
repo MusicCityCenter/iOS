@@ -52,9 +52,10 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
-                                                                                        message:[NSString stringWithFormat:@"%@",error]
-                                                                                       delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
                                            
                                        }];
     
@@ -80,9 +81,10 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
-                                                                                        message:[NSString stringWithFormat:@"%@",error]
-                                                                                       delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
                                            
                                        }];
     
@@ -115,9 +117,10 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
-                                                                                        message:[NSString stringWithFormat:@"%@",error]
-                                                                                       delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
                                            
                                        }];
     
