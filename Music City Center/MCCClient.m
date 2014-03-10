@@ -51,11 +51,11 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
-                                           UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
                                                                                         message:[NSString stringWithFormat:@"%@",error]
                                                                                        delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                           [av show];
+                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
@@ -79,11 +79,11 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
-                                           UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
                                                                                         message:[NSString stringWithFormat:@"%@",error]
                                                                                        delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                           [av show];
+                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
@@ -114,11 +114,11 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
-                                           UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
                                                                                         message:[NSString stringWithFormat:@"%@",error]
                                                                                        delegate:nil
-                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                           [av show];
+                                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
