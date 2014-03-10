@@ -7,6 +7,7 @@
 //
 
 #import "MCCResponseSerializer.h"
+#import "MCCEvent.h"
 
 @implementation MCCResponseSerializer
 
@@ -39,6 +40,25 @@
     
     // Example Events Response:
     // [{"id":"75cc1e2b-b26c-4668-83b1-99433f4d334f","name":"asdf","description":"asdf","day":5,"month":1,"year":2014,"startTime":420,"endTime":1380,"floorplanId":"windsor","floorplanLocationId":"g"}]
+    
+    NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
+    NSString *firstPathComponent = [relativeURL.pathComponents firstObject];
+    
+    // TODO - Change the order of these checks to floorplan, then shortest path, then events - just for consistency - instead of
+    // events first
+    if ([firstPathComponent isEqualToString:@"events"]) {
+        NSMutableArray *events = [NSMutableArray arrayWithCapacity:[responseObject count]];
+        
+        for (NSDictionary *eventDictionary in responseObject) {
+            MCCEvent *event = [MCCEvent eventWithMonth:[eventDictionary[@"month"] integerValue]
+                                                   day:[eventDictionary[@"day"] integerValue]
+                                                  year:[eventDictionary[@"year"] integerValue]
+                                                  name:eventDictionary[@"name"]
+                                            andDetails:eventDictionary[@"details"]];
+            
+            [events addObject:event];
+        }
+    }
     
     return responseObject;
 }
