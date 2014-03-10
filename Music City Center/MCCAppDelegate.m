@@ -7,12 +7,13 @@
 //
 
 #import "MCCAppDelegate.h"
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
 @implementation MCCAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
     return YES;
 }
 							
