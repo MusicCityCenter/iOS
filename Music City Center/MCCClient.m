@@ -36,39 +36,67 @@
 
 - (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
+    NSLog(@"fetch floorplan");
     NSString *targetUrl = [NSString stringWithFormat:@"floorplan/mapping/%@", floorPlanId];
-    
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
-                                           
+                                           NSLog(@"Floorplan fetched");
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an MCCNavData object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
 }
 
 - (NSURLSessionDataTask *)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *))completionBlock {
+    NSLog(@"shortest path");
     // format: /mcc/path/{floorplanId}/{startLocationId}/{endLocationId}
     NSString *targetUrl = [NSString stringWithFormat:@"path/%@/%@/%@", floorPlanId, from, endLocationId];
     
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
-                                           
+                                           NSLog(@"Shortest Path On Floorplan fetched");
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an MCCNavPath object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
 }
 
 - (NSURLSessionDataTask *)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
+    NSLog(@"events for floorPlanId on date");
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
                                                                    fromDate:date];
     
@@ -82,11 +110,24 @@
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
-                                           
+                                           NSLog(@"Events fetched");
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an NSArray here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Failure
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
+                                           
                                        }];
     
     return dataTask;
