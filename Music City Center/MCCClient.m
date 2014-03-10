@@ -45,7 +45,9 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Floorplan fetched");
-                                           completionBlock(responseObject);
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an MCCNavData object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
@@ -74,7 +76,9 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Shortest Path On Floorplan fetched");
-                                           completionBlock(responseObject);
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an MCCNavPath object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
@@ -110,7 +114,9 @@
                                            NSLog(@"Received HTTP %d", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Events fetched");
-                                           completionBlock(responseObject);
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
                                            // responseObject should already be an NSArray here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
