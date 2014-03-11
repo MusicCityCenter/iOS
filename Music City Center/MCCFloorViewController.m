@@ -34,7 +34,6 @@
 //    self.mapView.mapID = @"musiccitycenter.du2z9f6r";
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
-    self.mapView.mapType = MKMapTypeHybrid;
     
     self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240 andY:3196];
     self.floor1 = [MCCFloorPlanImage
@@ -51,55 +50,53 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"openMapView"]) {
-        MCCEvent *event = (MCCEvent *) sender;
+- (void)setPolylineFromEvent:(MCCEvent *)event {
+    NSLog(@"Generating polyline");
+    
+    MCCClient *client = [MCCClient sharedClient];
+    
+    [client shortestPathOnFloorPlan:@"full-test-1" from:@"B-1-2" to:event.locationId withCompletionBlock:^(MCCNavPath *path) {
         
-        MCCClient *client = [MCCClient sharedClient];
+        // Get an image mapping
+        MCCFloorPlanImageMapping *mapping = [MCCFloorPlanImageMapping floorPlanImageMappingWithImageURL:[NSURL URLWithString:@"/mcc/image/floorplan/full-test-1"]];
         
-        [client shortestPathOnFloorPlan:@"full-test-1" from:@"" to:event.locationId withCompletionBlock:^(MCCNavPath *path) {
+        // Get the number of points, which is the number of edges + 1
+        NSUInteger numPoints = [path.edges count] + 1;
+        
+        // Allocate the array of coordinates
+        CLLocationCoordinate2D *coords = malloc(numPoints * sizeof(CLLocationCoordinate2D));
+        
+        // Start with the start of the first edge
+        MCCFloorPlanEdge *edge0 = [path.edges firstObject];
+        MCCFloorPlanImageLocation *location0 = [mapping coordinatesOfLocation:edge0.startLocation.locationId];
+        
+        MCCFloorPlanImageLocation *translatedLocation0 =
+        [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location0.x - self.floor1TopLeft.x
+                                                          andY:location0.y - self.floor1TopLeft.y];
+        
+        // Turn the floorplan location into lat-long
+        coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation0];
+        
+        int i = 1;
+        
+        // Then do the end of all the other edges
+        for (MCCFloorPlanEdge *edge in path.edges) {
+            MCCFloorPlanImageLocation *location = [mapping coordinatesOfLocation:edge.endLocation.locationId];
             
-            // Get an image mapping
-            MCCFloorPlanImageMapping *mapping = [MCCFloorPlanImageMapping floorPlanImageMappingWithImageURL:[NSURL URLWithString:@"/mcc/image/floorplan/full-test-1"]];
-            
-            // Get the number of points, which is the number of edges + 1
-            NSUInteger numPoints = [path.edges count] + 1;
-            
-            // Allocate the array of coordinates
-            CLLocationCoordinate2D *coords = malloc(numPoints * sizeof(CLLocationCoordinate2D));
-            
-            // Start with the start of the first edge
-            MCCFloorPlanEdge *edge0 = [path.edges firstObject];
-            MCCFloorPlanImageLocation *location0 = [mapping coordinatesOfLocation:edge0.startLocation.locationId];
-            
-            MCCFloorPlanImageLocation *translatedLocation0 =
-            [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location0.x - self.floor1TopLeft.x
-                                                              andY:location0.y - self.floor1TopLeft.y];
+            MCCFloorPlanImageLocation *translatedLocation =
+            [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
+                                                              andY:location.y - self.floor1TopLeft.y];
             
             // Turn the floorplan location into lat-long
-            coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation0];
-            
-            int i = 1;
-            
-            // Then do the end of all the other edges
-            for (MCCFloorPlanEdge *edge in path.edges) {
-                MCCFloorPlanImageLocation *location = [mapping coordinatesOfLocation:edge.endLocation.locationId];
-                
-                MCCFloorPlanImageLocation *translatedLocation =
-                [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
-                                                                  andY:location.y - self.floor1TopLeft.y];
-                
-                // Turn the floorplan location into lat-long
-                coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
-                ++i;
-            }
-            
-            MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coords count:numPoints];
-            
-            [self.mapView addOverlay:polyline];
-            [self.mapView setNeedsDisplay];
-        }];
-    }
+            coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
+            ++i;
+        }
+        
+        MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coords count:numPoints];
+        
+        [self.mapView addOverlay:polyline];
+        [self.mapView setNeedsDisplay];
+    }];
 }
 
 @end

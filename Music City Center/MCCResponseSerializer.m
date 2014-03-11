@@ -8,6 +8,9 @@
 
 #import "MCCResponseSerializer.h"
 #import "MCCEvent.h"
+#import "MCCNavPath.h"
+#import "MCCFloorPlanEdge.h"
+#import "MCCFloorPlanLocation.h"
 
 @implementation MCCResponseSerializer
 
@@ -42,11 +45,41 @@
     // [{"id":"75cc1e2b-b26c-4668-83b1-99433f4d334f","name":"asdf","description":"asdf","day":5,"month":1,"year":2014,"startTime":420,"endTime":1380,"floorplanId":"windsor","floorplanLocationId":"g"}]
     
     NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
-    NSString *firstPathComponent = [relativeURL.pathComponents firstObject];
+    NSString *firstPathComponent = relativeURL.pathComponents[2];
     
     // TODO - Change the order of these checks to floorplan, then shortest path, then events - just for consistency - instead of
     // events first
-    if ([firstPathComponent isEqualToString:@"events"]) {
+    
+    if ([firstPathComponent isEqualToString:@"path"]) {
+        NSLog(@"Turning response into MCCNavPath");
+        
+        NSMutableArray *edges = [NSMutableArray arrayWithCapacity:[responseObject count]];
+        
+        for (NSDictionary *edgeDictionary in responseObject) {
+            MCCFloorPlanLocation *startLocation = [MCCFloorPlanLocation
+                                                   floorPlanLocationWithLocationId:edgeDictionary[@"from"]
+                                                   andType:@"unknown"];
+            
+            MCCFloorPlanLocation *endLocation = [MCCFloorPlanLocation
+                                                 floorPlanLocationWithLocationId:edgeDictionary[@"to"]
+                                                 andType:@"unknown"];
+            
+            
+            MCCFloorPlanEdge *edge = [MCCFloorPlanEdge
+                                      floorPlanEdgeWithStartLocation:startLocation
+                                      endLocation:endLocation
+                                      length:[edgeDictionary[@"length"] floatValue]
+                                      andAngle:[edgeDictionary[@"angle"] floatValue]];
+            [edges addObject:edge];
+        }
+        
+        MCCNavPath *navPath = [MCCNavPath navPathWithEdges:edges];
+        
+        return navPath;
+        
+    } else if ([firstPathComponent isEqualToString:@"events"]) {
+        NSLog(@"Turning response into NSArray of MCCEvents");
+        
         NSMutableArray *events = [NSMutableArray arrayWithCapacity:[responseObject count]];
         
         for (NSDictionary *eventDictionary in responseObject) {
@@ -56,8 +89,10 @@
                                                   name:eventDictionary[@"name"]
                                             andDetails:eventDictionary[@"details"]];
             
+            event.locationId = eventDictionary[@"floorplanLocationId"];
             [events addObject:event];
         }
+        return events;
     }
     
     return responseObject;
