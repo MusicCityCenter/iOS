@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MCCEvent;
+
 @interface MCCFloorViewController : UIViewController
+
+- (void)setPolylineFromEvent:(MCCEvent *)event;
 
 @end

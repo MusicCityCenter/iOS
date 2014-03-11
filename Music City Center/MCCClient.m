@@ -42,7 +42,7 @@
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Floorplan fetched");
                                            if (httpResponse.statusCode == 200){
@@ -51,7 +51,7 @@
                                            // responseObject should already be an MCCNavData object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]
@@ -73,7 +73,7 @@
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Shortest Path On Floorplan fetched");
                                            if (httpResponse.statusCode == 200){
@@ -82,7 +82,7 @@
                                            // responseObject should already be an MCCNavPath object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]
@@ -107,11 +107,13 @@
     // format: /events/{floorplanId}/on/{month}/{day}/{year}
     NSString *targetUrl = [NSString stringWithFormat:@"events/%@/on/%li/%li/%li", floorPlanId, (long)month, (long)day, (long)year];
     
+    NSLog(@"%@",targetUrl);
+    
     NSURLSessionDataTask *dataTask = [self GET:targetUrl
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Events fetched");
                                            if (httpResponse.statusCode == 200){
@@ -120,7 +122,7 @@
                                            // responseObject should already be an NSArray here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %d", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]

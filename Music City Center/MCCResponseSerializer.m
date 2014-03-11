@@ -12,6 +12,9 @@
 #import "MCCFloorPlanEdge.h"
 #import "MCCNavPath.h"
 #import "MCCEvent.h"
+#import "MCCNavPath.h"
+#import "MCCFloorPlanEdge.h"
+#import "MCCFloorPlanLocation.h"
 
 @implementation MCCResponseSerializer
 
@@ -37,7 +40,7 @@
     // responseObject = floorPlan;
     
     NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
-    NSString *firstPathComponent = [relativeURL.pathComponents firstObject];
+    NSString *firstPathComponent = relativeURL.pathComponents[2];
     
     if ([firstPathComponent isEqualToString:@"floorplan"]) {
         // Example FloorPlan Mapping Response:
@@ -64,10 +67,13 @@
             [floorPlanEdges addObject:edge];
         }
         
-        responseObject = [MCCNavPath navPathWithEdges:[floorPlanEdges copy]];
+        return [MCCNavPath navPathWithEdges:[floorPlanEdges copy]];
+        
     } else if ([firstPathComponent isEqualToString:@"events"]) {
         // Example Events Response:
         // [{"id":"75cc1e2b-b26c-4668-83b1-99433f4d334f","name":"asdf","description":"asdf","day":5,"month":1,"year":2014,"startTime":420,"endTime":1380,"floorplanId":"windsor","floorplanLocationId":"g"}]
+        
+        NSLog(@"Turning response into NSArray of MCCEvents");
         
         NSMutableArray *events = [NSMutableArray arrayWithCapacity:[responseObject count]];
         
@@ -78,10 +84,11 @@
                                                   name:eventDictionary[@"name"]
                                             andDetails:eventDictionary[@"details"]];
             
+            event.locationId = eventDictionary[@"floorplanLocationId"];
             [events addObject:event];
         }
-        
-        responseObject = [events copy];
+
+        return [events copy];
     }
     
     return responseObject;
