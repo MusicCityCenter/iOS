@@ -188,7 +188,7 @@ static CGFloat const kBlurOffset = 64.0f;
 // Find all matching strings
 - (void)findMatches {
     [self.searchContents removeAllObjects];
-    
+
     for (MCCEvent *event in self.contents) {
         NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
                                           options:NSCaseInsensitiveSearch];
