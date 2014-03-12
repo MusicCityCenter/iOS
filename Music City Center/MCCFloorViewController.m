@@ -63,16 +63,19 @@
     
     MCCClient *client = [MCCClient sharedClient];
     
-    [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
-        // Get the mapping from the navData
+    [client fetchFloorPlan:@"full-test-1"
+       withCompletionBlock:^(MCCNavData *navData) {
     
-        [client shortestPathOnFloorPlan:@"full-test-1" from:@"110" to:event.locationId withCompletionBlock:^(MCCNavPath *path) {
+        [client shortestPathOnFloorPlan:@"full-test-1"
+                                   from:@"110"
+                                     to:event.locationId
+                    withCompletionBlock:^(MCCNavPath *path) {
             
             // Get the number of points, which is the number of edges + 1
             NSUInteger numPoints = [path.edges count] + 1;
             
             // Allocate the array of coordinates
-            CLLocationCoordinate2D *coords = malloc(numPoints * sizeof(CLLocationCoordinate2D));
+            CLLocationCoordinate2D coords[numPoints];
             
             // Start with the start of the first edge
             MCCFloorPlanEdge *edge0 = [path.edges firstObject];
@@ -105,7 +108,6 @@
             }
             
             self.polyline = [MKPolyline polylineWithCoordinates:coords count:numPoints];
-            free(coords);
             
             
             [self.mapView addOverlay:self.polyline];
