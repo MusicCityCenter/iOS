@@ -9,8 +9,12 @@
 #import "MCCResponseSerializer.h"
 #import "MCCEvent.h"
 #import "MCCNavPath.h"
+#import "MCCNavData.h"
+#import "MCCFloorPlan.h"
 #import "MCCFloorPlanEdge.h"
 #import "MCCFloorPlanLocation.h"
+#import "MCCFloorPlanImageLocation.h"
+#import "MCCFloorPlanImageMapping.h"
 
 @implementation MCCResponseSerializer
 
@@ -52,6 +56,53 @@
     if ([firstPathComponent isEqualToString:@"floorplan"]) {
         NSLog(@"Turning response into MCCNavData");
         
+        
+        // Get the mapping
+        NSMutableDictionary *mappingDictionary = [NSMutableDictionary dictionary];
+        
+        for (NSString *locationID in responseObject[@"mapping"][@"mapping"]) {
+            MCCFloorPlanImageLocation *location =
+            [MCCFloorPlanImageLocation
+             floorPlanImageLocationWithX:[responseObject[@"mapping"][@"mapping"][locationID][@"x"] integerValue]
+             andY:[responseObject[@"mapping"][@"mapping"][locationID][@"y"] integerValue]];
+            
+            mappingDictionary[locationID] = location;
+        }
+        
+        MCCFloorPlanImageMapping *floorPlanImageMapping =
+        [MCCFloorPlanImageMapping
+         floorPlanImageMappingWithImageURL:[NSURL URLWithString:responseObject[@"mapping"][@"imageUrl"]]
+         andMappingDictionary:mappingDictionary];
+        
+        
+        // Get all the locations
+        NSMutableArray *locationArray = [NSMutableArray array];
+        
+        for (NSDictionary *locationDictionary in responseObject[@"floorplan"][@"locations"]) {
+            MCCFloorPlanLocation *location = [MCCFloorPlanLocation
+                                              floorPlanLocationWithLocationId:locationDictionary[@"id"]
+                                              andType:locationDictionary[@"type"]];
+            [locationArray addObject:location];
+        }
+        
+        // Get all the edges
+        NSMutableArray *edgeArray = [NSMutableArray array];
+        
+        for (NSDictionary *edgeDictionary in responseObject[@"floorplan"][@"edges"]) {
+            MCCFloorPlanEdge *edge = [MCCFloorPlanEdge
+                                      floorPlanEdgeWithStartLocation: [MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"start"] andType:@"unknown"]
+                                      endLocation:[MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"end"] andType:@"unknown"]
+                                      length:[edgeDictionary[@"length"] floatValue]
+                                      andAngle:0];
+            [edgeArray addObject:edge];
+        }
+        
+        // Combine the locations and edges into a FloorPlan
+        MCCFloorPlan *floorPlan = [MCCFloorPlan floorPlanWithFloorplanId:relativeURL.pathComponents[4] locations:locationArray andEdges:edgeArray];
+        
+        // Put it all together into a NavData object
+        return [MCCNavData navDataWithFloorPlan:floorPlan andFloorPlanImageMapping:floorPlanImageMapping];
+        
     } else if ([firstPathComponent isEqualToString:@"path"]) {
         NSLog(@"Turning response into MCCNavPath");
         
@@ -75,9 +126,7 @@
             [edges addObject:edge];
         }
         
-        MCCNavPath *navPath = [MCCNavPath navPathWithEdges:edges];
-        
-        return navPath;
+        return [MCCNavPath navPathWithEdges:edges];
         
     } else if ([firstPathComponent isEqualToString:@"events"]) {
         NSLog(@"Turning response into NSArray of MCCEvents");

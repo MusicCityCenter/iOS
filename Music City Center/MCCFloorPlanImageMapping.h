@@ -14,10 +14,11 @@
 @interface MCCFloorPlanImageMapping : NSObject
 
 @property (strong, nonatomic) NSURL *imageURL;
+@property (strong, nonatomic) NSDictionary *mappingDictionary;
 
-- (instancetype)initWithImageURL:(NSURL *)imageURL;
+- (instancetype)initWithImageURL:(NSURL *)imageURL andMappingDictionary:(NSDictionary *)mappingDictionary;
 
-+ (instancetype)floorPlanImageMappingWithImageURL:(NSURL *)imageURL;
++ (instancetype)floorPlanImageMappingWithImageURL:(NSURL *)imageURL andMappingDictionary:(NSDictionary *)mappingDictionary;
 
 - (MCCFloorPlanImageLocation *)coordinatesOfLocation:(NSString *)locationId;
 
