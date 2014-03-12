@@ -54,11 +54,13 @@
         // Get the mapping
         NSMutableDictionary *mappingDictionary = [NSMutableDictionary dictionary];
         
-        for (NSString *locationID in responseObject[@"mapping"][@"mapping"]) {
+        NSDictionary *innerMappingDictionary = responseObject[@"mapping"][@"mapping"];
+        
+        for (NSString *locationID in innerMappingDictionary) {
             MCCFloorPlanImageLocation *location =
             [MCCFloorPlanImageLocation
-             floorPlanImageLocationWithX:[responseObject[@"mapping"][@"mapping"][locationID][@"x"] integerValue]
-             andY:[responseObject[@"mapping"][@"mapping"][locationID][@"y"] integerValue]];
+             floorPlanImageLocationWithX:[innerMappingDictionary[locationID][@"x"] integerValue]
+                                    andY:[innerMappingDictionary[locationID][@"y"] integerValue]];
             
             mappingDictionary[locationID] = location;
         }
@@ -95,7 +97,7 @@
         MCCFloorPlan *floorPlan = [MCCFloorPlan floorPlanWithFloorplanId:relativeURL.pathComponents[4] locations:locationArray andEdges:edgeArray];
         
         // Put it all together into a NavData object
-        return [MCCNavData navDataWithFloorPlan:floorPlan andFloorPlanImageMapping:floorPlanImageMapping];
+        responseObject = [MCCNavData navDataWithFloorPlan:floorPlan andFloorPlanImageMapping:floorPlanImageMapping];
         
     } else if ([firstPathComponent isEqualToString:@"path"]) {
         // Example Path Response:
@@ -117,7 +119,7 @@
             [floorPlanEdges addObject:edge];
         }
         
-        return [MCCNavPath navPathWithEdges:[floorPlanEdges copy]];
+        responseObject = [MCCNavPath navPathWithEdges:[floorPlanEdges copy]];
         
     } else if ([firstPathComponent isEqualToString:@"events"]) {
         // Example Events Response:
@@ -139,7 +141,7 @@
             [events addObject:event];
         }
 
-        return [events copy];
+        responseObject = [events copy];
 
     }
     
