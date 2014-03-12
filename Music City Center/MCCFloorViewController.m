@@ -96,8 +96,6 @@
             for (MCCFloorPlanEdge *edge in path.edges) {
                 MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
                 
-                NSLog(@"%@",edge.endLocation.locationId);
-                
                 MCCFloorPlanImageLocation *translatedLocation =
                 [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
                                                                   andY:location.y - self.floor1TopLeft.y];
@@ -120,16 +118,18 @@
 #pragma mark - MKMapViewDelegate
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    MKOverlayRenderer *renderer = nil;
+    
     if ([overlay isKindOfClass:[MKPolyline class]]) {
         MKPolyline *route = overlay;
         MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
         routeRenderer.fillColor = [UIColor redColor];
         routeRenderer.strokeColor = [UIColor redColor];
         routeRenderer.lineWidth = 4;
-        return routeRenderer;
-    } else {
-        return nil;
+        renderer = routeRenderer;
     }
+    
+    return renderer;
 }
 
 @end

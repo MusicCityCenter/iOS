@@ -103,12 +103,9 @@ static CGFloat const kBlurOffset = 64.0f;
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     
     // Populate contents array with events
-    MCCClient *client = [MCCClient sharedClient];
-    
-    [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+    [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.contents = events;
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning
