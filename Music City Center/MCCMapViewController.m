@@ -201,10 +201,12 @@ static CGFloat const kBlurOffset = 64.0f;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"openMapView"]) {
-        MCCEvent *event = (MCCEvent *) sender;
-        
-        MCCFloorViewController *floorViewController = segue.destinationViewController;
-        [floorViewController setPolylineFromEvent:event];
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = (MCCEvent *) sender;
+            
+            MCCFloorViewController *floorViewController = segue.destinationViewController;
+            [floorViewController setPolylineFromEvent:event];
+        }
     }
 }
 
