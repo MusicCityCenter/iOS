@@ -34,7 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-
 //    self.mapView.mapID = @"musiccitycenter.du2z9f6r";
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
@@ -42,6 +41,7 @@
     self.mapView.delegate = self;
     
 //    self.mapView.mapType = MKMapTypeHybrid
+
     
     self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240 andY:3196];
     self.floor1 = [MCCFloorPlanImage
