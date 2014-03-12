@@ -89,6 +89,8 @@
             [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
                                                               andY:location.y - self.floor1TopLeft.y];
             
+            NSLog(@"(%lu, %lu)", location.x, location.y);
+            
             // Turn the floorplan location into lat-long
             coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
             ++i;
