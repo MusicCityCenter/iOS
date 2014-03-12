@@ -49,8 +49,10 @@
     
     // TODO - Change the order of these checks to floorplan, then shortest path, then events - just for consistency - instead of
     // events first
-    
-    if ([firstPathComponent isEqualToString:@"path"]) {
+    if ([firstPathComponent isEqualToString:@"floorplan"]) {
+        NSLog(@"Turning response into MCCNavData");
+        
+    } else if ([firstPathComponent isEqualToString:@"path"]) {
         NSLog(@"Turning response into MCCNavPath");
         
         NSMutableArray *edges = [NSMutableArray arrayWithCapacity:[responseObject count]];
