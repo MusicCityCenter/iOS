@@ -7,22 +7,16 @@
 //
 
 #import "MCCFloorPlanImageMapping.h"
-#import "MCCClient.h"
 
 @implementation MCCFloorPlanImageMapping
 
 #pragma mark - Designated Initializer
 
-- (instancetype)initWithFloorPlanID:(NSString *)floorPlanID {
+- (instancetype)initWithImageURL:(NSURL *)imageURL {
     self = [super init];
     
     if (self) {
-        _floorPlanID = floorPlanID;
-        MCCClient *client = [MCCClient sharedClient];
-        
-        [client fetchFloorPlan:_floorPlanID withCompletionBlock:^(MCCNavData *navData) {
-            
-        }];
+        _imageURL = imageURL;
     }
     
     return self;
@@ -30,8 +24,8 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)floorPlanImageMappingWithFloorPlanID:(NSString *)floorPlanID {
-    return [[self alloc] initWithFloorPlanID:floorPlanID];
++ (instancetype)floorPlanImageMappingWithImageURL:(NSURL *)imageURL {
+    return [[self alloc] initWithImageURL:imageURL];
 }
 
 #pragma mark - Instance Methods
