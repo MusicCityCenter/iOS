@@ -78,17 +78,17 @@
             CLLocationCoordinate2D coords[numPoints];
             
             // Start with the start of the first edge
-            MCCFloorPlanEdge *edge0 = [path.edges firstObject];
-            NSLog(@"%@",edge0.startLocation.locationId);
-            MCCFloorPlanImageLocation *location0 = [navData.mapping coordinatesOfLocation:edge0.startLocation.locationId];
+            MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
+            NSLog(@"%@",firstEdge.startLocation.locationId);
+            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
             
-            MCCFloorPlanImageLocation *translatedLocation0 =
-            [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location0.x - self.floor1TopLeft.x
-                                                              andY:location0.y - self.floor1TopLeft.y];
+            MCCFloorPlanImageLocation *firstTranslatedLocation =
+                        [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.floor1TopLeft.x
+                                                                          andY:firstLocation.y - self.floor1TopLeft.y];
             
             
             // Turn the floorplan location into lat-long
-            coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation0];
+            coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
             
             int i = 1;
             
@@ -107,11 +107,11 @@
                 ++i;
             }
             
-            self.polyline = [MKPolyline polylineWithCoordinates:coords count:numPoints];
+            self.polyline = [MKPolyline polylineWithCoordinates:coords
+                                                          count:numPoints];
             
             
             [self.mapView addOverlay:self.polyline];
-            [self.mapView setNeedsDisplay];
         }];
     }];
 }
