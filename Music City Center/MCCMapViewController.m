@@ -145,7 +145,7 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MCCEvent *event = self.searchContents[indexPath.row];
     
-    [self performSegueWithIdentifier:@"openMapView" sender:event];
+    [self performSegueWithIdentifier:@"PushMap" sender:event];
 }
 
 #pragma mark - Search Display Delegate
@@ -200,7 +200,7 @@ static CGFloat const kBlurOffset = 64.0f;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"openMapView"]) {
+    if ([segue.identifier isEqualToString:@"PushMap"]) {
         if ([sender isKindOfClass:[MCCEvent class]]) {
             MCCEvent *event = (MCCEvent *) sender;
             

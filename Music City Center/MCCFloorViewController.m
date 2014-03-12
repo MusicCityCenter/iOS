@@ -43,13 +43,13 @@
 //    self.mapView.mapType = MKMapTypeHybrid
 
     
-    self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240 andY:3196];
-    self.floor1 = [MCCFloorPlanImage
-                   floorPlanImageWithSizeX:916
-                   sizeY:628
-                   topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
-                   topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
-                   andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
+    self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240
+                                                                           andY:3196];
+    self.floor1 = [MCCFloorPlanImage floorPlanImageWithSizeX:916
+                                                       sizeY:628
+                                                     topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
+                                                    topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
+                                               andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
 }
 
 - (void)didReceiveMemoryWarning
