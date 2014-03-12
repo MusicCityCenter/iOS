@@ -40,6 +40,35 @@
     NSString *firstPathComponent = [relativeURL.pathComponents firstObject];
     
     if ([firstPathComponent isEqualToString:@"floorplan"]) {
+        
+        NSArray *locationsJSONArray = responseObject[@"locations"];
+        NSMutableArray *locations = [NSMutableArray arrayWithCapacity:[locationsJSONArray count]];
+        for (NSDictionary *locationJSONDictionary in locationsJSONArray) {
+             [locations addObject:[MCCFloorPlanLocation floorPlanLocationWithLocationId:locationJSONDictionary[@"id"]
+                                                                                andType:locationJSONDictionary[@"type"]]];
+         }
+        NSMutableArray *floorPlanEdges = [NSMutableArray arrayWithCapacity:[responseObject count]];
+        
+        for (NSDictionary *edgeDictionary in responseObject) {
+            MCCFloorPlanLocation *startLocation = [MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"from"]
+                                                                                                andType:@""];
+            MCCFloorPlanLocation *endLocation = [MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"to"]
+                                                                                              andType:@""];
+            
+            MCCFloorPlanEdge *edge = [MCCFloorPlanEdge floorPlanEdgeWithStartLocation:startLocation
+                                                                          endLocation:endLocation
+                                                                               length:[edgeDictionary[@"length"] floatValue]
+                                                                             andAngle:[edgeDictionary[@"angle"] floatValue]];
+            
+            [floorPlanEdges addObject:edge];
+        }
+        
+        MCCFloorPlan *myFloorPlan = [MCCFloorPlan floorPlanWithFloorplanId:responseObject[@"id"] locations:locations andEdges:floorPlanEdges];
+        
+        responseObject = [myFloorPlan copy];
+        
+        //responseObject = floorPlan;
+        
         // Example FloorPlan Mapping Response:
         //{"mapping":{"imageUrl":"/mcc/image/floorplan/windsor","mapping":{"k":{"x":878,"y":556},"g":{"x":679,"y":541},"f":{"x":477,"y":524},"df":{"x":880,"y":359}}},"floorplan":{"locations":[{"id":"g","type":"room"},{"id":"df","type":"room"},{"id":"k","type":"room"},{"id":"f","type":"room"}],"edges":[{"start":"g","end":"k","length":0.0},{"start":"g","end":"f","length":0.0},{"start":"df","end":"k","length":0.0},{"start":"k","end":"g","length":0.0},{"start":"k","end":"df","length":0.0},{"start":"f","end":"g","length":0.0}],"types":{"name":"root","children":[{"name":"room"}]}}}
         
