@@ -123,8 +123,8 @@
     if ([overlay isKindOfClass:[MKPolyline class]]) {
         MKPolyline *route = overlay;
         MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
-        routeRenderer.fillColor = [UIColor redColor];
-        routeRenderer.strokeColor = [UIColor redColor];
+        routeRenderer.fillColor = [UIColor blueColor];
+        routeRenderer.strokeColor = [UIColor blueColor];
         routeRenderer.lineWidth = 4;
         renderer = routeRenderer;
     }
