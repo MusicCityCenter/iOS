@@ -33,38 +33,12 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Custom Getters
 
 // Work Item 8
-// This array should be populated using MCCNav
+// The contents array should be populated using MCCNav
 // When an item is selected, it should open the appropriate floor plan
 // And display a route to that location (from a randomly selected start
 // point) on top of the floor plan image. Obtaining and displaying the
 // route is the responsibility of the person doing Work Item 9 -- not
 // this person.
-
-// *** NO NEED FOR THIS CUSTOM GETTER ANYMORE ? ****
-
-//- (NSArray *)contents {
-//    if (!_contents) {
-//        _contents = @[// L4
-//                      @"Grand Ballroom", @"L4 Balcony",
-//                      @"Room 401", @"Room 402", @"Room 403",
-//                      // L3
-//                      @"Hall A1", @"Hall A2", @"Hall B", @"Hall C", @"Hall D",
-//                      @"L3 Terrace", @"Lounge",
-//                      // L2
-//                      @"L2 Balcony",
-//                      @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205",
-//                      @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210",
-//                      @"Room 211", @"Room 212", @"Room 213", @"Room 214",
-//                      // L1M
-//                      @"Davidson Ballroom", @"Board Room A", @"Board Room B", @"L1M Balcony",
-//                      // L1
-//                      @"L1 Terrace",
-//                      @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105",
-//                      @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110"];
-//    }
-//    
-//    return _contents;
-//}
 
 - (NSMutableArray *)searchContents {
     if (!_searchContents) {
