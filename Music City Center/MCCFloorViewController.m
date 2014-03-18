@@ -44,7 +44,7 @@ static NSString * const floorPlanId = @"full-test-1";
 @property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
 @property (strong, nonatomic) NSDictionary *locationData;
 
-@property (strong, nonatomic) MKPolyline *polyline;
+@property (strong, nonatomic) MKPolyline *routePolyline;
 
 @property (strong, nonatomic) NSDictionary *mapIDs;
 
@@ -108,11 +108,18 @@ static NSString * const floorPlanId = @"full-test-1";
     self.currentDirectionButton.hidden = !routing;
     
     if (routing) {
-        self.navigationItem.rightBarButtonItem = self.endButton;
+        // TODO - The user sees this change from "Button" to the first direction's
+        // text. While we could just have the button start with no text, it would
+        // be nice to animate the button down from the navbar (like in Maps.app)
+        // once the text has been set.
         [self.currentDirectionButton setTitle:[self.directions firstObject]
                                      forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem = self.endButton;
     } else {
         self.navigationItem.rightBarButtonItem = nil;
+        [self.mapView removeOverlay:self.routePolyline];
+        self.routePolyline = nil;
+        self.directions = nil;
     }
 }
 
@@ -248,17 +255,18 @@ static NSString * const floorPlanId = @"full-test-1";
                            
                            numPoints = i;
                            
-                           self.polyline = [MKPolyline polylineWithCoordinates:coords
-                                                                         count:numPoints];
+                    
+                           self.routePolyline = [MKPolyline polylineWithCoordinates:coords
+                                                                              count:numPoints];
                            
-                           
-                           [self.mapView addOverlay:self.polyline];
+                           [self.mapView addOverlay:self.routePolyline];
                            
                            self.directions = [directions copy];
                            self.routing = YES;
                        }];
        }];
-
+}
+    
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -286,22 +294,6 @@ static NSString * const floorPlanId = @"full-test-1";
     return direction;
 }
 
-#pragma mark - Map View Delegate
-
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
-    MKOverlayRenderer *renderer;
-    
-    if ([overlay isKindOfClass:[MKPolyline class]]) {
-        MKPolyline *route = overlay;
-        MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
-        routeRenderer.fillColor = [UIColor blueColor];
-        routeRenderer.strokeColor = [UIColor blueColor];
-        routeRenderer.lineWidth = 4;
-        renderer = routeRenderer;
-    }
-    
-    return renderer;
-}
 
 #pragma mark - IB Actions
 
