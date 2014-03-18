@@ -8,15 +8,19 @@
 
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
+#import "MCCClient.h"
+#import "MCCEvent.h"
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
+#import <MapKit/MapKit.h>
 
 static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
 
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
-@property (strong, nonatomic) NSArray *contents;
+
+@property (strong, nonatomic) NSArray *contents; // of MCCEvents
 @property (strong, nonatomic) NSMutableArray *searchContents;
 
 @property (strong, nonatomic) GPUImageView *blurView;
@@ -29,35 +33,12 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Custom Getters
 
 // Work Item 8
-// This array should be populated using MCCNav
+// The contents array should be populated using MCCNav
 // When an item is selected, it should open the appropriate floor plan
 // And display a route to that location (from a randomly selected start
 // point) on top of the floor plan image. Obtaining and displaying the
 // route is the responsibility of the person doing Work Item 9 -- not
 // this person.
-- (NSArray *)contents {
-    if (!_contents) {
-        _contents = @[// L4
-                      @"Grand Ballroom", @"L4 Balcony",
-                      @"Room 401", @"Room 402", @"Room 403",
-                      // L3
-                      @"Hall A1", @"Hall A2", @"Hall B", @"Hall C", @"Hall D",
-                      @"L3 Terrace", @"Lounge",
-                      // L2
-                      @"L2 Balcony",
-                      @"Room 201", @"Room 202", @"Room 203", @"Room 204", @"Room 205",
-                      @"Room 206", @"Room 207", @"Room 208", @"Room 209", @"Room 210",
-                      @"Room 211", @"Room 212", @"Room 213", @"Room 214",
-                      // L1M
-                      @"Davidson Ballroom", @"Board Room A", @"Board Room B", @"L1M Balcony",
-                      // L1
-                      @"L1 Terrace",
-                      @"Room 101", @"Room 102", @"Room 103", @"Room 104", @"Room 105",
-                      @"Room 106", @"Room 107", @"Room 108", @"Room 109", @"Room 110"];
-    }
-    
-    return _contents;
-}
 
 - (NSMutableArray *)searchContents {
     if (!_searchContents) {
@@ -94,6 +75,11 @@ static CGFloat const kBlurOffset = 64.0f;
     
     // Put the search bar in the nav bar
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    
+    // Populate contents array with events
+    [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+        self.contents = events;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,13 +100,23 @@ static CGFloat const kBlurOffset = 64.0f;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    cell.textLabel.text = self.searchContents[indexPath.row];
+    MCCEvent *event = self.searchContents[indexPath.row];
+    
+    cell.textLabel.text = event.name;
     
     // Set the backround to clear so you can see the blur effect underneath
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
+}
+
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MCCEvent *event = self.searchContents[indexPath.row];
+    
+    [self performSegueWithIdentifier:@"PushMap" sender:event];
 }
 
 #pragma mark - Search Display Delegate
@@ -163,13 +159,24 @@ static CGFloat const kBlurOffset = 64.0f;
 // Find all matching strings
 - (void)findMatches {
     [self.searchContents removeAllObjects];
-    
-    for (NSString *str in self.contents) {
-        NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text
-                                   options:NSCaseInsensitiveSearch];
+
+    for (MCCEvent *event in self.contents) {
+        NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
+                                          options:NSCaseInsensitiveSearch];
         
         if (range.location != NSNotFound) {
-            [self.searchContents addObject:str];
+            [self.searchContents addObject:event];
+        }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PushMap"]) {
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = (MCCEvent *) sender;
+            
+            MCCFloorViewController *floorViewController = segue.destinationViewController;
+            [floorViewController setPolylineFromEvent:event];
         }
     }
 }

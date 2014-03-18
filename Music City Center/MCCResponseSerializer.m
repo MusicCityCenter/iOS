@@ -12,6 +12,13 @@
 #import "MCCFloorPlanEdge.h"
 #import "MCCNavPath.h"
 #import "MCCEvent.h"
+#import "MCCNavPath.h"
+#import "MCCNavData.h"
+#import "MCCFloorPlan.h"
+#import "MCCFloorPlanEdge.h"
+#import "MCCFloorPlanLocation.h"
+#import "MCCFloorPlanImageLocation.h"
+#import "MCCFloorPlanImageMapping.h"
 
 @implementation MCCResponseSerializer
 
@@ -37,12 +44,60 @@
     // responseObject = floorPlan;
     
     NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
-    NSString *firstPathComponent = [relativeURL.pathComponents firstObject];
+    NSString *firstPathComponent = relativeURL.pathComponents[2];
     
     if ([firstPathComponent isEqualToString:@"floorplan"]) {
         // Example FloorPlan Mapping Response:
         //{"mapping":{"imageUrl":"/mcc/image/floorplan/windsor","mapping":{"k":{"x":878,"y":556},"g":{"x":679,"y":541},"f":{"x":477,"y":524},"df":{"x":880,"y":359}}},"floorplan":{"locations":[{"id":"g","type":"room"},{"id":"df","type":"room"},{"id":"k","type":"room"},{"id":"f","type":"room"}],"edges":[{"start":"g","end":"k","length":0.0},{"start":"g","end":"f","length":0.0},{"start":"df","end":"k","length":0.0},{"start":"k","end":"g","length":0.0},{"start":"k","end":"df","length":0.0},{"start":"f","end":"g","length":0.0}],"types":{"name":"root","children":[{"name":"room"}]}}}
         
+
+        // Get the mapping
+        NSMutableDictionary *mappingDictionary = [NSMutableDictionary dictionary];
+        
+        NSDictionary *innerMappingDictionary = responseObject[@"mapping"][@"mapping"];
+        
+        for (NSString *locationID in innerMappingDictionary) {
+            MCCFloorPlanImageLocation *location =
+            [MCCFloorPlanImageLocation
+             floorPlanImageLocationWithX:[innerMappingDictionary[locationID][@"x"] integerValue]
+                                    andY:[innerMappingDictionary[locationID][@"y"] integerValue]];
+            
+            mappingDictionary[locationID] = location;
+        }
+        
+        MCCFloorPlanImageMapping *floorPlanImageMapping =
+        [MCCFloorPlanImageMapping
+         floorPlanImageMappingWithImageURL:[NSURL URLWithString:responseObject[@"mapping"][@"imageUrl"]]
+         andMappingDictionary:mappingDictionary];
+        
+        
+        // Get all the locations
+        NSMutableArray *locationArray = [NSMutableArray array];
+        
+        for (NSDictionary *locationDictionary in responseObject[@"floorplan"][@"locations"]) {
+            MCCFloorPlanLocation *location = [MCCFloorPlanLocation
+                                              floorPlanLocationWithLocationId:locationDictionary[@"id"]
+                                              andType:locationDictionary[@"type"]];
+            [locationArray addObject:location];
+        }
+        
+        // Get all the edges
+        NSMutableArray *edgeArray = [NSMutableArray array];
+        
+        for (NSDictionary *edgeDictionary in responseObject[@"floorplan"][@"edges"]) {
+            MCCFloorPlanEdge *edge = [MCCFloorPlanEdge
+                                      floorPlanEdgeWithStartLocation: [MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"start"] andType:@"unknown"]
+                                      endLocation:[MCCFloorPlanLocation floorPlanLocationWithLocationId:edgeDictionary[@"end"] andType:@"unknown"]
+                                      length:[edgeDictionary[@"length"] floatValue]
+                                      andAngle:0];
+            [edgeArray addObject:edge];
+        }
+        
+        // Combine the locations and edges into a FloorPlan
+        MCCFloorPlan *floorPlan = [MCCFloorPlan floorPlanWithFloorplanId:relativeURL.pathComponents[4] locations:locationArray andEdges:edgeArray];
+        
+        // Put it all together into a NavData object
+        responseObject = [MCCNavData navDataWithFloorPlan:floorPlan andFloorPlanImageMapping:floorPlanImageMapping];
         
     } else if ([firstPathComponent isEqualToString:@"path"]) {
         // Example Path Response:
@@ -65,9 +120,13 @@
         }
         
         responseObject = [MCCNavPath navPathWithEdges:[floorPlanEdges copy]];
+        
     } else if ([firstPathComponent isEqualToString:@"events"]) {
         // Example Events Response:
         // [{"id":"75cc1e2b-b26c-4668-83b1-99433f4d334f","name":"asdf","description":"asdf","day":5,"month":1,"year":2014,"startTime":420,"endTime":1380,"floorplanId":"windsor","floorplanLocationId":"g"}]
+        
+
+        NSLog(@"Turning response into NSArray of MCCEvents");
         
         NSMutableArray *events = [NSMutableArray arrayWithCapacity:[responseObject count]];
         
@@ -78,10 +137,12 @@
                                                   name:eventDictionary[@"name"]
                                             andDetails:eventDictionary[@"details"]];
             
+            event.locationId = eventDictionary[@"floorplanLocationId"];
             [events addObject:event];
         }
-        
+
         responseObject = [events copy];
+
     }
     
     return responseObject;
