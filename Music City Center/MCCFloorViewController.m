@@ -137,7 +137,7 @@ static NSString * const floorPlanId = @"full-test-1";
     self.mapView.delegate = self;
     
     self.routing = NO;
-    
+
 
 //    self.mapView.mapType = MKMapTypeHybrid
 
