@@ -10,4 +10,6 @@
 
 @interface MCCDirectionsTableViewController : UITableViewController
 
+@property (nonatomic, copy) NSArray *directions;
+
 @end

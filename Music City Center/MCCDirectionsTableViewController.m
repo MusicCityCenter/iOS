@@ -10,24 +10,9 @@
 
 @interface MCCDirectionsTableViewController ()
 
-@property (nonatomic, copy) NSArray *directions;
-
 @end
 
 @implementation MCCDirectionsTableViewController
-
-#pragma mark - Custom Getter
-
-- (NSArray *)directions {
-    if (!_directions) {
-        _directions = @[@"Walk left until you reach something.",
-                        @"Keep going until you reach something else.",
-                        @"Turn left and go up the stairs.",
-                        @"Keep turning and walking."];
-    }
-    
-    return _directions;
-}
 
 #pragma mark - View Controller Lifecycle
 

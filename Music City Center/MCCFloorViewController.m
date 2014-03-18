@@ -19,6 +19,7 @@
 #import "MCCFloorPlanImageMapping.h"
 #import "MCCFloorPlanLocation.h"
 #import <MBXMapKit/MBXMapKit.h>
+#import "MCCDirectionsTableViewController.h"
 
 
 static NSString * const floorPlanId = @"full-test-1";
@@ -32,6 +33,7 @@ static NSString * const floorPlanId = @"full-test-1";
 @property (strong, nonatomic) UIBarButtonItem *endButton;
 
 @property (nonatomic, getter = isRouting) BOOL routing;
+@property (nonatomic, copy) NSArray *directions;
 
 @property (strong, nonatomic) NSString *currentFloor;
 
@@ -196,8 +198,10 @@ static NSString * const floorPlanId = @"full-test-1";
                            
                            // Start with the start of the first edge
                            MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
+
                            NSLog(@"Starting at: %@",firstEdge.startLocation.locationId);
                            NSLog(@"Ending at: %@", self.endLocation.locationId);
+
                            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
                            
                            MCCFloorPlanImageLocation *firstTranslatedLocation =
@@ -207,8 +211,9 @@ static NSString * const floorPlanId = @"full-test-1";
                            
                            // Turn the floorplan location into lat-long
                            coords[0] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
-                           
-                           int i = 1;
+
+                           NSInteger i = 1;
+                           NSMutableArray *directions = [NSMutableArray arrayWithCapacity:[path.edges count]];
                            
                            // Then do the end of all the other edges
                            for (MCCFloorPlanEdge *edge in path.edges) {
@@ -223,10 +228,12 @@ static NSString * const floorPlanId = @"full-test-1";
                                    MCCFloorPlanImageLocation *translatedLocation =
                                    [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
                                                                                      andY:location.y - self.topLeft.y];
-                               
+                
                                    // Turn the floorplan location into lat-long
                                    coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
                                    ++i;
+                                   
+                                   [directions addObject:[self directionForEdge:edge]];
                                } else {
                                    break;
                                }
@@ -240,10 +247,53 @@ static NSString * const floorPlanId = @"full-test-1";
                            
                            [self.mapView addOverlay:self.polyline];
                            
+                           self.directions = [directions copy];
                            self.routing = YES;
                        }];
        }];
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PresentDirections"]) {
+        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+        MCCDirectionsTableViewController *directionsTableViewController = (MCCDirectionsTableViewController *)navigationController.visibleViewController;
+        
+        directionsTableViewController.directions = self.directions;
+    }
+}
+
+#pragma mark - Helper Method
+
+- (NSString *)directionForEdge:(MCCFloorPlanEdge *)edge {
+    NSString *direction;
+    
+    if (edge.angle < 180) {
+        direction = @"Turn left";
+    } else if (edge.angle > 180) {
+        direction = @"Turn right";
+    } else {
+        direction = @"Go straight";
+    }
+    
+    return direction;
+}
+
+#pragma mark - Map View Delegate
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+    MKOverlayRenderer *renderer;
+    
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolyline *route = overlay;
+        MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
+        routeRenderer.fillColor = [UIColor blueColor];
+        routeRenderer.strokeColor = [UIColor blueColor];
+        routeRenderer.lineWidth = 4;
+        renderer = routeRenderer;
+    }
+    
+    return renderer;
 }
 
 #pragma mark - IB Actions
