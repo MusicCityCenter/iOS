@@ -116,13 +116,15 @@ static NSString * const floorPlanId = @"full-test-1";
     
     self.mapView.mapID = self.mapIDs[self.currentFloor];
     
-    self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
 
+    self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
     self.mapView.delegate = self;
     
     self.routing = NO;
     
+
 //    self.mapView.mapType = MKMapTypeHybrid
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -243,8 +245,6 @@ static NSString * const floorPlanId = @"full-test-1";
        }];
 
 }
-
-
 
 #pragma mark - IB Actions
 
