@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    self.mapView.mapID = @"musiccitycenter.du2z9f6r";
+    self.mapView.mapID = @"musiccitycenter.vqloko6r";
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
 
