@@ -142,6 +142,9 @@
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="OJ4-Cz-R7l" kind="modal" id="0sE-e6-JcQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -164,6 +167,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FBY-WK-oxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="900" y="104"/>
+        </scene>
+        <!--Directions Table View Controller-->
+        <scene sceneID="z4N-si-qow">
+            <objects>
+                <tableViewController id="KDr-wg-gBT" customClass="MCCDirectionsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YLD-5T-6aM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DirectionCell" textLabel="PXY-DW-Dol" style="IBUITableViewCellStyleDefault" id="rHN-li-bIG">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rHN-li-bIG" id="vTs-ej-DFn">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PXY-DW-Dol">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KDr-wg-gBT" id="rUV-dY-rsf"/>
+                            <outlet property="delegate" destination="KDr-wg-gBT" id="bOs-gd-Gtj"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="odS-cH-xEP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="j6U-wV-2ea">
+                            <connections>
+                                <segue destination="4u7-vG-n6P" kind="unwind" unwindAction="directionsDone:" id="mKG-KR-spb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pRC-VT-0ab" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4u7-vG-n6P" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="104"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6dC-vn-50f">
@@ -387,6 +435,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ra-ik-sbp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="59" y="1481"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="N0D-ml-G3s">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OJ4-Cz-R7l" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="E2e-cT-aDx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KDr-wg-gBT" kind="relationship" relationship="rootViewController" id="gt8-jV-lW0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rQ2-qf-pwS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1331" y="104"/>
         </scene>
     </scenes>
     <resources>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
+		2D4FF35B18D816C200A02B69 /* MCCDirectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */; };
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
 		2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8447418BC447000B4296F /* MCCResponseSerializer.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
@@ -52,6 +53,8 @@
 		2394C53480684646969EDC29 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSettingsTableViewController.h; sourceTree = "<group>"; };
 		2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSettingsTableViewController.m; sourceTree = "<group>"; };
+		2D4FF35918D816C200A02B69 /* MCCDirectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCDirectionsTableViewController.h; sourceTree = "<group>"; };
+		2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCDirectionsTableViewController.m; sourceTree = "<group>"; };
 		2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		2DD8447318BC447000B4296F /* MCCResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCResponseSerializer.h; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
+				2D4FF35918D816C200A02B69 /* MCCDirectionsTableViewController.h */,
+				2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,
 				841DD67E18B8BF6B009626B8 /* MCCClient.m in Sources */,
+				2D4FF35B18D816C200A02B69 /* MCCDirectionsTableViewController.m in Sources */,
 				4BF4026418BE98210067AD1A /* MCCFloorPlanImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
