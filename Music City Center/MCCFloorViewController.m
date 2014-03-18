@@ -29,6 +29,8 @@ static NSString * const floorPlanId = @"full-test-1";
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *currentDirectionButton;
 
+@property (strong, nonatomic) UIBarButtonItem *endButton;
+
 @property (nonatomic, getter = isRouting) BOOL routing;
 
 @property (strong, nonatomic) NSString *currentFloor;
@@ -84,11 +86,25 @@ static NSString * const floorPlanId = @"full-test-1";
 
 
 
+#pragma mark - Custom Getter
+
+- (UIBarButtonItem *)endButton {
+    if (!_endButton) {
+        _endButton = [[UIBarButtonItem alloc] initWithTitle:@"End"
+                                                      style:UIBarButtonItemStyleBordered
+                                                     target:self
+                                                     action:@selector(endTapped:)];
+    }
+    
+    return _endButton;
+}
+
 #pragma mark - Custom Setter
 
 - (void)setRouting:(BOOL)routing {
     _routing = routing;
     self.currentDirectionButton.hidden = !routing;
+    self.navigationItem.rightBarButtonItem = routing ? self.endButton : nil;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -230,7 +246,11 @@ static NSString * const floorPlanId = @"full-test-1";
 
 
 
-#pragma mark - IB Action
+#pragma mark - IB Actions
+
+- (IBAction)endTapped:(UIBarButtonItem *)sender {
+    self.routing = NO;
+}
 
 // Unwind segue
 - (IBAction)directionsDone:(UIStoryboardSegue *)segue {}
