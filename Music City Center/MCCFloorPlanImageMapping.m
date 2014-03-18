@@ -32,8 +32,7 @@
 #pragma mark - Instance Methods
 
 - (MCCFloorPlanImageLocation *)coordinatesOfLocation:(NSString *)locationId {
-    // Use objectForKey: so that it returns nil if the key is not found instead of throwing an exception
-    return [self.mappingDictionary objectForKey:locationId];
+    return self.mappingDictionary[locationId];
 }
 
 @end
