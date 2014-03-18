@@ -106,7 +106,14 @@ static NSString * const floorPlanId = @"full-test-1";
 - (void)setRouting:(BOOL)routing {
     _routing = routing;
     self.currentDirectionButton.hidden = !routing;
-    self.navigationItem.rightBarButtonItem = routing ? self.endButton : nil;
+    
+    if (routing) {
+        self.navigationItem.rightBarButtonItem = self.endButton;
+        [self.currentDirectionButton setTitle:[self.directions firstObject]
+                                     forState:UIControlStateNormal];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 #pragma mark - View Controller Lifecycle
