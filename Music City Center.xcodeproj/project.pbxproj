@@ -125,6 +125,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D4FF35718D8019600A02B69 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
+				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
+				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
+				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		2DD8447218BC444C00B4296F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,15 +182,12 @@
 		4B8E50D018A04A93009F4266 /* Music City Center */ = {
 			isa = PBXGroup;
 			children = (
-				841DD66718B8B7F3009626B8 /* Nav */,
+				841DD66718B8B7F3009626B8 /* Models */,
+				2D4FF35718D8019600A02B69 /* View Controllers */,
 				2DD8447218BC444C00B4296F /* Networking */,
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
-				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
-				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
-				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
-				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
@@ -219,7 +227,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		841DD66718B8B7F3009626B8 /* Nav */ = {
+		841DD66718B8B7F3009626B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				841DD66A18B8B8F4009626B8 /* MCCFloorPlanLocation.h */,
@@ -241,7 +249,7 @@
 				4BF4026218BE98210067AD1A /* MCCFloorPlanImage.h */,
 				4BF4026318BE98210067AD1A /* MCCFloorPlanImage.m */,
 			);
-			name = Nav;
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

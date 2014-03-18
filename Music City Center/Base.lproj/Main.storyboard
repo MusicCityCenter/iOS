@@ -132,21 +132,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fKe-oR-PFe" customClass="MBXMapView">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fKe-oR-PFe" customClass="MBXMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-Rs-zIZ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fKe-oR-PFe" firstAttribute="leading" secondItem="GBX-fc-0s5" secondAttribute="leading" id="6sN-gY-FSR"/>
+                            <constraint firstItem="fKe-oR-PFe" firstAttribute="top" secondItem="GBX-fc-0s5" secondAttribute="top" id="CK1-5Y-9PY"/>
+                            <constraint firstItem="V2p-Rs-zIZ" firstAttribute="top" secondItem="1CY-Kb-God" secondAttribute="bottom" id="PuI-Lh-dXg"/>
+                            <constraint firstItem="V2p-Rs-zIZ" firstAttribute="trailing" secondItem="fKe-oR-PFe" secondAttribute="trailing" id="Vou-ZZ-6SG"/>
+                            <constraint firstAttribute="bottom" secondItem="fKe-oR-PFe" secondAttribute="bottom" id="r7p-t7-yzV"/>
+                            <constraint firstItem="V2p-Rs-zIZ" firstAttribute="leading" secondItem="fKe-oR-PFe" secondAttribute="leading" id="vhk-G3-B3P"/>
+                            <constraint firstAttribute="trailing" secondItem="fKe-oR-PFe" secondAttribute="trailing" id="y0G-ga-nse"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0S0-vT-t8E"/>
                     <connections>
+                        <outlet property="currentDirectionButton" destination="V2p-Rs-zIZ" id="RSi-W0-4yr"/>
                         <outlet property="mapView" destination="fKe-oR-PFe" id="7RK-Ee-Ncl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FBY-WK-oxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="934" y="104"/>
+            <point key="canvasLocation" x="900" y="104"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6dC-vn-50f">

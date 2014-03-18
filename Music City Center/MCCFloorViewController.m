@@ -27,6 +27,9 @@ static NSString * const floorPlanId = @"full-test-1";
 @interface MCCFloorViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIButton *currentDirectionButton;
+
+@property (nonatomic, getter = isRouting) BOOL routing;
 
 @property (strong, nonatomic) NSString *currentFloor;
 
@@ -80,7 +83,15 @@ static NSString * const floorPlanId = @"full-test-1";
 }
 
 
-# pragma mark - View Controller Lifecycle
+
+#pragma mark - Custom Setter
+
+- (void)setRouting:(BOOL)routing {
+    _routing = routing;
+    self.currentDirectionButton.hidden = !routing;
+}
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -92,6 +103,8 @@ static NSString * const floorPlanId = @"full-test-1";
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
 
     self.mapView.delegate = self;
+    
+    self.routing = NO;
     
 //    self.mapView.mapType = MKMapTypeHybrid
 }
@@ -107,6 +120,7 @@ static NSString * const floorPlanId = @"full-test-1";
     // Save the incoming data
     self.endLocation = location;
     
+
     [[MCCClient sharedClient] locationFromiBeacons:locationData
                                          forFloorPlan:floorPlanId
                                withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
@@ -121,7 +135,9 @@ static NSString * const floorPlanId = @"full-test-1";
     [self drawPolylineFromStartLocation:startLocation];
 }
 
-#pragma mark - MKMapViewDelegate
+
+
+#pragma mark - Map View Delegate
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     MKOverlayRenderer *renderer = nil;
@@ -205,6 +221,8 @@ static NSString * const floorPlanId = @"full-test-1";
                            
                            
                            [self.mapView addOverlay:self.polyline];
+                           
+                           self.routing = YES;
                        }];
        }];
 
