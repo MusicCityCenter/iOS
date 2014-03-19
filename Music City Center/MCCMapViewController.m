@@ -206,6 +206,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 #pragma mark - Table View Data Source
 
+<<<<<<< HEAD
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     NSInteger numberOfSections = 0;
@@ -215,6 +216,16 @@ static NSString * const floorPlanId = @"full-test-1";
     }
     if ([self.roomSearchResults count] > 0) {
         ++numberOfSections;
+=======
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PushMap"]) {
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = (MCCEvent *)sender;
+            
+            MCCFloorViewController *floorViewController = segue.destinationViewController;
+            floorViewController.event = event;
+        }
+>>>>>>> Make sure routing path displays over map tiles
     }
     
     return numberOfSections;

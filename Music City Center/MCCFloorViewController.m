@@ -154,6 +154,7 @@ static NSString * const floorPlanId = @"full-test-1";
                                  [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
                                                                              withLocation:edge.endLocation]];
                              }
+                        
                          }];
     
     self.routing = NO;
@@ -303,6 +304,9 @@ static NSString * const floorPlanId = @"full-test-1";
 
 - (NSString *)directionForEdge:(MCCFloorPlanEdge *)edge {
     NSString *direction;
+    
+    // TODO - Calculate from previous edge - the angle for each
+    // edge is absolute
     
     if (edge.angle < 180) {
         direction = @"Turn left";

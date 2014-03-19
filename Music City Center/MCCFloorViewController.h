@@ -12,8 +12,14 @@
 
 @interface MCCFloorViewController : UIViewController
 
+<<<<<<< HEAD
 - (void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)location andLocationData:(NSDictionary *)locationData;
 - (void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)endLocation fromFloorPlanLocation:(MCCFloorPlanLocation *)startLocation;
 
+=======
+@property (strong, nonatomic) MCCEvent *event;
+
+- (void)setPolylineFromEvent:(MCCEvent *)event;
+>>>>>>> Make sure routing path displays over map tiles
 
 @end
