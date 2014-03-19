@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
 		2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8447418BC447000B4296F /* MCCResponseSerializer.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
@@ -49,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		2394C53480684646969EDC29 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSettingsTableViewController.h; sourceTree = "<group>"; };
+		2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSettingsTableViewController.m; sourceTree = "<group>"; };
 		2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		2DD8447318BC447000B4296F /* MCCResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCResponseSerializer.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
+				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
+				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
 			);
 			path = "Music City Center";
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				841DD67218B8BC7D009626B8 /* MCCNavData.m in Sources */,
 				841DD66C18B8B8F4009626B8 /* MCCFloorPlanLocation.m in Sources */,
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
+				2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */,
 				4B8E50D718A04A93009F4266 /* main.m in Sources */,
 				841DD67818B8BD4F009626B8 /* MCCFloorPlanEdge.m in Sources */,
 				2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */,
