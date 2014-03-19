@@ -16,7 +16,7 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @interface MCCEventsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) NSArray * recipes;
+@property (strong, nonatomic) NSArray * contents;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISegmentedControl *segmented;
 @property (strong, nonatomic) UILabel * label;
@@ -28,7 +28,6 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @implementation MCCEventsViewController
 
-//NSArray *recipes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,7 +45,7 @@ static NSString * const kCellIdentifier = @"Cell";
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
     self.view.backgroundColor = [UIColor whiteColor];
-    //recipes = [NSArray arrayWithObjects:@"Item 1" , @"Item 2", @"Item 3", @"Item 4", @"Item 5", nil];
+
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 100, 300, 400)];
     self.tableView.delegate = self;
@@ -60,8 +59,7 @@ static NSString * const kCellIdentifier = @"Cell";
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,320,44)];
     [self.view addSubview:self.searchBar];
-    
-    //Create label
+
     self.label = [[UILabel alloc] init];
     self.label.frame = CGRectMake(10, 44, 300, 40);
     [self.view addSubview:self.label];
@@ -77,14 +75,10 @@ static NSString * const kCellIdentifier = @"Cell";
     // Do any additional setup after loading the view.
     // Populate contents array with events
     [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
-        NSLog(@"eventsarray: %@", events);
-        self.recipes = events;
-        NSLog(@"recipesarray: %@", self.recipes);
+        self.contents = events;
         [self.tableView reloadData];
         
     }];
-    NSLog(@"hello?");
-    NSLog(@"array: %@", self.recipes);
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,15 +102,13 @@ static NSString * const kCellIdentifier = @"Cell";
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.recipes){
+    if (!self.contents){
         return 0;
         
     }
-    NSArray* myRecipes = self.recipes;
-    return [myRecipes count];
+    NSArray* myContents = self.contents;
+    return [myContents count];
     
-    
-    //return [self.contents count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,32 +121,18 @@ static NSString * const kCellIdentifier = @"Cell";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    //cell.textLabel.text = [self.recipes objectAtIndex:indexPath.row];
-    MCCEvent *event = self.recipes[indexPath.row];
+    MCCEvent *event = self.contents[indexPath.row];
     
     cell.textLabel.text = event.name;
     
     return cell;
-    
-    /*
-     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
-     forIndexPath:indexPath];
-     
-     MCCEvent *event = self.contents[indexPath.row];
-     
-     cell.textLabel.text = event.name;
-     
-     // Set the backround to clear so you can see the blur effect underneath
-     cell.textLabel.textColor = [UIColor whiteColor];
-     cell.backgroundColor = [UIColor clearColor];
-     
-     return cell;*/
+
 }
 
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MCCEvent *event = self.recipes[indexPath.row];
+    MCCEvent *event = self.contents[indexPath.row];
     
     [self performSegueWithIdentifier:@"PushMap" sender:event];
 }
