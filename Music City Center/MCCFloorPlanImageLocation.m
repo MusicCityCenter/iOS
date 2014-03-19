@@ -30,4 +30,20 @@
                               andY:y];
 }
 
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)object {
+    return [object isKindOfClass:[self class]] && (self == object || [self isEqualToFloorPlanImageLocation:object]);
+}
+
+- (NSUInteger)hash {
+    return self.x ^ self.y;
+}
+
+#pragma mark - Helper Method
+
+- (BOOL)isEqualToFloorPlanImageLocation:(MCCFloorPlanImageLocation *)floorPlanImageLocation {
+    return self.x == floorPlanImageLocation.x && self.y == floorPlanImageLocation.y;
+}
+
 @end

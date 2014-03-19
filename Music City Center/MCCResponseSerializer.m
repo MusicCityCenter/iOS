@@ -69,10 +69,8 @@
         NSDictionary *innerMappingDictionary = responseObject[@"mapping"][@"mapping"];
         
         for (NSString *locationID in innerMappingDictionary) {
-            MCCFloorPlanImageLocation *location =
-            [MCCFloorPlanImageLocation
-             floorPlanImageLocationWithX:[innerMappingDictionary[locationID][@"x"] integerValue]
-                                    andY:[innerMappingDictionary[locationID][@"y"] integerValue]];
+            MCCFloorPlanImageLocation *location = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:[innerMappingDictionary[locationID][@"x"] integerValue]
+                                                                                                    andY:[innerMappingDictionary[locationID][@"y"] integerValue]];
             
             mappingDictionary[locationID] = location;
         }
@@ -87,9 +85,8 @@
         NSMutableArray *locationArray = [NSMutableArray array];
         
         for (NSDictionary *locationDictionary in responseObject[@"floorplan"][@"locations"]) {
-            MCCFloorPlanLocation *location = [MCCFloorPlanLocation
-                                              floorPlanLocationWithLocationId:locationDictionary[@"id"]
-                                              andType:locationDictionary[@"type"]];
+            MCCFloorPlanLocation *location = [MCCFloorPlanLocation floorPlanLocationWithLocationId:locationDictionary[@"id"]
+                                                                                           andType:locationDictionary[@"type"]];
             [locationArray addObject:location];
         }
         

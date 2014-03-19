@@ -32,6 +32,8 @@ static NSString * const floorPlanId = @"full-test-1";
 
 @property (strong, nonatomic) UIBarButtonItem *endButton;
 
+@property (strong, nonatomic) MCCNavData *navData;
+
 @property (nonatomic, getter = isRouting) BOOL routing;
 @property (nonatomic, copy) NSArray *directions;
 
@@ -135,6 +137,24 @@ static NSString * const floorPlanId = @"full-test-1";
 
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
     self.mapView.delegate = self;
+    
+    // TODO - Look into fetching these in parallel with the tile imagery by
+    // modifying MBXMapKit.m.
+    // See: https://github.com/mapbox/mbxmapkit/issues/75#issuecomment-37945403
+    [[MCCClient sharedClient] fetchFloorPlan:@"full-test-1"
+                         withCompletionBlock:^(MCCNavData *navData) {
+                             self.navData = navData;
+                             
+                             // Fencepost
+                             MCCFloorPlanEdge *firstEdge = [self.navData.floorPlan.edges firstObject];
+                             [self.mapView addAnnotation:[self pointAnnotationForEdge:firstEdge
+                                                                         withLocation:firstEdge.startLocation]];
+                             
+                             for (MCCFloorPlanEdge *edge in self.navData.floorPlan.edges) {
+                                 [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
+                                                                             withLocation:edge.endLocation]];
+                             }
+                         }];
     
     self.routing = NO;
 
@@ -265,6 +285,7 @@ static NSString * const floorPlanId = @"full-test-1";
                            self.routing = YES;
                        }];
        }];
+
 }
     
 #pragma mark - Navigation
@@ -294,6 +315,46 @@ static NSString * const floorPlanId = @"full-test-1";
     return direction;
 }
 
+
+- (CLLocationCoordinate2D)coordinateFromEdge:(MCCFloorPlanEdge *)edge withFloorPlanImage:(MCCFloorPlanImage *)floorPlanImage andTopLeftImageLocation:(MCCFloorPlanImageLocation *)topLeftImageLocation {
+    MCCFloorPlanImageLocation *location = [self.navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
+    
+    MCCFloorPlanImageLocation *translatedLocation = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - topLeftImageLocation.x
+                                                                                                      andY:location.y - topLeftImageLocation.y];
+    
+    // Turn the floorplan location into lat/long
+    return [floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
+}
+
+- (MKPointAnnotation *)pointAnnotationForEdge:(MCCFloorPlanEdge *)edge withLocation:(MCCFloorPlanLocation *)location {
+    MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
+    // TODO - Don't hardcore this floor and top left
+    pointAnnotation.coordinate = [self coordinateFromEdge:edge
+                                       withFloorPlanImage:self.floor1
+                                  andTopLeftImageLocation:self.floor1TopLeft];
+    pointAnnotation.title = location.locationId;
+    
+    return pointAnnotation;
+}
+
+#pragma mark - Map View Delegate
+
+/*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    static NSString * const pointAnnotationIdentifier = @"PointAnnotation";
+    
+    MKAnnotationView *annotationView;
+    
+    if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+        annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotationIdentifier];
+        
+        if (!annotationView) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                             reuseIdentifier:pointAnnotationIdentifier];
+        }
+    }
+    
+    return annotationView;
+}*/
 
 #pragma mark - IB Actions
 
