@@ -35,6 +35,7 @@
 		841DD67E18B8BF6B009626B8 /* MCCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD67D18B8BF6B009626B8 /* MCCClient.m */; };
 		841DD68718B8C501009626B8 /* MCCNavPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68618B8C501009626B8 /* MCCNavPath.m */; };
 		841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68918B8CF88009626B8 /* MCCEvent.m */; };
+		A0F82EA618DA588600C6B658 /* MCCEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F82EA518DA588600C6B658 /* MCCEventsViewController.m */; };
 		AE1DFE2FCE634724A956700A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394C53480684646969EDC29 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,8 @@
 		841DD68818B8CF88009626B8 /* MCCEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEvent.h; sourceTree = "<group>"; };
 		841DD68918B8CF88009626B8 /* MCCEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEvent.m; sourceTree = "<group>"; };
 		8CC4047638FC4D5495B69BDC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A0F82EA418DA588600C6B658 /* MCCEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventsViewController.h; sourceTree = "<group>"; };
+		A0F82EA518DA588600C6B658 /* MCCEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,8 @@
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
+				A0F82EA418DA588600C6B658 /* MCCEventsViewController.h */,
+				A0F82EA518DA588600C6B658 /* MCCEventsViewController.m */,
 				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
 				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
@@ -383,6 +388,7 @@
 				841DD67B18B8BE3D009626B8 /* MCCFloorPlanImageLocation.m in Sources */,
 				841DD66F18B8B96C009626B8 /* MCCFloorPlan.m in Sources */,
 				841DD68718B8C501009626B8 /* MCCNavPath.m in Sources */,
+				A0F82EA618DA588600C6B658 /* MCCEventsViewController.m in Sources */,
 				841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */,
 				841DD67518B8BCB8009626B8 /* MCCFloorPlanImageMapping.m in Sources */,
 				841DD67218B8BC7D009626B8 /* MCCNavData.m in Sources */,
