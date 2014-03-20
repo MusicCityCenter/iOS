@@ -381,6 +381,9 @@ static NSString * const floorPlanId = @"full-test-1";
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46.0, 46.0)];
         pinAnnotationView.leftCalloutAccessoryView = imageView;
         
+        UIButton *detailDisclosureButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        pinAnnotationView.rightCalloutAccessoryView = detailDisclosureButton;
+        
         annotationView = pinAnnotationView;
     }
     
