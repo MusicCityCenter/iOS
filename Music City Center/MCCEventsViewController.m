@@ -38,16 +38,23 @@ static NSString * const kCellIdentifier = @"Cell";
     return self;
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor darkGrayColor];
 
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 100, 300, 400)];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 102, screenWidth, screenHeight-149)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -57,7 +64,8 @@ static NSString * const kCellIdentifier = @"Cell";
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor darkGrayColor];
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,320,44)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,20,320,44)];
+    self.searchBar.barTintColor = [UIColor darkGrayColor];
     [self.view addSubview:self.searchBar];
 
     self.label = [[UILabel alloc] init];
@@ -66,9 +74,9 @@ static NSString * const kCellIdentifier = @"Cell";
     NSArray *itemArray = [NSArray arrayWithObjects: @"Soon", @"Near Me", @"All", nil];
     
     self.segmented = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.segmented.frame = CGRectMake(16, 50, 290, 35);
+    self.segmented.frame = CGRectMake(16, 67, 290, 25);
     self.segmented.selectedSegmentIndex = 1;
-    self.segmented.tintColor = [UIColor darkGrayColor];
+    self.segmented.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.segmented];
     
     
@@ -118,12 +126,16 @@ static NSString * const kCellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
     MCCEvent *event = self.contents[indexPath.row];
     
     cell.textLabel.text = event.name;
+    
+    NSArray *randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", nil];
+    cell.detailTextLabel.text = randomTimesArray[indexPath.row];
+    cell.textLabel.textColor = [UIColor colorWithRed:0.027 green:0.463 blue:0.729 alpha:1]; /*#0776ba*/
     
     return cell;
 
