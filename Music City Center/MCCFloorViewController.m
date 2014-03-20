@@ -334,8 +334,8 @@ static NSString * const floorPlanId = @"full-test-1";
     MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
     // TODO - Don't hardcore this floor and top left
     pointAnnotation.coordinate = [self coordinateFromEdge:edge
-                                       withFloorPlanImage:self.floor1
-                                  andTopLeftImageLocation:self.floor1TopLeft];
+                                       withFloorPlanImage:self.floorPlanImage
+                                  andTopLeftImageLocation:self.topLeft];
     pointAnnotation.title = location.locationId;
     
     return pointAnnotation;

@@ -206,7 +206,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 #pragma mark - Table View Data Source
 
-<<<<<<< HEAD
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     NSInteger numberOfSections = 0;
@@ -216,16 +216,7 @@ static NSString * const floorPlanId = @"full-test-1";
     }
     if ([self.roomSearchResults count] > 0) {
         ++numberOfSections;
-=======
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"PushMap"]) {
-        if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = (MCCEvent *)sender;
-            
-            MCCFloorViewController *floorViewController = segue.destinationViewController;
-            floorViewController.event = event;
-        }
->>>>>>> Make sure routing path displays over map tiles
+
     }
     
     return numberOfSections;
@@ -444,6 +435,9 @@ static NSString * const floorPlanId = @"full-test-1";
     }];
 }
 
+
+#pragma mark - Helper Methods
+
 // Find all matching strings
 - (void)findMatches:(NSString *)searchText {
     [self.eventSearchResults removeAllObjects];
@@ -561,6 +555,25 @@ static NSString * const floorPlanId = @"full-test-1";
     
     return serializedPostData;
     
+}
+
+- (NSString *)titleStringForSegue:(UIStoryboardSegue *)segue {
+    NSString *segueIdentifier = segue.identifier;
+    NSString *title;
+    
+    if ([segueIdentifier isEqualToString:@"PushLevel4"]) {
+        title = @"Level 4";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel3"]) {
+        title = @"Level 3";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel2"]) {
+        title = @"Level 2";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel1M"]) {
+        title = @"Level 1M";
+    } else { // PushLevel1
+        title = @"Level 1";
+    }
+    
+    return title;
 }
 
 @end
