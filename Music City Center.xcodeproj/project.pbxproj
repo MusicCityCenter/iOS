@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
 		2D4FF35B18D816C200A02B69 /* MCCDirectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */; };
+		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
+		2DA0202518DAAFAA0099E975 /* MCCArtAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA0202418DAAFAA0099E975 /* MCCArtAnnotation.m */; };
+		2DA0202718DAAFCE0099E975 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DA0202618DAAFCE0099E975 /* MapKit.framework */; };
+		2DA0202918DAC81C0099E975 /* guitar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2DA0202818DAC81C0099E975 /* guitar.jpg */; };
+		2DA0202B18DAC8270099E975 /* music.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2DA0202A18DAC8270099E975 /* music.jpg */; };
+		2DA0202D18DAC82E0099E975 /* trumpet.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2DA0202C18DAC82E0099E975 /* trumpet.jpg */; };
 		2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8447418BC447000B4296F /* MCCResponseSerializer.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
 		4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */; };
@@ -51,12 +56,18 @@
 
 /* Begin PBXFileReference section */
 		2394C53480684646969EDC29 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSettingsTableViewController.h; sourceTree = "<group>"; };
-		2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSettingsTableViewController.m; sourceTree = "<group>"; };
 		2D4FF35918D816C200A02B69 /* MCCDirectionsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCDirectionsTableViewController.h; sourceTree = "<group>"; };
 		2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCDirectionsTableViewController.m; sourceTree = "<group>"; };
+		2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSettingsTableViewController.h; sourceTree = "<group>"; };
+		2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSettingsTableViewController.m; sourceTree = "<group>"; };
 		2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
 		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		2DA0202318DAAFAA0099E975 /* MCCArtAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCArtAnnotation.h; sourceTree = "<group>"; };
+		2DA0202418DAAFAA0099E975 /* MCCArtAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCArtAnnotation.m; sourceTree = "<group>"; };
+		2DA0202618DAAFCE0099E975 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2DA0202818DAC81C0099E975 /* guitar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guitar.jpg; sourceTree = "<group>"; };
+		2DA0202A18DAC8270099E975 /* music.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = music.jpg; sourceTree = "<group>"; };
+		2DA0202C18DAC82E0099E975 /* trumpet.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = trumpet.jpg; sourceTree = "<group>"; };
 		2DD8447318BC447000B4296F /* MCCResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCResponseSerializer.h; sourceTree = "<group>"; };
 		2DD8447418BC447000B4296F /* MCCResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCResponseSerializer.m; sourceTree = "<group>"; };
 		4B8E50C718A04A93009F4266 /* Music City Center.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music City Center.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +121,7 @@
 			files = (
 				4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */,
 				4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */,
+				2DA0202718DAAFCE0099E975 /* MapKit.framework in Frameworks */,
 				4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */,
 				AE1DFE2FCE634724A956700A /* libPods.a in Frameworks */,
 			);
@@ -137,6 +149,8 @@
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				2D4FF35918D816C200A02B69 /* MCCDirectionsTableViewController.h */,
 				2D4FF35A18D816C200A02B69 /* MCCDirectionsTableViewController.m */,
+				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
+				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -175,6 +189,7 @@
 		4B8E50C918A04A93009F4266 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DA0202618DAAFCE0099E975 /* MapKit.framework */,
 				4B8E50CA18A04A93009F4266 /* Foundation.framework */,
 				4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */,
 				4B8E50CE18A04A93009F4266 /* UIKit.framework */,
@@ -197,8 +212,8 @@
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
-				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
-				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
+				2DA0202318DAAFAA0099E975 /* MCCArtAnnotation.h */,
+				2DA0202418DAAFAA0099E975 /* MCCArtAnnotation.m */,
 			);
 			path = "Music City Center";
 			sourceTree = "<group>";
@@ -206,6 +221,9 @@
 		4B8E50D118A04A93009F4266 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2DA0202C18DAC82E0099E975 /* trumpet.jpg */,
+				2DA0202A18DAC8270099E975 /* music.jpg */,
+				2DA0202818DAC81C0099E975 /* guitar.jpg */,
 				4B8E50D218A04A93009F4266 /* Music City Center-Info.plist */,
 				4B8E50D318A04A93009F4266 /* InfoPlist.strings */,
 				4B8E50D618A04A93009F4266 /* main.m */,
@@ -309,6 +327,11 @@
 				TargetAttributes = {
 					4B8E50C618A04A93009F4266 = {
 						DevelopmentTeam = 7MA825R8KR;
+						SystemCapabilities = {
+							com.apple.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					4B8E50E718A04A93009F4266 = {
 						TestTargetID = 4B8E50C618A04A93009F4266;
@@ -339,7 +362,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DA0202B18DAC8270099E975 /* music.jpg in Resources */,
+				2DA0202D18DAC82E0099E975 /* trumpet.jpg in Resources */,
 				4B8E50E318A04A93009F4266 /* Images.xcassets in Resources */,
+				2DA0202918DAC81C0099E975 /* guitar.jpg in Resources */,
 				4B8E50D518A04A93009F4266 /* InfoPlist.strings in Resources */,
 				4B8E50DE18A04A93009F4266 /* Main.storyboard in Resources */,
 			);
@@ -398,6 +424,7 @@
 				841DD68718B8C501009626B8 /* MCCNavPath.m in Sources */,
 				841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */,
 				841DD67518B8BCB8009626B8 /* MCCFloorPlanImageMapping.m in Sources */,
+				2DA0202518DAAFAA0099E975 /* MCCArtAnnotation.m in Sources */,
 				841DD67218B8BC7D009626B8 /* MCCNavData.m in Sources */,
 				841DD66C18B8B8F4009626B8 /* MCCFloorPlanLocation.m in Sources */,
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,

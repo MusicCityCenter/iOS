@@ -20,6 +20,7 @@
 #import "MCCFloorPlanLocation.h"
 #import <MBXMapKit/MBXMapKit.h>
 #import "MCCDirectionsTableViewController.h"
+#import "MCCArtAnnotation.h"
 
 
 static NSString * const floorPlanId = @"full-test-1";
@@ -137,6 +138,17 @@ static NSString * const floorPlanId = @"full-test-1";
 
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
     self.mapView.delegate = self;
+    
+    // Hard code some art markers
+    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Guitar Picture"
+                                                              coordinate:CLLocationCoordinate2DMake(36.1585, -86.777)
+                                                                andImage:[UIImage imageNamed:@"guitar.jpg"]]];
+    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Music Picture"
+                                                              coordinate:CLLocationCoordinate2DMake(36.1575, -86.777)
+                                                                andImage:[UIImage imageNamed:@"music.jpg"]]];
+    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Trumpet Picture"
+                                                              coordinate:CLLocationCoordinate2DMake(36.1580, -86.777)
+                                                                andImage:[UIImage imageNamed:@"trumpet.jpg"]]];
     
     // TODO - Look into fetching these in parallel with the tile imagery by
     // modifying MBXMapKit.m.
@@ -300,7 +312,7 @@ static NSString * const floorPlanId = @"full-test-1";
     }
 }
 
-#pragma mark - Helper Method
+#pragma mark - Helper Methods
 
 - (NSString *)directionForEdge:(MCCFloorPlanEdge *)edge {
     NSString *direction;
@@ -343,8 +355,9 @@ static NSString * const floorPlanId = @"full-test-1";
 
 #pragma mark - Map View Delegate
 
-/*- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     static NSString * const pointAnnotationIdentifier = @"PointAnnotation";
+    static NSString * const artAnnotationIdentifier = @"ArtAnnotation";
     
     MKAnnotationView *annotationView;
     
@@ -355,10 +368,38 @@ static NSString * const floorPlanId = @"full-test-1";
             annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                              reuseIdentifier:pointAnnotationIdentifier];
         }
+    } else if ([annotation isKindOfClass:[MCCArtAnnotation class]]) {
+        MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:artAnnotationIdentifier];
+        
+        if (!pinAnnotationView) {
+            pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                                reuseIdentifier:artAnnotationIdentifier];
+        }
+        
+        pinAnnotationView.pinColor = MKPinAnnotationColorPurple;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46.0, 46.0)];
+        pinAnnotationView.leftCalloutAccessoryView = imageView;
+        
+        annotationView = pinAnnotationView;
     }
     
+    annotationView.annotation = annotation;
+    annotationView.canShowCallout = YES;
+    
     return annotationView;
-}*/
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    // TODO - Eventually asyncronously fetch the image for the annotation view from the
+    //server.
+    if ([view.leftCalloutAccessoryView isKindOfClass:[UIImageView class]]) {
+        UIImageView *imageView = (UIImageView *)view.leftCalloutAccessoryView;
+        MCCArtAnnotation *artAnnotation = (MCCArtAnnotation *)view.annotation;
+        
+        imageView.image = artAnnotation.image;
+    }
+}
 
 #pragma mark - IB Actions
 
