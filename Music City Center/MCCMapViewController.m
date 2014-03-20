@@ -319,7 +319,7 @@ static NSString * const floorPlanId = @"full-test-1";
     [self.searchBar setShowsCancelButton:YES animated:YES];
     self.tabBarController.tabBar.hidden = YES;
     [self populateEventsAndRooms];
-    
+
     if (!self.searching) {
     
         [self updateBlur];
@@ -350,6 +350,7 @@ static NSString * const floorPlanId = @"full-test-1";
         self.blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     }];
+
     [self.searchBar resignFirstResponder];
     self.searching = NO;
 }
@@ -366,7 +367,7 @@ static NSString * const floorPlanId = @"full-test-1";
     // The above is so that the gesture recognizer on the blurview can be accessed when there is no text in the search bar
     
     [self findMatches:searchText];
-    [self.searchTableView reloadData];
+    [self.searchTableView reloadData];g
 }
 
 #pragma mark - Blur Effect
