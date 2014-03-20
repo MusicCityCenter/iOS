@@ -22,9 +22,7 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) UILabel * label;
 @property (strong, nonatomic) UITableView * tableView;
 
-
 @end
-
 
 @implementation MCCEventsViewController
 
@@ -49,44 +47,32 @@ static NSString * const kCellIdentifier = @"Cell";
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
-    self.view.backgroundColor = [UIColor darkGrayColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
 
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 102, screenWidth, screenHeight-149)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 58, screenWidth, screenHeight-105)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
-    [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
-                                                forCellReuseIdentifier:kCellIdentifier];
-    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor darkGrayColor];
-    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
-    
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,20,320,44)];
-    self.searchBar.barTintColor = [UIColor darkGrayColor];
-    self.searchBar.placeholder = @"Search for Events";
-    [self.view addSubview:self.searchBar];
 
     self.label = [[UILabel alloc] init];
-    self.label.frame = CGRectMake(10, 44, 300, 40);
+    self.label.frame = CGRectMake(10, 0, 300, 40);
     [self.view addSubview:self.label];
-    NSArray *itemArray = [NSArray arrayWithObjects: @"Soon", @"Near Me", @"All", nil];
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Near Me", @"All", nil];
     
     self.segmented = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.segmented.frame = CGRectMake(16, 67, 290, 25);
+    self.segmented.frame = CGRectMake(16, 23, 290, 25);
     self.segmented.selectedSegmentIndex = 1;
     self.segmented.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.segmented];
-    
     
     // Do any additional setup after loading the view.
     // Populate contents array with events
     [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.contents = events;
         [self.tableView reloadData];
-        
     }];
 }
 
@@ -127,13 +113,13 @@ static NSString * const kCellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:simpleTableIdentifier];
     }
     
     MCCEvent *event = self.contents[indexPath.row];
     
     cell.textLabel.text = event.name;
-    
     NSArray *randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", nil];
     cell.detailTextLabel.text = randomTimesArray[indexPath.row];
     cell.textLabel.textColor = [UIColor colorWithRed:0.027 green:0.463 blue:0.729 alpha:1]; /*#0776ba*/
