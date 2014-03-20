@@ -66,6 +66,7 @@ static NSString * const kCellIdentifier = @"Cell";
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,20,320,44)];
     self.searchBar.barTintColor = [UIColor darkGrayColor];
+    self.searchBar.placeholder = @"Search for Events";
     [self.view addSubview:self.searchBar];
 
     self.label = [[UILabel alloc] init];
