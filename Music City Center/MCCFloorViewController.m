@@ -262,6 +262,9 @@ static NSString * const floorPlanId = @"full-test-1";
                            NSInteger i = 1;
                            NSMutableArray *directions = [NSMutableArray arrayWithCapacity:[path.edges count]];
                            
+                           
+                           MCCFloorPlanEdge *previousEdge;
+                           
                            // Then do the end of all the other edges
                            for (MCCFloorPlanEdge *edge in path.edges) {
                                MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
@@ -280,7 +283,10 @@ static NSString * const floorPlanId = @"full-test-1";
                                    coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
                                    ++i;
                                    
-                                   [directions addObject:[self directionForEdge:edge]];
+                                   if (previousEdge)
+                                       [directions addObject:[self directionFromPreviousEdge:previousEdge toNextEdge:edge]];
+                                   
+                                   previousEdge = edge;
                                } else {
                                    break;
                                }
@@ -314,15 +320,14 @@ static NSString * const floorPlanId = @"full-test-1";
 
 #pragma mark - Helper Methods
 
-- (NSString *)directionForEdge:(MCCFloorPlanEdge *)edge {
+- (NSString *)directionFromPreviousEdge:(MCCFloorPlanEdge *)previousEdge toNextEdge:(MCCFloorPlanEdge *)nextEdge {
     NSString *direction;
     
-    // TODO - Calculate from previous edge - the angle for each
-    // edge is absolute
+    CGFloat relativeAngle = nextEdge.angle - previousEdge.angle;
     
-    if (edge.angle < 180) {
+    if (relativeAngle > 45) {
         direction = @"Turn left";
-    } else if (edge.angle > 180) {
+    } else if (relativeAngle < -45) {
         direction = @"Turn right";
     } else {
         direction = @"Go straight";
