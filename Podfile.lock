@@ -18,7 +18,7 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - GPUImage (0.1.2)
+  - GPUImage (0.1.3)
   - MBXMapKit (0.2.1)
 
 DEPENDENCIES:
@@ -28,7 +28,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
-  GPUImage: 007145faa0e27f1ddbcab93e07f026c9776e2fa2
+  GPUImage: efcc16efc1fc45c8f2fdc50591f3505d100789de
   MBXMapKit: ddbf1945d8f640f6db3411a41ffcfe1b132497a5
 
 COCOAPODS: 0.32.1
