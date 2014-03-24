@@ -12,6 +12,8 @@
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
 
+#define NUM_DAYS        3
+
 static NSString * const kCellIdentifier = @"Cell";
 
 @interface MCCEventsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
@@ -21,6 +23,9 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) UISegmentedControl *segmented;
 @property (strong, nonatomic) UILabel * label;
 @property (strong, nonatomic) UITableView * tableView;
+@property (strong, nonatomic) UITableView * tableView2;
+@property (strong, nonatomic) UITableView * tableView3;
+@property (strong, nonatomic) UIScrollView * scrollView;
 
 @end
 
@@ -45,6 +50,92 @@ static NSString * const kCellIdentifier = @"Cell";
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 350)];
+    
+    int x = self.view.frame.size.width;
+    for (int i = 0; i < NUM_DAYS-1; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 50, 40)];
+        [button setTitle:[NSString stringWithFormat:@"Day %d", i] forState:UIControlStateNormal];
+        switch (i) {
+            case 0:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage0)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Yesterday" forState:UIControlStateNormal];
+                break;
+            case 1:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage1)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Today" forState:UIControlStateNormal];
+                break;
+            case 2:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage2)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Tomorrow" forState:UIControlStateNormal];
+                break;
+            default:
+                break;
+        }
+
+            [button setTitle:@"<" forState:UIControlStateNormal];
+        
+        [self.scrollView addSubview:button];
+        
+        x += self.view.frame.size.width;
+    }
+    
+    int x2 = self.view.frame.size.width - 50;
+    for (int i = 1; i < NUM_DAYS; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x2, 0, 50, 40)];
+        [button setTitle:[NSString stringWithFormat:@"Day %d", i] forState:UIControlStateNormal];
+        switch (i) {
+            case 0:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage0)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Yesterday" forState:UIControlStateNormal];
+                break;
+            case 1:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage1)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Today" forState:UIControlStateNormal];
+                break;
+            case 2:
+                [button addTarget:self
+                           action:@selector(sideScrollToPage2)
+                 forControlEvents:UIControlEventTouchUpInside];
+                //[button setTitle:@"Tomorrow" forState:UIControlStateNormal];
+                break;
+            default:
+                break;
+        }
+            [button setTitle:@">" forState:UIControlStateNormal];
+ 
+        [self.scrollView addSubview:button];
+        
+        x2 += self.view.frame.size.width;
+    }
+    
+    self.scrollView.contentSize = CGSizeMake(x, self.scrollView.frame.size.height);
+    self.scrollView.backgroundColor = [UIColor lightGrayColor];
+    
+    UILabel *labelYesterday = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UILabel *labelToday = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width, 40)];
+    UILabel *labelTomorrow = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width, 40)];
+    labelYesterday.text = @"Yesterday";
+    labelToday.text = @"Today";
+    labelTomorrow.text = @"Tomorrow";
+    labelYesterday.textAlignment = NSTextAlignmentCenter;
+    labelToday.textAlignment = NSTextAlignmentCenter;
+    labelTomorrow.textAlignment = NSTextAlignmentCenter;
+    labelYesterday.textColor = [UIColor whiteColor];
+    labelToday.textColor = [UIColor whiteColor];
+    labelTomorrow.textColor = [UIColor whiteColor];
+    
+    
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
     self.view.backgroundColor = [UIColor lightGrayColor];
@@ -52,15 +143,32 @@ static NSString * const kCellIdentifier = @"Cell";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 58, screenWidth, screenHeight-105)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 43, screenWidth, screenHeight-105)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
+    [self.scrollView addSubview:self.tableView];
+    
+    self.tableView2 = [[UITableView alloc] initWithFrame:CGRectMake(screenWidth, 43, screenWidth, screenHeight-105)];
+    self.tableView3 = [[UITableView alloc] initWithFrame:CGRectMake(screenWidth*2, 43, screenWidth, screenHeight-105)];
+    [self.scrollView addSubview:self.tableView2];
+    [self.scrollView addSubview:self.tableView3];
+    
+    int width = self.view.frame.size.width;
+    
+    [self.scrollView scrollRectToVisible:CGRectMake(width*2, 300/2.0, 1,1) animated:NO];
+    [self.scrollView setPagingEnabled:YES];
+    
+    [self.scrollView addSubview:labelYesterday];
+    [self.scrollView addSubview:labelToday];
+    [self.scrollView addSubview:labelTomorrow];
+    
+    [self.view addSubview:self.scrollView];
 
     self.label = [[UILabel alloc] init];
     self.label.frame = CGRectMake(10, 0, 300, 40);
     [self.view addSubview:self.label];
-    NSArray *itemArray = [NSArray arrayWithObjects: @"Near Me", @"All", nil];
+    NSArray *itemArray = [[NSArray alloc] init];
+    itemArray = [NSArray arrayWithObjects: @"Near Me", @"All", nil];
     
     self.segmented = [[UISegmentedControl alloc] initWithItems:itemArray];
     self.segmented.frame = CGRectMake(16, 23, 290, 25);
@@ -74,6 +182,8 @@ static NSString * const kCellIdentifier = @"Cell";
         self.contents = events;
         [self.tableView reloadData];
     }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,7 +211,8 @@ static NSString * const kCellIdentifier = @"Cell";
         return 0;
         
     }
-    NSArray* myContents = self.contents;
+    NSArray* myContents = [[NSArray alloc] init];
+    myContents = self.contents;
     return [myContents count];
     
 }
@@ -110,17 +221,20 @@ static NSString * const kCellIdentifier = @"Cell";
     
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:simpleTableIdentifier];
     }
     
-    MCCEvent *event = self.contents[indexPath.row];
+    MCCEvent *event = [[MCCEvent alloc] init];
+    event = self.contents[indexPath.row];
     
     cell.textLabel.text = event.name;
-    NSArray *randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", nil];
+    NSArray *randomTimesArray = [[NSArray alloc] init];
+    randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", nil];
     cell.detailTextLabel.text = randomTimesArray[indexPath.row];
     cell.textLabel.textColor = [UIColor colorWithRed:0.027 green:0.463 blue:0.729 alpha:1]; /*#0776ba*/
     
@@ -131,9 +245,24 @@ static NSString * const kCellIdentifier = @"Cell";
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MCCEvent *event = self.contents[indexPath.row];
+    MCCEvent *event = [[MCCEvent alloc] init];
+    event = self.contents[indexPath.row];
     
     [self performSegueWithIdentifier:@"PushMap" sender:event];
+}
+
+#pragma mark - Scrolling to pages
+
+- (void) sideScrollToPage0{
+    [self.scrollView scrollRectToVisible:CGRectMake(0, 0, self.view.frame.size.width,1) animated:YES];
+}
+
+- (void) sideScrollToPage1{
+    [self.scrollView scrollRectToVisible:CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width,1) animated:YES];
+}
+
+- (void) sideScrollToPage2{
+    [self.scrollView scrollRectToVisible:CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width,1) animated:YES];
 }
 
 
