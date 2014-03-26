@@ -11,6 +11,7 @@
 #import "MCCEvent.h"
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
+#import "MCCEventDetailViewController.h"
 
 #define NUM_DAYS        3
 
@@ -48,6 +49,7 @@ static NSString * const kCellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 350)];
@@ -175,7 +177,13 @@ static NSString * const kCellIdentifier = @"Cell";
     self.segmented.selectedSegmentIndex = 1;
     self.segmented.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.segmented];
-    
+    NSTimeInterval secondsPerDay = 24 * 60 * 60;
+    NSTimeInterval days15ago = secondsPerDay * 15;
+    NSDate *tomorrow = [[NSDate alloc]
+                        initWithTimeIntervalSinceNow:secondsPerDay];
+    NSDate *yesterday = [[NSDate alloc]
+                         initWithTimeIntervalSinceNow:-secondsPerDay];
+    NSDate *days15 = [[NSDate alloc] initWithTimeIntervalSinceNow:-days15ago];
     // Do any additional setup after loading the view.
     // Populate contents array with events
     [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
@@ -248,7 +256,16 @@ static NSString * const kCellIdentifier = @"Cell";
     MCCEvent *event = [[MCCEvent alloc] init];
     event = self.contents[indexPath.row];
     
-    [self performSegueWithIdentifier:@"PushMap" sender:event];
+    [self performSegueWithIdentifier:@"PushEventDetail" sender:event];
+    /*
+    MCCEventDetailViewController* eventDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MCCEventDetailViewController"];
+    eventDetailVC.tweet = [self.contents objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:eventDetailVC animated:YES];
+     */
+    /*
+    DetailVC *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
+    dvc.tweet = [self.tweetsArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:dvc animated:YES];*/
 }
 
 #pragma mark - Scrolling to pages
@@ -263,6 +280,19 @@ static NSString * const kCellIdentifier = @"Cell";
 
 - (void) sideScrollToPage2{
     [self.scrollView scrollRectToVisible:CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width,1) animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    /*
+    if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = (MCCEvent *) sender;
+            
+            MCCEventDetailViewController *eventDetailViewController = segue.destinationViewController;
+            [eventDetailViewController setEvent:event];
+        }
+    }*/
+     
 }
 
 
