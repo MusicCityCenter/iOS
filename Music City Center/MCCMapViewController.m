@@ -168,10 +168,7 @@ static CGFloat const kBlurOffset = 64.0f;
     
     // Set the backround to clear so you can see the blur effect underneath
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor clearColor];
-    
-//    cell.alpha = .5;
-//    cell.backgroundView.alpha = .5;
+    cell.backgroundColor = [UIColor grayColor];
     
     return cell;
 }
