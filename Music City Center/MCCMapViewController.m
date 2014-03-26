@@ -20,6 +20,7 @@
 static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
 
+
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 
@@ -86,6 +87,9 @@ static CGFloat const kBlurOffset = 64.0f;
                                                 forCellReuseIdentifier:kCellIdentifier];
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
     
+    [self.searchDisplayController setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
+                             forKey:@"_searchResultsTableViewStyle"];
+    
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
     self.blurView.clipsToBounds = YES;
     self.blurView.layer.contentsGravity = kCAGravityBottom;
@@ -120,19 +124,35 @@ static CGFloat const kBlurOffset = 64.0f;
 
 #pragma mark - Table View Data Source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     [self findMatches];
     
-    return [self.searchEventContents count];
+    if (section == 0) {
+        return [self.searchEventContents count];
+    } else if (section == 1) {
+        return [self.searchRoomContents count];
+    } else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    MCCEvent *event = self.searchEventContents[indexPath.row];
-    
-    cell.textLabel.text = event.name;
+    if (indexPath.section == 0) {
+        MCCEvent *event = self.searchEventContents[indexPath.row];
+        
+        cell.textLabel.text = event.name;
+    } else if (indexPath.section == 1) {
+        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
+        
+        cell.textLabel.text = location.locationId;
+    }
     
     // Set the backround to clear so you can see the blur effect underneath
     cell.textLabel.textColor = [UIColor whiteColor];
