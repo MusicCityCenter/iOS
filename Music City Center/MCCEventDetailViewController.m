@@ -9,6 +9,7 @@
 #import "MCCEventDetailViewController.h"
 #import "MCCEvent.h"
 #import "MCCFloorPlanLocation.h"
+#import "MCCFloorViewController.h"
 
 
 @interface MCCEventDetailViewController ()
@@ -24,6 +25,11 @@
 @synthesize timeLabel;
 @synthesize descriptionLabel;
 @synthesize imageView;
+
+
+- (IBAction)routeClicked:(id)sender {
+    [self performSegueWithIdentifier:@"EventDetailRoute" sender:self.event1];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,16 +58,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"EventDetailRoute"]) {
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = (MCCEvent *) sender;
+            
+            MCCFloorViewController *floorViewController = segue.destinationViewController;
+            [floorViewController setPolylineFromEvent:event];
+        }
+    }
 }
-*/
+
 
 - (void)setEvent:(MCCEvent *)event0{
     self.event1 = event0;

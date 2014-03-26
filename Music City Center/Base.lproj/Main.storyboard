@@ -258,6 +258,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <connections>
+                                <action selector="routeClicked:" destination="FlE-JK-x1k" id="zwQ-fu-fX1"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -266,6 +269,7 @@
                         <outlet property="roomLabel" destination="wpL-st-FuQ" id="DcK-2z-OEC"/>
                         <outlet property="timeLabel" destination="hUX-Ox-mHj" id="LbC-6a-w85"/>
                         <outlet property="titleLabel" destination="Eki-yY-7Hd" id="6Bk-dc-5ne"/>
+                        <segue destination="2R5-aG-0zK" kind="push" identifier="EventDetailRoute" id="uUs-o4-UDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlj-5T-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -480,4 +484,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="uUs-o4-UDP"/>
+    </inferredMetricsTieBreakers>
 </document>
