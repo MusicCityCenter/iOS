@@ -106,8 +106,6 @@ static CGFloat const kBlurOffset = 64.0f;
     
     // Put the search bar in the nav bar
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
-    
-    [self populateEventsAndRooms];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,26 +117,36 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    [self findMatches];
+
+    NSInteger numberOfSections = 0;
+    
+    if ([self.searchEventContents count] > 0) {
+        ++numberOfSections;
+    }
+    if ([self.searchRoomContents count] > 0) {
+        ++numberOfSections;
+    }
+    
+    return numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [self findMatches];
-    
-    if (section == 0) {
-        return [self.searchEventContents count];
-    } else if (section == 1) {
+    // If there are no events, then rooms are in section zero
+    if (([self.searchEventContents count] == 0 && section == 0) || section == 1) {
         return [self.searchRoomContents count];
+    } else if (section == 0) {
+        return [self.searchEventContents count];
     } else {
         return 0;
     }
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"Events";
-    } else if (section == 1) {
+    if (([self.searchEventContents count] == 0 && section == 0) || section == 1) {
         return @"Rooms";
+    } else if (section == 0) {
+        return @"Events";
     } else {
         return @"";
     }
@@ -148,14 +156,14 @@ static CGFloat const kBlurOffset = 64.0f;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    if (indexPath.section == 0) {
-        MCCEvent *event = self.searchEventContents[indexPath.row];
-        
-        cell.textLabel.text = event.name;
-    } else if (indexPath.section == 1) {
+    if (([self.searchEventContents count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
         MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
         
         cell.textLabel.text = location.locationId;
+    } else if (indexPath.section == 0) {
+        MCCEvent *event = self.searchEventContents[indexPath.row];
+        
+        cell.textLabel.text = event.name;
     }
     
     // Set the backround to clear so you can see the blur effect underneath
@@ -171,17 +179,17 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (([self.searchEventContents count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
+        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
+        
+        [self performSegueWithIdentifier:@"PushMap" sender:location];
+    } else if (indexPath.section == 0) {
         MCCEvent *event = self.searchEventContents[indexPath.row];
         
         [self performSegueWithIdentifier:@"PushMap"
                                   sender:[MCCFloorPlanLocation
                                           floorPlanLocationWithLocationId:event.locationId
                                           andType:@"room"]];
-    } else if (indexPath.section == 1) {
-        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
-        
-        [self performSegueWithIdentifier:@"PushMap" sender:location];
     }
 }
 
@@ -199,6 +207,8 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Search Display Delegate
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    [self populateEventsAndRooms];
+    
     [self updateBlur];
     
     CGRect deviceSize = [UIScreen mainScreen].bounds;
@@ -241,6 +251,7 @@ static CGFloat const kBlurOffset = 64.0f;
         self.eventContents = events;
         
         [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
+            [self.roomContents removeAllObjects];
             for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
                 if ([location.type isEqualToString:@"room"]) {
                     [self.roomContents addObject:location];
