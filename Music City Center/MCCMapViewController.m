@@ -23,12 +23,11 @@ static CGFloat const kBlurOffset = 64.0f;
 
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
+@property (strong, nonatomic) NSArray *events; // MCCEvents
+@property (strong, nonatomic) NSMutableArray *eventSearchResults;
 
-@property (strong, nonatomic) NSArray *eventContents; // of MCCEvents
-@property (strong, nonatomic) NSMutableArray *searchEventContents;
-
-@property (strong, nonatomic) NSMutableArray *roomContents; // of MCCFloorPlanLocations
-@property (strong, nonatomic) NSMutableArray *searchRoomContents;
+@property (strong, nonatomic) NSMutableArray *rooms; // MCCFloorPlanLocations
+@property (strong, nonatomic) NSMutableArray *roomSearchResults;
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -49,25 +48,25 @@ static CGFloat const kBlurOffset = 64.0f;
 // route is the responsibility of the person doing Work Item 9 -- not
 // this person.
 
-- (NSMutableArray *)searchEventContents {
-    if (!_searchEventContents) {
-        _searchEventContents = [NSMutableArray array];
+- (NSMutableArray *)eventSearchResults {
+    if (!_eventSearchResults) {
+        _eventSearchResults = [NSMutableArray array];
     }
-    return _searchEventContents;
+    return _eventSearchResults;
 }
 
-- (NSMutableArray *)roomContents {
-    if (!_roomContents) {
-        _roomContents = [NSMutableArray array];
+- (NSMutableArray *)rooms {
+    if (!_rooms) {
+        _rooms = [NSMutableArray array];
     }
-    return _roomContents;
+    return _rooms;
 }
 
-- (NSMutableArray *)searchRoomContents {
-    if (!_searchRoomContents) {
-        _searchRoomContents = [NSMutableArray array];
+- (NSMutableArray *)roomSearchResults {
+    if (!_roomSearchResults) {
+        _roomSearchResults = [NSMutableArray array];
     }
-    return _searchRoomContents;
+    return _roomSearchResults;
 }
 
 - (GPUImageiOSBlurFilter *)blurFilter {
@@ -121,10 +120,10 @@ static CGFloat const kBlurOffset = 64.0f;
 
     NSInteger numberOfSections = 0;
     
-    if ([self.searchEventContents count] > 0) {
+    if ([self.eventSearchResults count] > 0) {
         ++numberOfSections;
     }
-    if ([self.searchRoomContents count] > 0) {
+    if ([self.roomSearchResults count] > 0) {
         ++numberOfSections;
     }
     
@@ -133,17 +132,17 @@ static CGFloat const kBlurOffset = 64.0f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // If there are no events, then rooms are in section zero
-    if (([self.searchEventContents count] == 0 && section == 0) || section == 1) {
-        return [self.searchRoomContents count];
+    if (([self.eventSearchResults count] == 0 && section == 0) || section == 1) {
+        return [self.roomSearchResults count];
     } else if (section == 0) {
-        return [self.searchEventContents count];
+        return [self.eventSearchResults count];
     } else {
         return 0;
     }
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (([self.searchEventContents count] == 0 && section == 0) || section == 1) {
+    if (([self.eventSearchResults count] == 0 && section == 0) || section == 1) {
         return @"Rooms";
     } else if (section == 0) {
         return @"Events";
@@ -156,12 +155,12 @@ static CGFloat const kBlurOffset = 64.0f;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    if (([self.searchEventContents count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
-        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
+    if (([self.eventSearchResults count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
+        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
         
         cell.textLabel.text = location.locationId;
     } else if (indexPath.section == 0) {
-        MCCEvent *event = self.searchEventContents[indexPath.row];
+        MCCEvent *event = self.eventSearchResults[indexPath.row];
         
         cell.textLabel.text = event.name;
     }
@@ -176,12 +175,12 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (([self.searchEventContents count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
-        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
+    if (([self.eventSearchResults count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
+        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
         
         [self performSegueWithIdentifier:@"PushMap" sender:location];
     } else if (indexPath.section == 0) {
-        MCCEvent *event = self.searchEventContents[indexPath.row];
+        MCCEvent *event = self.eventSearchResults[indexPath.row];
         
         [self performSegueWithIdentifier:@"PushMap"
                                   sender:[MCCFloorPlanLocation
@@ -245,13 +244,13 @@ static CGFloat const kBlurOffset = 64.0f;
     MCCClient *client = [MCCClient sharedClient];
     
     [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
-        self.eventContents = events;
+        self.events = events;
         
         [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
-            [self.roomContents removeAllObjects];
+            [self.rooms removeAllObjects];
             for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
                 if ([location.type isEqualToString:@"room"]) {
-                    [self.roomContents addObject:location];
+                    [self.rooms addObject:location];
                 }
             }
             [self.searchDisplayController.searchResultsTableView reloadData];
@@ -262,24 +261,24 @@ static CGFloat const kBlurOffset = 64.0f;
 
 // Find all matching strings
 - (void)findMatches {
-    [self.searchEventContents removeAllObjects];
+    [self.eventSearchResults removeAllObjects];
 
-    for (MCCEvent *event in self.eventContents) {
+    for (MCCEvent *event in self.events) {
         NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
                                           options:NSCaseInsensitiveSearch];
         
         if (range.location != NSNotFound) {
-            [self.searchEventContents addObject:event];
+            [self.eventSearchResults addObject:event];
         }
     }
     
-    [self.searchRoomContents removeAllObjects];
+    [self.roomSearchResults removeAllObjects];
     
-    for (MCCFloorPlanLocation *location in self.roomContents) {
+    for (MCCFloorPlanLocation *location in self.rooms) {
         NSRange range = [location.locationId rangeOfString:self.searchDisplayController.searchBar.text
                                                    options:NSCaseInsensitiveSearch];
         if (range.location != NSNotFound) {
-            [self.searchRoomContents addObject:location];
+            [self.roomSearchResults addObject:location];
         }
     }
 }
