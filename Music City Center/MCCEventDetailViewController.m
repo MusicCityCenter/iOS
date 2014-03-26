@@ -8,7 +8,10 @@
 
 #import "MCCEventDetailViewController.h"
 
+
 @interface MCCEventDetailViewController ()
+
+@property (strong, nonatomic) MCCEvent *event;
 
 @end
 

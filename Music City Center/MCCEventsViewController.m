@@ -20,10 +20,12 @@ static NSString * const kCellIdentifier = @"Cell";
 @interface MCCEventsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray * contents;
+@property (strong, nonatomic) NSArray * contentsToday;
+@property (strong, nonatomic) NSArray * contentsTomorrow;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISegmentedControl *segmented;
 @property (strong, nonatomic) UILabel * label;
-@property (strong, nonatomic) UITableView * tableView;
+@property (strong, nonatomic) UITableView * tableViewYesterday;
 @property (strong, nonatomic) UITableView * tableView2;
 @property (strong, nonatomic) UITableView * tableView3;
 @property (strong, nonatomic) UIScrollView * scrollView;
@@ -52,7 +54,10 @@ static NSString * const kCellIdentifier = @"Cell";
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 350)];
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height)];
+    
+    self.scrollView.showsVerticalScrollIndicator = NO;
     
     int x = self.view.frame.size.width;
     for (int i = 0; i < NUM_DAYS-1; i++) {
@@ -138,20 +143,24 @@ static NSString * const kCellIdentifier = @"Cell";
     labelTomorrow.textColor = [UIColor whiteColor];
     
     
-    [self.tableView registerClass:[UITableViewCell class]
+    [self.tableViewYesterday registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
     self.view.backgroundColor = [UIColor lightGrayColor];
 
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 43, screenWidth, screenHeight-105)];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.scrollView addSubview:self.tableView];
+    self.tableViewYesterday = [[UITableView alloc] initWithFrame:CGRectMake(0, 43, screenWidth, screenHeight-105)];
+    self.tableViewYesterday.delegate = self;
+    self.tableViewYesterday.dataSource = self;
+    [self.scrollView addSubview:self.tableViewYesterday];
     
     self.tableView2 = [[UITableView alloc] initWithFrame:CGRectMake(screenWidth, 43, screenWidth, screenHeight-105)];
     self.tableView3 = [[UITableView alloc] initWithFrame:CGRectMake(screenWidth*2, 43, screenWidth, screenHeight-105)];
+    self.tableView2.delegate = self;
+    self.tableView2.dataSource = self;
+    self.tableView3.delegate = self;
+    self.tableView3.dataSource = self;
     [self.scrollView addSubview:self.tableView2];
     [self.scrollView addSubview:self.tableView3];
     
@@ -167,13 +176,13 @@ static NSString * const kCellIdentifier = @"Cell";
     [self.view addSubview:self.scrollView];
 
     self.label = [[UILabel alloc] init];
-    self.label.frame = CGRectMake(10, 0, 300, 40);
+    self.label.frame = CGRectMake(10, 20, 300, 40);
     [self.view addSubview:self.label];
     NSArray *itemArray = [[NSArray alloc] init];
     itemArray = [NSArray arrayWithObjects: @"Near Me", @"All", nil];
     
     self.segmented = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.segmented.frame = CGRectMake(16, 23, 290, 25);
+    self.segmented.frame = CGRectMake(10, 80, 290, 25);
     self.segmented.selectedSegmentIndex = 1;
     self.segmented.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.segmented];
@@ -183,12 +192,19 @@ static NSString * const kCellIdentifier = @"Cell";
                         initWithTimeIntervalSinceNow:secondsPerDay];
     NSDate *yesterday = [[NSDate alloc]
                          initWithTimeIntervalSinceNow:-secondsPerDay];
-    NSDate *days15 = [[NSDate alloc] initWithTimeIntervalSinceNow:-days15ago];
     // Do any additional setup after loading the view.
     // Populate contents array with events
-    [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+    [[MCCClient sharedClient] events:@"full-test-1" on:yesterday withCompletionBlock:^(NSArray *events) {
         self.contents = events;
-        [self.tableView reloadData];
+        [self.tableViewYesterday reloadData];
+    }];
+    [[MCCClient sharedClient] events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+        self.contentsToday = events;
+        [self.tableView2 reloadData];
+    }];
+    [[MCCClient sharedClient] events:@"full-test-1" on:tomorrow withCompletionBlock:^(NSArray *events) {
+        self.contentsTomorrow = events;
+        [self.tableView3 reloadData];
     }];
     
     
@@ -215,13 +231,36 @@ static NSString * const kCellIdentifier = @"Cell";
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.contents){
-        return 0;
+    if ([tableView isEqual:_tableViewYesterday]){
         
+    
+        if (!self.contents){
+            return 0;
+        
+        }
+        NSArray* myContents = [[NSArray alloc] init];
+        myContents = self.contents;
+        
+        return [myContents count];
+    } else if ([tableView isEqual:_tableView2]){
+        if (!self.contentsToday){
+            return 0;
+            
+        }
+        NSArray* myContents = [[NSArray alloc] init];
+        myContents = self.contentsToday;
+        
+        return [myContents count];
+    } else {
+        if (!self.contentsTomorrow){
+            return 0;
+            
+        }
+        NSArray* myContents = [[NSArray alloc] init];
+        myContents = self.contentsTomorrow;
+        
+        return [myContents count];
     }
-    NSArray* myContents = [[NSArray alloc] init];
-    myContents = self.contents;
-    return [myContents count];
     
 }
 
@@ -238,7 +277,17 @@ static NSString * const kCellIdentifier = @"Cell";
     }
     
     MCCEvent *event = [[MCCEvent alloc] init];
-    event = self.contents[indexPath.row];
+    
+    if ([tableView isEqual:_tableViewYesterday]){
+        event = self.contents[indexPath.row];
+    } else if ([tableView isEqual:_tableView2]){
+        event = self.contentsToday[indexPath.row];
+    } else {
+        event = self.contentsTomorrow[indexPath.row];
+    }
+    
+    
+    
     
     cell.textLabel.text = event.name;
     NSArray *randomTimesArray = [[NSArray alloc] init];
@@ -254,7 +303,14 @@ static NSString * const kCellIdentifier = @"Cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MCCEvent *event = [[MCCEvent alloc] init];
-    event = self.contents[indexPath.row];
+    
+    if ([tableView isEqual:_tableViewYesterday]){
+        event = self.contents[indexPath.row];
+    } else if ([tableView isEqual:_tableView2]){
+        event = self.contentsToday[indexPath.row];
+    } else {
+        event = self.contentsTomorrow[indexPath.row];
+    }
     
     [self performSegueWithIdentifier:@"PushEventDetail" sender:event];
     /*
@@ -270,6 +326,7 @@ static NSString * const kCellIdentifier = @"Cell";
 
 #pragma mark - Scrolling to pages
 
+
 - (void) sideScrollToPage0{
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, self.view.frame.size.width,1) animated:YES];
 }
@@ -283,7 +340,7 @@ static NSString * const kCellIdentifier = @"Cell";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    /*
+    
     if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
         if ([sender isKindOfClass:[MCCEvent class]]) {
             MCCEvent *event = (MCCEvent *) sender;
@@ -291,7 +348,7 @@ static NSString * const kCellIdentifier = @"Cell";
             MCCEventDetailViewController *eventDetailViewController = segue.destinationViewController;
             [eventDetailViewController setEvent:event];
         }
-    }*/
+    }
      
 }
 

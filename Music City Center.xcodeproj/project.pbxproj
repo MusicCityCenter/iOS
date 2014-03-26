@@ -36,6 +36,7 @@
 		841DD68718B8C501009626B8 /* MCCNavPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68618B8C501009626B8 /* MCCNavPath.m */; };
 		841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68918B8CF88009626B8 /* MCCEvent.m */; };
 		A00BA09218E244B9006D5F15 /* MCCEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */; };
+		A00BA09418E28A5A006D5F15 /* southernwomenshowimage.png in Resources */ = {isa = PBXBuildFile; fileRef = A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */; };
 		A0F82EA618DA588600C6B658 /* MCCEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F82EA518DA588600C6B658 /* MCCEventsViewController.m */; };
 		AE1DFE2FCE634724A956700A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394C53480684646969EDC29 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -102,6 +103,7 @@
 		8CC4047638FC4D5495B69BDC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventDetailViewController.h; sourceTree = "<group>"; };
 		A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventDetailViewController.m; sourceTree = "<group>"; };
+		A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = southernwomenshowimage.png; sourceTree = "<group>"; };
 		A0F82EA418DA588600C6B658 /* MCCEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventsViewController.h; sourceTree = "<group>"; };
 		A0F82EA518DA588600C6B658 /* MCCEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +193,7 @@
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
+				A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
@@ -339,6 +342,7 @@
 				4B8E50E318A04A93009F4266 /* Images.xcassets in Resources */,
 				4B8E50D518A04A93009F4266 /* InfoPlist.strings in Resources */,
 				4B8E50DE18A04A93009F4266 /* Main.storyboard in Resources */,
+				A00BA09418E28A5A006D5F15 /* southernwomenshowimage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
