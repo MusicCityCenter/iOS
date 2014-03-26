@@ -8,16 +8,22 @@
 
 #import "MCCEventDetailViewController.h"
 #import "MCCEvent.h"
+#import "MCCFloorPlanLocation.h"
 
 
 @interface MCCEventDetailViewController ()
 
-@property (strong, nonatomic) MCCEvent *event1;
-@property (strong, nonatomic, retain) IBOutlet UILabel *titleLabel;
 
 @end
 
 @implementation MCCEventDetailViewController
+
+@synthesize event1;
+@synthesize titleLabel;
+@synthesize roomLabel;
+@synthesize timeLabel;
+@synthesize descriptionLabel;
+@synthesize imageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //self.titleLabel.text = self.event.name;
+    self.titleLabel.text = self.event1.name;
+    //self.descriptionLabel.text = self.event1.details;
+    self.timeLabel.text = [NSString stringWithFormat:@"%d/%d/%d", event1.month, event1.day, event1.year];
     
     //[self.labelOutlet setText:self.tweet];
     // Do any additional setup after loading the view.

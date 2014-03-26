@@ -190,17 +190,17 @@
         <!--Events View Controller-->
         <scene sceneID="IZA-ko-0EA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="NnZ-9s-Vys">
-                    <rect key="frame" x="0.0" y="0.0" width="38" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </pageControl>
                 <tableViewController id="co8-in-Zwf" customClass="MCCEventsViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="1kN-rO-O6a"/>
                     <connections>
                         <segue destination="FlE-JK-x1k" kind="push" identifier="PushEventDetail" id="09d-Pf-ztm"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="NnZ-9s-Vys">
+                    <rect key="frame" x="0.0" y="0.0" width="38" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </pageControl>
             </objects>
             <point key="canvasLocation" x="577" y="814"/>
         </scene>
@@ -216,30 +216,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eki-yY-7Hd">
-                                <rect key="frame" x="198" y="85" width="50" height="36"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="155" translatesAutoresizingMaskIntoConstraints="NO" id="Eki-yY-7Hd">
+                                <rect key="frame" x="150" y="85" width="155" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="southernwomenshowimage.png" translatesAutoresizingMaskIntoConstraints="NO" id="Uem-Jf-AvV">
                                 <rect key="frame" x="13" y="78" width="129" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpL-st-FuQ">
-                                <rect key="frame" x="200" y="129" width="46" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpL-st-FuQ">
+                                <rect key="frame" x="150" y="152" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUX-Ox-mHj">
-                                <rect key="frame" x="200" y="158" width="38" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUX-Ox-mHj">
+                                <rect key="frame" x="150" y="181" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="wMn-XF-6J7">
-                                <rect key="frame" x="26" y="230" width="269" height="170"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="wMn-XF-6J7">
+                                <rect key="frame" x="26" y="230" width="269" height="242"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">This is where the description goes. This is where the description goes. This is where the description goes. This is where the description goes. This is where the description goes. This is where the description goes. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -261,7 +261,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="titleLabel" destination="Eki-yY-7Hd" id="Zx8-CW-VNx"/>
+                        <outlet property="descriptionLabel" destination="wMn-XF-6J7" id="CaJ-xz-bxD"/>
+                        <outlet property="imageView" destination="Uem-Jf-AvV" id="vzP-xI-x8C"/>
+                        <outlet property="roomLabel" destination="wpL-st-FuQ" id="DcK-2z-OEC"/>
+                        <outlet property="timeLabel" destination="hUX-Ox-mHj" id="LbC-6a-w85"/>
+                        <outlet property="titleLabel" destination="Eki-yY-7Hd" id="6Bk-dc-5ne"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlj-5T-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -445,7 +449,6 @@
         <!--Navigation Controller - Events-->
         <scene sceneID="bJ9-z5-EWH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C9Z-D1-faC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vDq-lg-IZb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Events" id="VSE-pi-bpE"/>
                     <toolbarItems/>
@@ -458,6 +461,7 @@
                         <segue destination="co8-in-Zwf" kind="relationship" relationship="rootViewController" id="6Mn-Kg-8ge"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C9Z-D1-faC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="59" y="814"/>
         </scene>
