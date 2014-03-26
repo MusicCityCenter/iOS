@@ -174,9 +174,18 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MCCEvent *event = self.searchEventContents[indexPath.row];
-    
-    [self performSegueWithIdentifier:@"PushMap" sender:event];
+    if (indexPath.section == 0) {
+        MCCEvent *event = self.searchEventContents[indexPath.row];
+        
+        [self performSegueWithIdentifier:@"PushMap"
+                                  sender:[MCCFloorPlanLocation
+                                          floorPlanLocationWithLocationId:event.locationId
+                                          andType:@"room"]];
+    } else if (indexPath.section == 1) {
+        MCCFloorPlanLocation *location = self.searchRoomContents[indexPath.row];
+        
+        [self performSegueWithIdentifier:@"PushMap" sender:location];
+    }
 }
 
 #pragma mark - Search Display Delegate
@@ -242,11 +251,11 @@ static CGFloat const kBlurOffset = 64.0f;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PushMap"]) {
-        if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = (MCCEvent *) sender;
+        if ([sender isKindOfClass:[MCCFloorPlanLocation class]]) {
+            MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
-            [floorViewController setPolylineFromEvent:event];
+            [floorViewController setPolylineFromFloorPlanLocation:location];
         }
     }
 }

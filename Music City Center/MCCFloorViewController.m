@@ -58,7 +58,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPolylineFromEvent:(MCCEvent *)event {
+- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location {
     NSLog(@"Generating polyline");
     
     MCCClient *client = [MCCClient sharedClient];
@@ -68,7 +68,7 @@
     
         [client shortestPathOnFloorPlan:@"full-test-1"
                                    from:@"110"
-                                     to:event.locationId
+                                     to:location.locationId
                     withCompletionBlock:^(MCCNavPath *path) {
             
             // Get the number of points, which is the number of edges + 1
