@@ -40,6 +40,7 @@
     self.titleLabel.text = self.event1.name;
     //self.descriptionLabel.text = self.event1.details;
     self.timeLabel.text = [NSString stringWithFormat:@"%d/%d/%d", event1.month, event1.day, event1.year];
+    self.roomLabel.text = event1.locationId;
     
     //[self.labelOutlet setText:self.tweet];
     // Do any additional setup after loading the view.
