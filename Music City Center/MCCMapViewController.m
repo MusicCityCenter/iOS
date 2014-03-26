@@ -85,7 +85,7 @@ static CGFloat const kBlurOffset = 64.0f;
     
     [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
                                                 forCellReuseIdentifier:kCellIdentifier];
-    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
+//    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
     
     [self.searchDisplayController setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
                              forKey:@"_searchResultsTableViewStyle"];
@@ -140,6 +140,16 @@ static CGFloat const kBlurOffset = 64.0f;
     }
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Events";
+    } else if (section == 1) {
+        return @"Rooms";
+    } else {
+        return @"";
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
@@ -155,8 +165,8 @@ static CGFloat const kBlurOffset = 64.0f;
     }
     
     // Set the backround to clear so you can see the blur effect underneath
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor clearColor];
+//    cell.textLabel.textColor = [UIColor whiteColor];
+//    cell.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
