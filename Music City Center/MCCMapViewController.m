@@ -30,6 +30,8 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) NSMutableArray *roomContents; // of MCCFloorPlanLocations
 @property (strong, nonatomic) NSMutableArray *searchRoomContents;
 
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
 
@@ -51,7 +53,6 @@ static CGFloat const kBlurOffset = 64.0f;
     if (!_searchEventContents) {
         _searchEventContents = [NSMutableArray array];
     }
-    
     return _searchEventContents;
 }
 
@@ -85,10 +86,16 @@ static CGFloat const kBlurOffset = 64.0f;
     
     [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
                                                 forCellReuseIdentifier:kCellIdentifier];
-//    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
     
     [self.searchDisplayController setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
                              forKey:@"_searchResultsTableViewStyle"];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh:)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.searchDisplayController.searchResultsTableView addSubview:self.refreshControl];
     
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
     self.blurView.clipsToBounds = YES;
@@ -100,20 +107,7 @@ static CGFloat const kBlurOffset = 64.0f;
     // Put the search bar in the nav bar
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     
-    // Populate contents array with events
-    MCCClient *client = [MCCClient sharedClient];
-    
-    [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
-        self.eventContents = events;
-    }];
-    
-    [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
-        for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
-            if ([location.type isEqualToString:@"room"]) {
-                [self.roomContents addObject:location];
-            }
-        }
-    }];
+    [self populateEventsAndRooms];
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,8 +159,11 @@ static CGFloat const kBlurOffset = 64.0f;
     }
     
     // Set the backround to clear so you can see the blur effect underneath
-//    cell.textLabel.textColor = [UIColor whiteColor];
-//    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    
+//    cell.alpha = .5;
+//    cell.backgroundView.alpha = .5;
     
     return cell;
 }
@@ -186,6 +183,17 @@ static CGFloat const kBlurOffset = 64.0f;
         
         [self performSegueWithIdentifier:@"PushMap" sender:location];
     }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.tintColor = [UIColor blueColor];
+    
+    UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *) view;
+    headerView.textLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    [self populateEventsAndRooms];
 }
 
 #pragma mark - Search Display Delegate
@@ -224,6 +232,25 @@ static CGFloat const kBlurOffset = 64.0f;
 }
 
 #pragma mark - Helper Method
+
+- (void)populateEventsAndRooms {
+    // Populate contents array with events
+    MCCClient *client = [MCCClient sharedClient];
+    
+    [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+        self.eventContents = events;
+        
+        [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
+            for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
+                if ([location.type isEqualToString:@"room"]) {
+                    [self.roomContents addObject:location];
+                }
+            }
+            [self.searchDisplayController.searchResultsTableView reloadData];
+            [self.refreshControl endRefreshing];
+        }];
+    }];
+}
 
 // Find all matching strings
 - (void)findMatches {
