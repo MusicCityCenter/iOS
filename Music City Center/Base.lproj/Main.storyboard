@@ -190,13 +190,13 @@
         <!--Events View Controller-->
         <scene sceneID="IZA-ko-0EA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="co8-in-Zwf" customClass="MCCEventsViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="1kN-rO-O6a"/>
                     <connections>
                         <segue destination="FlE-JK-x1k" kind="push" identifier="PushEventDetail" id="09d-Pf-ztm"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="585" y="814"/>
         </scene>
@@ -256,10 +256,21 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="titleLabel" destination="Eki-yY-7Hd" id="Zx8-CW-VNx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlj-5T-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1020" y="807"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="cWo-pY-TMg">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="cHs-Z4-tDc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5xX-CK-7RI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1394" y="1091"/>
         </scene>
         <!--Table View Controller - More-->
         <scene sceneID="2Sf-KI-RLd">

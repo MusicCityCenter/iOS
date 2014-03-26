@@ -12,6 +12,6 @@
 @interface MCCEventDetailViewController : UIViewController
 
 @property (nonatomic, strong) NSString *tweet;
-- (void)setEvent:(MCCEvent *)event;
+- (void)setEvent:(MCCEvent *)event0;
 
 @end

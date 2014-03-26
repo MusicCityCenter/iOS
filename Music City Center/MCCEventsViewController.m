@@ -291,8 +291,10 @@ static NSString * const kCellIdentifier = @"Cell";
     
     cell.textLabel.text = event.name;
     NSArray *randomTimesArray = [[NSArray alloc] init];
-    randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", nil];
-    cell.detailTextLabel.text = randomTimesArray[indexPath.row];
+    randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", @"1 PM in Room 101 (Today)", nil];
+    if (indexPath.row < randomTimesArray.count){
+        cell.detailTextLabel.text = randomTimesArray[indexPath.row];
+    }
     cell.textLabel.textColor = [UIColor colorWithRed:0.027 green:0.463 blue:0.729 alpha:1]; /*#0776ba*/
     
     return cell;

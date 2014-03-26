@@ -7,11 +7,13 @@
 //
 
 #import "MCCEventDetailViewController.h"
+#import "MCCEvent.h"
 
 
 @interface MCCEventDetailViewController ()
 
-@property (strong, nonatomic) MCCEvent *event;
+@property (strong, nonatomic) MCCEvent *event1;
+@property (strong, nonatomic, retain) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -29,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //self.titleLabel.text = self.event.name;
     
     //[self.labelOutlet setText:self.tweet];
     // Do any additional setup after loading the view.
@@ -51,8 +54,9 @@
 }
 */
 
-- (void)setEvent:(MCCEvent *)event{
-    NSLog(@"There's an event set");
+- (void)setEvent:(MCCEvent *)event0{
+    self.event1 = event0;
+    NSLog(@"There's an event set: %@", event0.name);
 }
 
 @end
