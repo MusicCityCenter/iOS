@@ -187,7 +187,6 @@ static NSString * const kCellIdentifier = @"Cell";
     self.segmented.tintColor = [UIColor whiteColor];
     [self.view addSubview:self.segmented];
     NSTimeInterval secondsPerDay = 24 * 60 * 60;
-    NSTimeInterval days15ago = secondsPerDay * 15;
     NSDate *tomorrow = [[NSDate alloc]
                         initWithTimeIntervalSinceNow:secondsPerDay];
     NSDate *yesterday = [[NSDate alloc]
@@ -345,9 +344,11 @@ static NSString * const kCellIdentifier = @"Cell";
     
     if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
         if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = (MCCEvent *) sender;
+            MCCEvent *event = [[MCCEvent alloc] init];
+            event = (MCCEvent *) sender;
             
-            MCCEventDetailViewController *eventDetailViewController = segue.destinationViewController;
+            MCCEventDetailViewController *eventDetailViewController = [[MCCEventDetailViewController alloc] init];
+            eventDetailViewController = segue.destinationViewController;
             [eventDetailViewController setEvent:event];
         }
     }

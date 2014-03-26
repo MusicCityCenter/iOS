@@ -190,15 +190,19 @@
         <!--Events View Controller-->
         <scene sceneID="IZA-ko-0EA">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="NnZ-9s-Vys">
+                    <rect key="frame" x="0.0" y="0.0" width="38" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </pageControl>
                 <tableViewController id="co8-in-Zwf" customClass="MCCEventsViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="1kN-rO-O6a"/>
                     <connections>
                         <segue destination="FlE-JK-x1k" kind="push" identifier="PushEventDetail" id="09d-Pf-ztm"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="585" y="814"/>
+            <point key="canvasLocation" x="577" y="814"/>
         </scene>
         <!--Event Detail View Controller-->
         <scene sceneID="pbf-Q4-dux">
@@ -263,14 +267,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlj-5T-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1020" y="807"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="cWo-pY-TMg">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="cHs-Z4-tDc" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5xX-CK-7RI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1394" y="1091"/>
         </scene>
         <!--Table View Controller - More-->
         <scene sceneID="2Sf-KI-RLd">
@@ -449,6 +445,7 @@
         <!--Navigation Controller - Events-->
         <scene sceneID="bJ9-z5-EWH">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C9Z-D1-faC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vDq-lg-IZb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Events" id="VSE-pi-bpE"/>
                     <toolbarItems/>
@@ -461,7 +458,6 @@
                         <segue destination="co8-in-Zwf" kind="relationship" relationship="rootViewController" id="6Mn-Kg-8ge"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C9Z-D1-faC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="59" y="814"/>
         </scene>
