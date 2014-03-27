@@ -155,14 +155,14 @@ static CGFloat const kBlurOffset = 64.0f;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                                             forIndexPath:indexPath];
     
-    if (([self.eventSearchResults count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
-        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
-        
-        cell.textLabel.text = location.locationId;
-    } else if (indexPath.section == 0) {
+    if (indexPath.section == 0 && [self.eventSearchResults count] > 0) {
         MCCEvent *event = self.eventSearchResults[indexPath.row];
         
         cell.textLabel.text = event.name;
+    } else {
+        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
+        
+        cell.textLabel.text = location.locationId;
     }
     
     // Set the backround to clear so you can see the blur effect underneath
