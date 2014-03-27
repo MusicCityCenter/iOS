@@ -131,24 +131,28 @@ static CGFloat const kBlurOffset = 64.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSInteger numberOfRows = 0;
+    
     // If there are no events, then rooms are in section zero
-    if (([self.eventSearchResults count] == 0 && section == 0) || section == 1) {
-        return [self.roomSearchResults count];
+    if ((section == 0 && [self.eventSearchResults count] == 0) || section == 1) {
+        numberOfRows = [self.roomSearchResults count];
     } else if (section == 0) {
-        return [self.eventSearchResults count];
-    } else {
-        return 0;
+        numberOfRows = [self.eventSearchResults count];
     }
+    
+    return numberOfRows;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (([self.eventSearchResults count] == 0 && section == 0) || section == 1) {
-        return @"Rooms";
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *title = @"";
+    
+    if ((section == 0 && [self.eventSearchResults count] == 0) || section == 1) {
+        title = @"Rooms";
     } else if (section == 0) {
-        return @"Events";
-    } else {
-        return @"";
+        title = @"Events";
     }
+    
+    return title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
