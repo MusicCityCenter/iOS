@@ -175,17 +175,17 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (([self.eventSearchResults count] == 0 && indexPath.section == 0) || indexPath.section == 1) {
-        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
-        
-        [self performSegueWithIdentifier:@"PushMap" sender:location];
-    } else if (indexPath.section == 0) {
+    if (indexPath.section == 0 && [self.eventSearchResults count] > 0) {
         MCCEvent *event = self.eventSearchResults[indexPath.row];
         
         [self performSegueWithIdentifier:@"PushMap"
-                                  sender:[MCCFloorPlanLocation
-                                          floorPlanLocationWithLocationId:event.locationId
-                                          andType:@"room"]];
+                                  sender:[MCCFloorPlanLocation floorPlanLocationWithLocationId:event.locationId
+                                                                                       andType:@"room"]];
+    } else {
+        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
+        
+        [self performSegueWithIdentifier:@"PushMap"
+                                  sender:location];
     }
 }
 
