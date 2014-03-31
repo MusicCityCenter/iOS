@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCCEvent.h"
 
-@interface MCCEventsViewController : UIViewController
-
-
+@interface MCCEventsViewController : UIPageViewController
 
 @end

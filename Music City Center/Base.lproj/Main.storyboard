@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13A3017" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="q7e-iT-YZD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="q7e-iT-YZD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -187,23 +187,6 @@
             </objects>
             <point key="canvasLocation" x="-415" y="808"/>
         </scene>
-        <!--Events View Controller-->
-        <scene sceneID="IZA-ko-0EA">
-            <objects>
-                <tableViewController id="co8-in-Zwf" customClass="MCCEventsViewController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="1kN-rO-O6a"/>
-                    <connections>
-                        <segue destination="FlE-JK-x1k" kind="push" identifier="PushEventDetail" id="09d-Pf-ztm"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T5V-in-RYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="NnZ-9s-Vys">
-                    <rect key="frame" x="0.0" y="0.0" width="38" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </pageControl>
-            </objects>
-            <point key="canvasLocation" x="577" y="814"/>
-        </scene>
         <!--Event Detail View Controller-->
         <scene sceneID="pbf-Q4-dux">
             <objects>
@@ -249,19 +232,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="upW-iB-N85">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="N0e-fY-mnH">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Roo-9A-PYl">
-                                <rect key="frame" x="233" y="5" width="71" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Route">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <connections>
-                                <action selector="routeClicked:" destination="FlE-JK-x1k" id="zwQ-fu-fX1"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Route" id="hdH-dO-6dS"/>
                     </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="wMn-XF-6J7" id="CaJ-xz-bxD"/>
@@ -269,12 +240,11 @@
                         <outlet property="roomLabel" destination="wpL-st-FuQ" id="DcK-2z-OEC"/>
                         <outlet property="timeLabel" destination="hUX-Ox-mHj" id="LbC-6a-w85"/>
                         <outlet property="titleLabel" destination="Eki-yY-7Hd" id="6Bk-dc-5ne"/>
-                        <segue destination="2R5-aG-0zK" kind="push" identifier="EventDetailRoute" id="uUs-o4-UDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlj-5T-zDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1020" y="807"/>
+            <point key="canvasLocation" x="913" y="814"/>
         </scene>
         <!--Table View Controller - More-->
         <scene sceneID="2Sf-KI-RLd">
@@ -462,12 +432,25 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="co8-in-Zwf" kind="relationship" relationship="rootViewController" id="6Mn-Kg-8ge"/>
+                        <segue destination="5nZ-1f-TnI" kind="relationship" relationship="rootViewController" id="eHD-Sx-pOn"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9Z-D1-faC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="59" y="814"/>
+        </scene>
+        <!--Events View Controller-->
+        <scene sceneID="stv-WH-dp5">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="5nZ-1f-TnI" customClass="MCCEventsViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="PBP-44-mqL"/>
+                    <connections>
+                        <segue destination="FlE-JK-x1k" kind="push" id="rU3-EF-X4d"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BFH-cU-u34" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="489" y="814"/>
         </scene>
     </scenes>
     <resources>
@@ -484,7 +467,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="uUs-o4-UDP"/>
-    </inferredMetricsTieBreakers>
 </document>
