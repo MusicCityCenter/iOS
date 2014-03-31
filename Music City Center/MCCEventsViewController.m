@@ -34,24 +34,10 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @implementation MCCEventsViewController
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    /*[self setNeedsStatusBarAppearanceUpdate];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height)];
     
@@ -195,9 +181,7 @@ static NSString * const kCellIdentifier = @"Cell";
     [[MCCClient sharedClient] events:@"full-test-1" on:tomorrow withCompletionBlock:^(NSArray *events) {
         self.contentsTomorrow = events;
         [self.tableView3 reloadData];
-    }];
-    
-    
+    }];*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -206,24 +190,26 @@ static NSString * const kCellIdentifier = @"Cell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Navigation
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
+        if ([sender isKindOfClass:[MCCEvent class]]) {
+            MCCEvent *event = [[MCCEvent alloc] init];
+            event = (MCCEvent *) sender;
+            
+            MCCEventDetailViewController *eventDetailViewController = [[MCCEventDetailViewController alloc] init];
+            eventDetailViewController = segue.destinationViewController;
+            [eventDetailViewController setEvent:event];
+            eventDetailViewController.event1 = event;
+        }
+    }
+}
 
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:_tableViewYesterday]){
-        
-    
         if (!self.contents){
             return 0;
         
@@ -251,7 +237,6 @@ static NSString * const kCellIdentifier = @"Cell";
         
         return [myContents count];
     }
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -275,9 +260,6 @@ static NSString * const kCellIdentifier = @"Cell";
     } else {
         event = self.contentsTomorrow[indexPath.row];
     }
-    
-    
-    
     
     cell.textLabel.text = event.name;
     NSArray *randomTimesArray = [[NSArray alloc] init];
@@ -316,7 +298,7 @@ static NSString * const kCellIdentifier = @"Cell";
     [self.navigationController pushViewController:dvc animated:YES];*/
 }
 
-#pragma mark - Scrolling to pages
+/*#pragma mark - Scrolling to pages
 
 
 - (void) sideScrollToPage0{
@@ -329,26 +311,6 @@ static NSString * const kCellIdentifier = @"Cell";
 
 - (void) sideScrollToPage2{
     [self.scrollView scrollRectToVisible:CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width,1) animated:YES];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
-        if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = [[MCCEvent alloc] init];
-            event = (MCCEvent *) sender;
-            
-            MCCEventDetailViewController *eventDetailViewController = [[MCCEventDetailViewController alloc] init];
-            eventDetailViewController = segue.destinationViewController;
-            [eventDetailViewController setEvent:event];
-            eventDetailViewController.event1 = event;
-        }
-    }
-     
-}
-
-
-
-
+}*/
 
 @end
