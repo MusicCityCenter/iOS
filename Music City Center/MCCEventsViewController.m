@@ -17,18 +17,13 @@
 
 static NSString * const kCellIdentifier = @"Cell";
 
-@interface MCCEventsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MCCEventsViewController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray *contents;
 @property (strong, nonatomic) NSArray *contentsToday;
 @property (strong, nonatomic) NSArray *contentsTomorrow;
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UISegmentedControl *segmented;
 @property (strong, nonatomic) UILabel *label;
-@property (strong, nonatomic) UITableView *tableViewYesterday;
-@property (strong, nonatomic) UITableView *tableView2;
-@property (strong, nonatomic) UITableView *tableView3;
-@property (strong, nonatomic) UIScrollView *scrollView;
 
 @end
 
@@ -204,98 +199,6 @@ static NSString * const kCellIdentifier = @"Cell";
             eventDetailViewController.event1 = event;
         }
     }
-}
-
-#pragma mark - Table View Data Source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([tableView isEqual:_tableViewYesterday]){
-        if (!self.contents){
-            return 0;
-        
-        }
-        NSArray* myContents = [[NSArray alloc] init];
-        myContents = self.contents;
-        
-        return [myContents count];
-    } else if ([tableView isEqual:_tableView2]){
-        if (!self.contentsToday){
-            return 0;
-            
-        }
-        NSArray* myContents = [[NSArray alloc] init];
-        myContents = self.contentsToday;
-        
-        return [myContents count];
-    } else {
-        if (!self.contentsTomorrow){
-            return 0;
-            
-        }
-        NSArray* myContents = [[NSArray alloc] init];
-        myContents = self.contentsTomorrow;
-        
-        return [myContents count];
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *simpleTableIdentifier = @"SimpleTableCell";
-    
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:simpleTableIdentifier];
-    }
-    
-    MCCEvent *event = [[MCCEvent alloc] init];
-    
-    if ([tableView isEqual:_tableViewYesterday]){
-        event = self.contents[indexPath.row];
-    } else if ([tableView isEqual:_tableView2]){
-        event = self.contentsToday[indexPath.row];
-    } else {
-        event = self.contentsTomorrow[indexPath.row];
-    }
-    
-    cell.textLabel.text = event.name;
-    NSArray *randomTimesArray = [[NSArray alloc] init];
-    randomTimesArray = [NSArray arrayWithObjects:@"6:00 PM in Ballroom A (Today)", @"8:30 PM in Room 101 (Tomorrow)", @"Now in Hallway B", @"12:00 PM in Ballroom B (Tuesday)", @"1 PM in Room 101 (Today)", nil];
-    if (indexPath.row < randomTimesArray.count){
-        cell.detailTextLabel.text = randomTimesArray[indexPath.row];
-    }
-    cell.textLabel.textColor = [UIColor colorWithRed:0.027 green:0.463 blue:0.729 alpha:1]; /*#0776ba*/
-    
-    return cell;
-
-}
-
-#pragma mark - Table View Delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MCCEvent *event = [[MCCEvent alloc] init];
-    
-    if ([tableView isEqual:_tableViewYesterday]){
-        event = self.contents[indexPath.row];
-    } else if ([tableView isEqual:_tableView2]){
-        event = self.contentsToday[indexPath.row];
-    } else {
-        event = self.contentsTomorrow[indexPath.row];
-    }
-    
-    [self performSegueWithIdentifier:@"PushEventDetail" sender:event];
-    /*
-    MCCEventDetailViewController* eventDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MCCEventDetailViewController"];
-    eventDetailVC.tweet = [self.contents objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:eventDetailVC animated:YES];
-     */
-    /*
-    DetailVC *dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    dvc.tweet = [self.tweetsArray objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:dvc animated:YES];*/
 }
 
 /*#pragma mark - Scrolling to pages
