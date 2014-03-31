@@ -19,16 +19,16 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @interface MCCEventsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) NSArray * contents;
-@property (strong, nonatomic) NSArray * contentsToday;
-@property (strong, nonatomic) NSArray * contentsTomorrow;
+@property (strong, nonatomic) NSArray *contents;
+@property (strong, nonatomic) NSArray *contentsToday;
+@property (strong, nonatomic) NSArray *contentsTomorrow;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISegmentedControl *segmented;
-@property (strong, nonatomic) UILabel * label;
-@property (strong, nonatomic) UITableView * tableViewYesterday;
-@property (strong, nonatomic) UITableView * tableView2;
-@property (strong, nonatomic) UITableView * tableView3;
-@property (strong, nonatomic) UIScrollView * scrollView;
+@property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic) UITableView *tableViewYesterday;
+@property (strong, nonatomic) UITableView *tableView2;
+@property (strong, nonatomic) UITableView *tableView3;
+@property (strong, nonatomic) UIScrollView *scrollView;
 
 @end
 
