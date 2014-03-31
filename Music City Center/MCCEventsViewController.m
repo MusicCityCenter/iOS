@@ -48,12 +48,10 @@ static NSString * const kCellIdentifier = @"Cell";
     return UIStatusBarStyleLightContent;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setNeedsStatusBarAppearanceUpdate];
-    
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height)];
     
@@ -178,14 +176,7 @@ static NSString * const kCellIdentifier = @"Cell";
     self.label = [[UILabel alloc] init];
     self.label.frame = CGRectMake(10, 20, 300, 40);
     [self.view addSubview:self.label];
-    NSArray *itemArray = [[NSArray alloc] init];
-    itemArray = [NSArray arrayWithObjects: @"Near Me", @"All", nil];
-    
-    self.segmented = [[UISegmentedControl alloc] initWithItems:itemArray];
-    self.segmented.frame = CGRectMake(10, 80, 290, 25);
-    self.segmented.selectedSegmentIndex = 1;
-    self.segmented.tintColor = [UIColor whiteColor];
-    [self.view addSubview:self.segmented];
+
     NSTimeInterval secondsPerDay = 24 * 60 * 60;
     NSDate *tomorrow = [[NSDate alloc]
                         initWithTimeIntervalSinceNow:secondsPerDay];
