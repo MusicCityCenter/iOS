@@ -439,10 +439,10 @@
             </objects>
             <point key="canvasLocation" x="59" y="814"/>
         </scene>
-        <!--Events View Controller-->
+        <!--Events Page View Controller-->
         <scene sceneID="stv-WH-dp5">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="5nZ-1f-TnI" customClass="MCCEventsViewController" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="5nZ-1f-TnI" customClass="MCCEventsPageViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="PBP-44-mqL">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vxZ-Ba-Aaa">

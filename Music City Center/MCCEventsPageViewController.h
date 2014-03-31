@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCCEventsViewController : UIPageViewController
+@interface MCCEventsPageViewController : UIPageViewController
 
 @end

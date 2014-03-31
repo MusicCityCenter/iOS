@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
-#import "MCCEventsViewController.h"
+#import "MCCEventsPageViewController.h"
 #import "MCCClient.h"
 #import "MCCEvent.h"
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
+#import "MCCEventsTableViewController.h"
 #import "MCCEventDetailViewController.h"
-
-#define NUM_DAYS        3
+#import "MCCPageViewControllerDataSource.h"
 
 static NSString * const kCellIdentifier = @"Cell";
 
-@interface MCCEventsViewController () <UISearchBarDelegate>
+@interface MCCEventsPageViewController () <UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray *contents;
 @property (strong, nonatomic) NSArray *contentsToday;
@@ -25,12 +25,38 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UILabel *label;
 
+@property (strong, nonatomic) MCCPageViewControllerDataSource *pageViewControllerDataSource;
+
 @end
 
-@implementation MCCEventsViewController
+@implementation MCCEventsPageViewController
+
+#pragma mark - Custom Getter
+
+- (MCCPageViewControllerDataSource *)pageViewControllerDataSource {
+    if (!_pageViewControllerDataSource) {
+        _pageViewControllerDataSource = [[MCCPageViewControllerDataSource alloc] init];
+    }
+    
+    return _pageViewControllerDataSource;
+}
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.dataSource = self.pageViewControllerDataSource;
+    
+    MCCEventsTableViewController *initialEventsTableViewController = [[MCCEventsTableViewController alloc] init];
+    initialEventsTableViewController.date = [NSDate date];
+    
+    [self setViewControllers:@[initialEventsTableViewController]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:YES
+                  completion:^(BOOL finished) {
+                      // Completed
+                  }];
     
     /*[self setNeedsStatusBarAppearanceUpdate];
     
@@ -202,7 +228,6 @@ static NSString * const kCellIdentifier = @"Cell";
 }
 
 /*#pragma mark - Scrolling to pages
-
 
 - (void) sideScrollToPage0{
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, self.view.frame.size.width,1) animated:YES];
