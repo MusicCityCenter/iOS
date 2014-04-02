@@ -10,6 +10,18 @@
 
 @implementation MCCSearchDisplayController
 
+//-(id)initWithSearchBar:(UISearchBar *)searchBar contentsController:(UIViewController *)viewController {
+//    self = [super initWithSearchBar:searchBar
+//                 contentsController:viewController];
+//    
+//    if (self) {
+//        [self setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
+//                forKey:@"_searchResultsTableViewStyle"];
+//    }
+//    
+//    return self;
+//}
+
 -(UITableView *)searchResultsTableView {
     [self setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
             forKey:@"_searchResultsTableViewStyle"];
