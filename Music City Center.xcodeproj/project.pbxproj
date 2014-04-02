@@ -39,6 +39,7 @@
 		841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68918B8CF88009626B8 /* MCCEvent.m */; };
 		A00BA09218E244B9006D5F15 /* MCCEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */; };
 		A00BA09418E28A5A006D5F15 /* southernwomenshowimage.png in Resources */ = {isa = PBXBuildFile; fileRef = A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */; };
+		A0D9A56E18ECAE110038A11C /* MCCFilterEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D9A56D18ECAE110038A11C /* MCCFilterEventViewController.m */; };
 		A0F82EA618DA588600C6B658 /* MCCEventsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F82EA518DA588600C6B658 /* MCCEventsPageViewController.m */; };
 		AE1DFE2FCE634724A956700A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394C53480684646969EDC29 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,8 @@
 		A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventDetailViewController.h; sourceTree = "<group>"; };
 		A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventDetailViewController.m; sourceTree = "<group>"; };
 		A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = southernwomenshowimage.png; sourceTree = "<group>"; };
+		A0D9A56C18ECAE110038A11C /* MCCFilterEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFilterEventViewController.h; sourceTree = "<group>"; };
+		A0D9A56D18ECAE110038A11C /* MCCFilterEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFilterEventViewController.m; sourceTree = "<group>"; };
 		A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventsPageViewController.h; sourceTree = "<group>"; };
 		A0F82EA518DA588600C6B658 /* MCCEventsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventsPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +193,8 @@
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
+				A0D9A56C18ECAE110038A11C /* MCCFilterEventViewController.h */,
+				A0D9A56D18ECAE110038A11C /* MCCFilterEventViewController.m */,
 				A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */,
 				A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */,
 				A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */,
@@ -405,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				841DD67B18B8BE3D009626B8 /* MCCFloorPlanImageLocation.m in Sources */,
+				A0D9A56E18ECAE110038A11C /* MCCFilterEventViewController.m in Sources */,
 				841DD66F18B8B96C009626B8 /* MCCFloorPlan.m in Sources */,
 				841DD68718B8C501009626B8 /* MCCNavPath.m in Sources */,
 				A0F82EA618DA588600C6B658 /* MCCEventsPageViewController.m in Sources */,

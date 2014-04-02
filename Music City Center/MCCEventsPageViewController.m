@@ -24,6 +24,7 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) NSArray *contentsTomorrow;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *filterButton;
 
 @property (strong, nonatomic) MCCPageViewControllerDataSource *pageViewControllerDataSource;
 
@@ -225,6 +226,9 @@ static NSString * const kCellIdentifier = @"Cell";
             eventDetailViewController.event1 = event;
         }
     }
+}
+
+- (IBAction)filterButtonPressed:(id)sender {
 }
 
 /*#pragma mark - Scrolling to pages
