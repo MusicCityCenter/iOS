@@ -446,12 +446,13 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="PBP-44-mqL">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vxZ-Ba-Aaa">
-                            <rect key="frame" x="94" y="7" width="133" height="31"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" id="vxZ-Ba-Aaa">
+                            <rect key="frame" x="48" y="7" width="224" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Near Me"/>
-                                <segment title="All"/>
+                                <segment title="Yesterday"/>
+                                <segment title="Today"/>
+                                <segment title="Tomorrow"/>
                             </segments>
                         </segmentedControl>
                     </navigationItem>
