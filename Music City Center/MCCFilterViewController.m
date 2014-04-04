@@ -8,12 +8,6 @@
 
 #import "MCCFilterViewController.h"
 
-@interface MCCFilterViewController ()
-
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
-
-@end
-
 @implementation MCCFilterViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
