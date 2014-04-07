@@ -127,7 +127,7 @@
                         <outlet property="delegate" destination="vXZ-lx-hvc" id="w9k-7I-gnW"/>
                     </connections>
                 </searchBar>
-                <searchDisplayController id="V3i-S2-8Z9" customClass="MCCSearchDisplayController">
+                <searchDisplayController id="V3i-S2-8Z9">
                     <connections>
                         <outlet property="delegate" destination="vXZ-lx-hvc" id="sd3-iF-d0n"/>
                         <outlet property="searchBar" destination="wm4-lb-8Tv" id="6Li-YK-Lru"/>
