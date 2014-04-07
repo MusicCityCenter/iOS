@@ -87,9 +87,6 @@ static CGFloat const kBlurOffset = 64.0f;
                                                 forCellReuseIdentifier:kCellIdentifier];
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
     
-    [self.searchDisplayController setValue:[NSNumber numberWithInt:UITableViewStyleGrouped]
-                             forKey:@"_searchResultsTableViewStyle"];
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
