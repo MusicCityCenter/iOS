@@ -21,7 +21,7 @@ static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
 
 
-@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSArray *events; // MCCEvents
 @property (strong, nonatomic) NSMutableArray *eventSearchResults;
@@ -30,6 +30,9 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) NSMutableArray *roomSearchResults;
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UITableView *tableView;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -78,20 +81,54 @@ static CGFloat const kBlurOffset = 64.0f;
     return _blurFilter;
 }
 
+-(UITableView *)tableView {
+    if (!_tableView) {
+        CGRect deviceSize = [UIScreen mainScreen].bounds;
+        NSInteger navigationBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height
+                                    + self.navigationController.navigationBar.frame.size.height;
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarHeight, deviceSize.size.width, deviceSize.size.height)
+                                                  style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self
+                                                 action:@selector(endSearch)];
+        [_tableView addGestureRecognizer:tapRecognizer];
+    }
+    
+    return _tableView;
+}
+
+-(UISearchBar *)searchBar {
+    if (!_searchBar) {
+        self.searchBar = [[UISearchBar alloc] init];
+        self.searchBar.placeholder = @"Search for Events or Rooms";
+        self.searchBar.delegate = self;
+    }
+    
+    return _searchBar;
+}
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class]
-                                                forCellReuseIdentifier:kCellIdentifier];
-    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor clearColor];
+    self.navigationItem.titleView = self.searchBar;
+    
+    [self.tableView registerClass:[UITableViewCell class]
+           forCellReuseIdentifier:kCellIdentifier];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
-    [self.searchDisplayController.searchResultsTableView addSubview:self.refreshControl];
+    [self.tableView addSubview:self.refreshControl];
     
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
     self.blurView.clipsToBounds = YES;
@@ -99,9 +136,6 @@ static CGFloat const kBlurOffset = 64.0f;
     self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     
     [self.view addSubview:self.blurView];
-    
-    // Put the search bar in the nav bar
-    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,8 +147,7 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    [self findMatches];
-
+    
     NSInteger numberOfSections = 0;
     
     if ([self.eventSearchResults count] > 0) {
@@ -201,9 +234,9 @@ static CGFloat const kBlurOffset = 64.0f;
     [self populateEventsAndRooms];
 }
 
-#pragma mark - Search Display Delegate
+#pragma mark - Search Bar Delegate
 
-- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     [self populateEventsAndRooms];
     
     [self updateBlur];
@@ -215,13 +248,22 @@ static CGFloat const kBlurOffset = 64.0f;
         self.blurView.layer.contentsRect = CGRectMake(0.0f, (kBlurOffset / deviceSize.size.height), 1.0f, 1.0f);
         self.blurView.layer.contentsScale = 2.0f;
     }];
+    [self.view addSubview:self.tableView];
+    return YES;
 }
 
-- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+-(void)endSearch {
     [UIView animateWithDuration:0.25f animations:^{
         self.blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     }];
+    [self.tableView removeFromSuperview];
+    [self.searchBar resignFirstResponder];
+}
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [self findMatches:searchText];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Blur Effect
@@ -261,11 +303,11 @@ static CGFloat const kBlurOffset = 64.0f;
 }
 
 // Find all matching strings
-- (void)findMatches {
+- (void)findMatches:(NSString *)searchText {
     [self.eventSearchResults removeAllObjects];
 
     for (MCCEvent *event in self.events) {
-        NSRange range = [event.name rangeOfString:self.searchDisplayController.searchBar.text
+        NSRange range = [event.name rangeOfString:searchText
                                           options:NSCaseInsensitiveSearch];
         
         if (range.location != NSNotFound) {
@@ -276,7 +318,7 @@ static CGFloat const kBlurOffset = 64.0f;
     [self.roomSearchResults removeAllObjects];
     
     for (MCCFloorPlanLocation *location in self.rooms) {
-        NSRange range = [location.locationId rangeOfString:self.searchDisplayController.searchBar.text
+        NSRange range = [location.locationId rangeOfString:searchText
                                                    options:NSCaseInsensitiveSearch];
         if (range.location != NSNotFound) {
             [self.roomSearchResults addObject:location];
