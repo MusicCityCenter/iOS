@@ -33,6 +33,7 @@ static CGFloat const kBlurOffset = 64.0f;
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic) BOOL searching;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -92,10 +93,10 @@ static CGFloat const kBlurOffset = 64.0f;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                                 initWithTarget:self
-                                                 action:@selector(endSearch)];
-        [_tableView addGestureRecognizer:tapRecognizer];
+//        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+//                                                 initWithTarget:self
+//                                                 action:@selector(endSearch)];
+//        [_tableView addGestureRecognizer:tapRecognizer];
     }
     
     return _tableView;
@@ -124,11 +125,7 @@ static CGFloat const kBlurOffset = 64.0f;
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self
-                            action:@selector(refresh:)
-                  forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
+    self.searching = NO;
     
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
     self.blurView.clipsToBounds = YES;
@@ -221,6 +218,7 @@ static CGFloat const kBlurOffset = 64.0f;
         [self performSegueWithIdentifier:@"PushMap"
                                   sender:location];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -230,24 +228,24 @@ static CGFloat const kBlurOffset = 64.0f;
     headerView.textLabel.textColor = [UIColor whiteColor];
 }
 
-- (void)refresh:(UIRefreshControl *)refreshControl {
-    [self populateEventsAndRooms];
-}
-
 #pragma mark - Search Bar Delegate
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     [self populateEventsAndRooms];
     
-    [self updateBlur];
+    if (!self.searching) {
     
-    CGRect deviceSize = [UIScreen mainScreen].bounds;
-    
-    [UIView animateWithDuration:0.25f animations:^(void){
-        self.blurView.frame = CGRectMake(0, kBlurOffset, deviceSize.size.width, deviceSize.size.height);
-        self.blurView.layer.contentsRect = CGRectMake(0.0f, (kBlurOffset / deviceSize.size.height), 1.0f, 1.0f);
-        self.blurView.layer.contentsScale = 2.0f;
-    }];
+        [self updateBlur];
+        
+        CGRect deviceSize = [UIScreen mainScreen].bounds;
+        
+        [UIView animateWithDuration:0.25f animations:^(void){
+            self.blurView.frame = CGRectMake(0, kBlurOffset, deviceSize.size.width, deviceSize.size.height);
+            self.blurView.layer.contentsRect = CGRectMake(0.0f, (kBlurOffset / deviceSize.size.height), 1.0f, 1.0f);
+            self.blurView.layer.contentsScale = 2.0f;
+        }];
+    }
+    self.searching = YES;
     [self.view addSubview:self.tableView];
     return YES;
 }
@@ -259,6 +257,7 @@ static CGFloat const kBlurOffset = 64.0f;
     }];
     [self.tableView removeFromSuperview];
     [self.searchBar resignFirstResponder];
+    self.searching = NO;
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -280,7 +279,7 @@ static CGFloat const kBlurOffset = 64.0f;
     }];
 }
 
-#pragma mark - Helper Method
+#pragma mark - Helper Methods
 
 - (void)populateEventsAndRooms {
     // Populate contents array with events
