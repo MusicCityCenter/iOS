@@ -92,11 +92,6 @@ static CGFloat const kBlurOffset = 64.0f;
                                                   style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        
-//        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-//                                                 initWithTarget:self
-//                                                 action:@selector(endSearch)];
-//        [_tableView addGestureRecognizer:tapRecognizer];
     }
     
     return _tableView;
@@ -117,22 +112,33 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Put the search bar in the navigation bar
+    
     self.navigationItem.titleView = self.searchBar;
     
+    // Set up the table view
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
     self.tableView.backgroundColor = [UIColor clearColor];
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    // We are currently not searching
     self.searching = NO;
     
+    // Set up the blur view
     self.blurView = [[GPUImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
     self.blurView.clipsToBounds = YES;
     self.blurView.layer.contentsGravity = kCAGravityBottom;
     self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     
     [self.view addSubview:self.blurView];
+    
+    // Allow the user to exit the search by tapping
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                             initWithTarget:self
+                                             action:@selector(endSearch)];
+    [self.blurView addGestureRecognizer:tapRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -246,7 +252,6 @@ static CGFloat const kBlurOffset = 64.0f;
         }];
     }
     self.searching = YES;
-    [self.view addSubview:self.tableView];
     return YES;
 }
 
@@ -255,12 +260,21 @@ static CGFloat const kBlurOffset = 64.0f;
         self.blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     }];
-    [self.tableView removeFromSuperview];
     [self.searchBar resignFirstResponder];
     self.searching = NO;
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    // If there is text to search, add the table as a subview
+    if (!self.tableView.superview && searchText.length > 0) {
+        [self.view addSubview:self.tableView];
+    }
+    // If there is currently no text to search and there was before, remove the tableview
+    else if (self.tableView.superview && searchText.length == 0) {
+        [self.tableView removeFromSuperview];
+    }
+    // The above is so that the gesture recognizer on the blurview can be accessed when there is no text in the search bar
+    
     [self findMatches:searchText];
     [self.tableView reloadData];
 }
