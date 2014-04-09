@@ -236,6 +236,8 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Search Bar Delegate
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+    self.tabBarController.tabBar.hidden = YES;
     [self populateEventsAndRooms];
     
     if (!self.searching) {
@@ -254,7 +256,13 @@ static CGFloat const kBlurOffset = 64.0f;
     return YES;
 }
 
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self endSearch];
+}
+
 -(void)endSearch {
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    self.tabBarController.tabBar.hidden = NO;
     [UIView animateWithDuration:0.25f animations:^{
         self.blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
