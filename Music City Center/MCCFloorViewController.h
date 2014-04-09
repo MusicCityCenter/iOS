@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class MCCEvent;
+@class MCCFloorPlanLocation;
 
 @interface MCCFloorViewController : UIViewController
 
-- (void)setPolylineFromEvent:(MCCEvent *)event;
+- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location;
 
 @end
