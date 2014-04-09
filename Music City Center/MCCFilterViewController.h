@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCCFilterViewController : UIViewController
+@interface MCCFilterViewController : UIViewController 
 
 @end
