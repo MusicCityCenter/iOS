@@ -84,12 +84,16 @@ static CGFloat const kBlurOffset = 64.0f;
 
 -(UITableView *)searchTableView {
     if (!_searchTableView) {
+        
+        // We don't want the tableView to end up underneath the Nav Bar, so we need to move it down a bit
         CGRect deviceSize = [UIScreen mainScreen].bounds;
         NSInteger navigationBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height
                                     + self.navigationController.navigationBar.frame.size.height;
         
-        _searchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarHeight, deviceSize.size.width, deviceSize.size.height)
-                                                  style:UITableViewStyleGrouped];
+        _searchTableView = [[UITableView alloc]
+                            initWithFrame:CGRectMake(0, navigationBarHeight,
+                                                     deviceSize.size.width, deviceSize.size.height)
+                            style:UITableViewStyleGrouped];
         _searchTableView.delegate = self;
         _searchTableView.dataSource = self;
     }
