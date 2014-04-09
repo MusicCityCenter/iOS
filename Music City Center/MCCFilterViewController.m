@@ -143,7 +143,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
         
     }
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     [self.tableView endUpdates];
 }

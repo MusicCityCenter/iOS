@@ -59,13 +59,16 @@ static NSString * const kCellIdentifier = @"EventCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
-                                                            forIndexPath:indexPath];
-    
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
+                                                          //  forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
+  
     MCCEvent *event = self.events[indexPath.row];
     
     cell.textLabel.text = event.name;
-    
+    //cell.detailTextLabel.text = event.locationId;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Room %@", event.locationId];
+    cell.detailTextLabel.textColor = [UIColor blueColor];
     return cell;
 }
 
