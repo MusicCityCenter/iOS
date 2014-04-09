@@ -228,7 +228,6 @@ static CGFloat const kBlurOffset = 64.0f;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    view.tintColor = [UIColor blueColor];
     
     UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *) view;
     headerView.textLabel.textColor = [UIColor whiteColor];
