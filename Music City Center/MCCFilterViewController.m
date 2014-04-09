@@ -83,10 +83,7 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     UITableViewCell *cell;
     
     if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row)){
-        NSTimeInterval hour = 60 * 60;
-        NSDate *tomorrow = [[NSDate alloc]
-                            initWithTimeIntervalSinceNow:hour];
-        cell = [self createPickerCell:tomorrow];
+        cell = [self createPickerCell:[NSDate date]];
         
     }else {
 
