@@ -29,8 +29,6 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) NSMutableArray *rooms; // MCCFloorPlanLocations
 @property (strong, nonatomic) NSMutableArray *roomSearchResults;
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UITableView *searchTableView;
 @property (nonatomic) BOOL searching;
@@ -321,7 +319,6 @@ static CGFloat const kBlurOffset = 64.0f;
                 }
             }
             [self.searchDisplayController.searchResultsTableView reloadData];
-            [self.refreshControl endRefreshing];
         }];
     }];
 }
