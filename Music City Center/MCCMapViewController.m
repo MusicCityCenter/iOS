@@ -32,7 +32,7 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UITableView *searchTableView;
 @property (nonatomic) BOOL searching;
 
 @property (strong, nonatomic) GPUImageView *blurView;
@@ -82,19 +82,19 @@ static CGFloat const kBlurOffset = 64.0f;
     return _blurFilter;
 }
 
--(UITableView *)tableView {
-    if (!_tableView) {
+-(UITableView *)searchTableView {
+    if (!_searchTableView) {
         CGRect deviceSize = [UIScreen mainScreen].bounds;
         NSInteger navigationBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height
                                     + self.navigationController.navigationBar.frame.size.height;
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarHeight, deviceSize.size.width, deviceSize.size.height)
+        _searchTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarHeight, deviceSize.size.width, deviceSize.size.height)
                                                   style:UITableViewStyleGrouped];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        _searchTableView.delegate = self;
+        _searchTableView.dataSource = self;
     }
     
-    return _tableView;
+    return _searchTableView;
 }
 
 -(UISearchBar *)searchBar {
@@ -117,11 +117,11 @@ static CGFloat const kBlurOffset = 64.0f;
     self.navigationItem.titleView = self.searchBar;
     
     // Set up the table view
-    [self.tableView registerClass:[UITableViewCell class]
+    [self.searchTableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.searchTableView.backgroundColor = [UIColor clearColor];
     
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.searchTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     // We are currently not searching
     self.searching = NO;
@@ -224,7 +224,7 @@ static CGFloat const kBlurOffset = 64.0f;
         [self performSegueWithIdentifier:@"PushMap"
                                   sender:location];
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.searchTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -266,17 +266,17 @@ static CGFloat const kBlurOffset = 64.0f;
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // If there is text to search, add the table as a subview
-    if (!self.tableView.superview && searchText.length > 0) {
-        [self.view addSubview:self.tableView];
+    if (!self.searchTableView.superview && searchText.length > 0) {
+        [self.view addSubview:self.searchTableView];
     }
     // If there is currently no text to search and there was before, remove the tableview
-    else if (self.tableView.superview && searchText.length == 0) {
-        [self.tableView removeFromSuperview];
+    else if (self.searchTableView.superview && searchText.length == 0) {
+        [self.searchTableView removeFromSuperview];
     }
     // The above is so that the gesture recognizer on the blurview can be accessed when there is no text in the search bar
     
     [self findMatches:searchText];
-    [self.tableView reloadData];
+    [self.searchTableView reloadData];
 }
 
 #pragma mark - Blur Effect
