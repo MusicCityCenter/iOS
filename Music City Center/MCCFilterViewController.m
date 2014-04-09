@@ -57,9 +57,9 @@ static NSString *kDatePickerCellID = @"datePickerCell";
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     
-    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.dateFormatter setDateStyle:NSDateFormatterNoStyle];
     
-    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 }
 
 - (BOOL)datePickerIsShown {
