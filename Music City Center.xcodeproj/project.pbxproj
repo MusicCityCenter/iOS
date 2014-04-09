@@ -39,6 +39,7 @@
 		841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DD68918B8CF88009626B8 /* MCCEvent.m */; };
 		A00BA09218E244B9006D5F15 /* MCCEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */; };
 		A00BA09418E28A5A006D5F15 /* southernwomenshowimage.png in Resources */ = {isa = PBXBuildFile; fileRef = A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */; };
+		A0CC404B18F5CD1E001AD385 /* MCCConferencePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CC404A18F5CD1E001AD385 /* MCCConferencePickerViewController.m */; };
 		A0D9A56E18ECAE110038A11C /* MCCFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D9A56D18ECAE110038A11C /* MCCFilterViewController.m */; };
 		A0F82EA618DA588600C6B658 /* MCCEventsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F82EA518DA588600C6B658 /* MCCEventsPageViewController.m */; };
 		AE1DFE2FCE634724A956700A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394C53480684646969EDC29 /* libPods.a */; };
@@ -111,6 +112,8 @@
 		A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventDetailViewController.h; sourceTree = "<group>"; };
 		A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCEventDetailViewController.m; sourceTree = "<group>"; };
 		A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = southernwomenshowimage.png; sourceTree = "<group>"; };
+		A0CC404918F5CD1E001AD385 /* MCCConferencePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCConferencePickerViewController.h; sourceTree = "<group>"; };
+		A0CC404A18F5CD1E001AD385 /* MCCConferencePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCConferencePickerViewController.m; sourceTree = "<group>"; };
 		A0D9A56C18ECAE110038A11C /* MCCFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCFilterViewController.h; sourceTree = "<group>"; };
 		A0D9A56D18ECAE110038A11C /* MCCFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCFilterViewController.m; sourceTree = "<group>"; };
 		A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventsPageViewController.h; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
 				A0D9A56C18ECAE110038A11C /* MCCFilterViewController.h */,
 				A0D9A56D18ECAE110038A11C /* MCCFilterViewController.m */,
+				A0CC404918F5CD1E001AD385 /* MCCConferencePickerViewController.h */,
+				A0CC404A18F5CD1E001AD385 /* MCCConferencePickerViewController.m */,
 				A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */,
 				A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */,
 				A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */,
@@ -427,6 +432,7 @@
 				4B8E50E118A04A93009F4266 /* MCCMapViewController.m in Sources */,
 				4BBE291D18A0CD3700C38EB7 /* MCCFloorViewController.m in Sources */,
 				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,
+				A0CC404B18F5CD1E001AD385 /* MCCConferencePickerViewController.m in Sources */,
 				2D9DD6F718E93D2B0086498E /* MCCEventsTableViewController.m in Sources */,
 				A00BA09218E244B9006D5F15 /* MCCEventDetailViewController.m in Sources */,
 				841DD67E18B8BF6B009626B8 /* MCCClient.m in Sources */,

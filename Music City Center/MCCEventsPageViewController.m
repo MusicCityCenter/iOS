@@ -26,12 +26,16 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) UILabel *label;
 
 @property (strong, nonatomic) MCCPageViewControllerDataSource *pageViewControllerDataSource;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *conferenceButton;
 
 @end
 
 @implementation MCCEventsPageViewController
 
 #pragma mark - Custom Getter
+
+- (IBAction)conferencePressed:(id)sender {
+}
 
 - (MCCPageViewControllerDataSource *)pageViewControllerDataSource {
     if (!_pageViewControllerDataSource) {
