@@ -113,7 +113,6 @@ static CGFloat const kBlurOffset = 64.0f;
     [super viewDidLoad];
     
     // Put the search bar in the navigation bar
-    
     self.navigationItem.titleView = self.searchBar;
     
     // Set up the table view
@@ -224,6 +223,7 @@ static CGFloat const kBlurOffset = 64.0f;
         [self performSegueWithIdentifier:@"PushMap"
                                   sender:location];
     }
+    
     [self.searchTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
