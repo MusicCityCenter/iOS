@@ -10,7 +10,6 @@
 		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
 		2DD8447518BC447000B4296F /* MCCResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8447418BC447000B4296F /* MCCResponseSerializer.m */; };
-		4B4BFD9718E278DA00070ABC /* MCCSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BFD9618E278DA00070ABC /* MCCSearchDisplayController.m */; };
 		4B8E50CB18A04A93009F4266 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CA18A04A93009F4266 /* Foundation.framework */; };
 		4B8E50CD18A04A93009F4266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */; };
 		4B8E50CF18A04A93009F4266 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8E50CE18A04A93009F4266 /* UIKit.framework */; };
@@ -57,8 +56,6 @@
 		2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		2DD8447318BC447000B4296F /* MCCResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCResponseSerializer.h; sourceTree = "<group>"; };
 		2DD8447418BC447000B4296F /* MCCResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCResponseSerializer.m; sourceTree = "<group>"; };
-		4B4BFD9518E278DA00070ABC /* MCCSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSearchDisplayController.h; sourceTree = "<group>"; };
-		4B4BFD9618E278DA00070ABC /* MCCSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSearchDisplayController.m; sourceTree = "<group>"; };
 		4B8E50C718A04A93009F4266 /* Music City Center.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music City Center.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8E50CA18A04A93009F4266 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4B8E50CC18A04A93009F4266 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -179,8 +176,6 @@
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
-				4B4BFD9518E278DA00070ABC /* MCCSearchDisplayController.h */,
-				4B4BFD9618E278DA00070ABC /* MCCSearchDisplayController.m */,
 				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
 				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
@@ -391,7 +386,6 @@
 				841DD68A18B8CF88009626B8 /* MCCEvent.m in Sources */,
 				841DD67518B8BCB8009626B8 /* MCCFloorPlanImageMapping.m in Sources */,
 				841DD67218B8BC7D009626B8 /* MCCNavData.m in Sources */,
-				4B4BFD9718E278DA00070ABC /* MCCSearchDisplayController.m in Sources */,
 				841DD66C18B8B8F4009626B8 /* MCCFloorPlanLocation.m in Sources */,
 				4B8E50DB18A04A93009F4266 /* MCCAppDelegate.m in Sources */,
 				2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */,

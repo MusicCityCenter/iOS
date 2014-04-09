@@ -112,30 +112,11 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="yWg-FQ-5I2"/>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="V3i-S2-8Z9" id="Djo-kw-uqP"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <searchBar contentMode="redraw" placeholder="Search for Events or Rooms" id="wm4-lb-8Tv">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="vXZ-lx-hvc" id="w9k-7I-gnW"/>
-                    </connections>
-                </searchBar>
-                <searchDisplayController id="V3i-S2-8Z9" customClass="MCCSearchDisplayController">
-                    <connections>
-                        <outlet property="delegate" destination="vXZ-lx-hvc" id="sd3-iF-d0n"/>
-                        <outlet property="searchBar" destination="wm4-lb-8Tv" id="6Li-YK-Lru"/>
-                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="A1H-w3-rU1"/>
-                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="JiT-6Y-AiT"/>
-                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="KQ7-aC-UjT"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="494" y="104"/>
         </scene>
