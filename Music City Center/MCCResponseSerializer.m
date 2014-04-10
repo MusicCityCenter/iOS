@@ -143,6 +143,16 @@
 
         responseObject = [events copy];
 
+    } else if ([firstPathComponent isEqualToString:@"beacons"]) {
+        // TODO : edit path
+        
+        NSLog(@"Turning response into FloorPlanLocation");
+        
+        MCCFloorPlanLocation *floorPlanLocation = [MCCFloorPlanLocation
+                                                   floorPlanLocationWithLocationId:@""
+                                                   andType:@""];
+        
+        responseObject = floorPlanLocation;
     }
     
     return responseObject;

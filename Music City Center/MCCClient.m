@@ -135,4 +135,37 @@
     return dataTask;
 }
 
+-(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
+    NSLog(@"Location from iBeacons");
+    // TODO
+    
+    NSString *targetURL = [NSString stringWithFormat:@""];
+    
+    // format: ?????
+    
+    NSURLSessionDataTask *dataTask = [self POST:targetURL
+                                     parameters:beaconData
+                                        success:^(NSURLSessionDataTask *task, id responseObject) {
+                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                            // Success
+                                            NSLog(@"Events fetched");
+                                            if (httpResponse.statusCode == 200) {
+                                                completionBlock(responseObject);
+                                            }
+                                        }
+                                        failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                            // Failure
+                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                                                        message:[NSString stringWithFormat:@"%@",error]
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil] show];
+                                            
+                                        }];
+    return dataTask;
+}
+
 @end
