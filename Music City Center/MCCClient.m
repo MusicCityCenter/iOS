@@ -149,7 +149,7 @@
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                             NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                             // Success
-                                            NSLog(@"Events fetched");
+                                            NSLog(@"Location fetched");
                                             if (httpResponse.statusCode == 200) {
                                                 completionBlock(responseObject);
                                             }
@@ -158,7 +158,7 @@
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                             NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                             // Failure
-                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Current Location on the Floorplan"
                                                                         message:[NSString stringWithFormat:@"%@",error]
                                                                        delegate:nil
                                                               cancelButtonTitle:@"OK"
