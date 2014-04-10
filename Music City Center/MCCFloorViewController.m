@@ -17,23 +17,33 @@
 #import "MCCFloorPlanImageMapping.h"
 #import "MCCFloorPlanLocation.h"
 #import <MBXMapKit/MBXMapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
-@interface MCCFloorViewController () <MKMapViewDelegate>
+@interface MCCFloorViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 
 @property (strong, nonatomic) MCCFloorPlanImage *floor1;
 @property (strong, nonatomic) MCCFloorPlanImageLocation *floor1TopLeft;
+@property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
 
 @property (strong, nonatomic) MKPolyline *polyline;
+
+// Beacons
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSArray *beacons;
 
 @end
 
 @implementation MCCFloorViewController
 
+
+# pragma mark - View Controller Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    
     self.mapView.mapID = @"musiccitycenter.vqloko6r";
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
@@ -58,60 +68,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location {
-    NSLog(@"Generating polyline");
+- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location andBeacons:(NSArray *)beacons {
     
-    MCCClient *client = [MCCClient sharedClient];
+    // Save the incoming data
+    self.endLocation = location;
+    self.beacons = beacons;
     
-    [client fetchFloorPlan:@"full-test-1"
-       withCompletionBlock:^(MCCNavData *navData) {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
     
-        [client shortestPathOnFloorPlan:@"full-test-1"
-                                   from:@"110"
-                                     to:location.locationId
-                    withCompletionBlock:^(MCCNavPath *path) {
-            
-            // Get the number of points, which is the number of edges + 1
-            NSUInteger numPoints = [path.edges count] + 1;
-            
-            // Allocate the array of coordinates
-            CLLocationCoordinate2D coords[numPoints];
-            
-            // Start with the start of the first edge
-            MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
-            NSLog(@"%@",firstEdge.startLocation.locationId);
-            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
-            
-            MCCFloorPlanImageLocation *firstTranslatedLocation =
-                        [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.floor1TopLeft.x
-                                                                          andY:firstLocation.y - self.floor1TopLeft.y];
-            
-            
-            // Turn the floorplan location into lat-long
-            coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
-            
-            int i = 1;
-            
-            // Then do the end of all the other edges
-            for (MCCFloorPlanEdge *edge in path.edges) {
-                MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
-                
-                MCCFloorPlanImageLocation *translatedLocation =
-                [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
-                                                                  andY:location.y - self.floor1TopLeft.y];
-                
-                // Turn the floorplan location into lat-long
-                coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
-                ++i;
-            }
-            
-            self.polyline = [MKPolyline polylineWithCoordinates:coords
-                                                          count:numPoints];
-            
-            
-            [self.mapView addOverlay:self.polyline];
-        }];
-    }];
+    // Get the current location, then wait for the callback to send data to the server
+    [self.locationManager startUpdatingLocation];
+    
 }
 
 
@@ -131,5 +99,132 @@
     
     return renderer;
 }
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog(@"LOCATION DATA RECEIVED");
+    
+    [self.locationManager stopUpdatingLocation];
+    
+    NSMutableArray *beaconData = [NSMutableArray array];
+    for (CLBeacon *beacon in self.beacons) {
+        NSMutableDictionary *thisBeacon = [NSMutableDictionary dictionary];
+        thisBeacon[@"uuid"] = beacon.proximityUUID.UUIDString;
+        thisBeacon[@"major"] = beacon.major;
+        thisBeacon[@"minor"] = beacon.minor;
+        thisBeacon[@"rssi"] = [NSNumber numberWithLong:beacon.rssi];
+        thisBeacon[@"accuracy"] = [NSNumber numberWithDouble:beacon.accuracy];
+        if (beacon.proximity == CLProximityUnknown) {
+            thisBeacon[@"distance"] = @"Unknown Proximity";
+        } else if (beacon.proximity == CLProximityImmediate) {
+            thisBeacon[@"distance"] = @"Immediate";
+        } else if (beacon.proximity == CLProximityNear) {
+            thisBeacon[@"distance"] = @"Near";
+        } else if (beacon.proximity == CLProximityFar) {
+            thisBeacon[@"distance"] = @"Far";
+        }
+        [beaconData addObject:thisBeacon];
+    }
+    
+    NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:beaconData options:NSJSONWritingPrettyPrinted error:nil];
+    
+    locationData[@"beaconData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    
+    CLLocation *curLocation = [locations lastObject];
+    
+    NSMutableDictionary *curLocData = [NSMutableDictionary dictionary];
+    curLocData[@"latitude"] = [NSNumber numberWithDouble:curLocation.coordinate.latitude];
+    curLocData[@"longitude"] = [NSNumber numberWithDouble:curLocation.coordinate.longitude];
+    curLocData[@"altitude"] = [NSNumber numberWithDouble:curLocation.altitude];
+    curLocData[@"horizontalAccuracy"] = [NSNumber numberWithDouble:curLocation.horizontalAccuracy];
+    curLocData[@"verticalAccuracy"] = [NSNumber numberWithDouble:curLocation.verticalAccuracy];
+    
+    
+    postData = [NSJSONSerialization dataWithJSONObject:curLocData options:NSJSONWritingPrettyPrinted error:nil];
+    
+    locationData[@"gpsData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    
+    NSMutableDictionary *wifiData = [NSMutableDictionary dictionary];
+    
+    CFArrayRef interfaces = CNCopySupportedInterfaces();
+    
+    if (interfaces) {
+        NSDictionary *netInfo = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(interfaces, 0));
+        wifiData[@"ssid"] = netInfo[@"SSID"];
+        wifiData[@"bssid"] = netInfo[@"BSSID"];
+    }
+    
+    postData = [NSJSONSerialization dataWithJSONObject:wifiData options:NSJSONWritingPrettyPrinted error:nil];
+    locationData[@"wifiData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    
+    [[MCCClient sharedClient] locationFromiBeacons:locationData
+                               withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
+                                   [self drawPolylineFromStartLocation:floorPlanLocation];
+                               }];
+}
+
+#pragma mark - Helper Methods
+
+-(void)drawPolylineFromStartLocation:(MCCFloorPlanLocation *)startLocation {
+    NSLog(@"Generating polyline");
+    
+    MCCClient *client = [MCCClient sharedClient];
+    
+    [client fetchFloorPlan:@"full-test-1"
+       withCompletionBlock:^(MCCNavData *navData) {
+           
+           [client shortestPathOnFloorPlan:@"full-test-1"
+                                      from:startLocation.locationId
+                                        to:self.endLocation.locationId
+                       withCompletionBlock:^(MCCNavPath *path) {
+                           
+                           // Get the number of points, which is the number of edges + 1
+                           NSUInteger numPoints = [path.edges count] + 1;
+                           
+                           // Allocate the array of coordinates
+                           CLLocationCoordinate2D coords[numPoints];
+                           
+                           // Start with the start of the first edge
+                           MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
+                           NSLog(@"%@",firstEdge.startLocation.locationId);
+                           MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
+                           
+                           MCCFloorPlanImageLocation *firstTranslatedLocation =
+                           [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.floor1TopLeft.x
+                                                                             andY:firstLocation.y - self.floor1TopLeft.y];
+                           
+                           
+                           // Turn the floorplan location into lat-long
+                           coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
+                           
+                           int i = 1;
+                           
+                           // Then do the end of all the other edges
+                           for (MCCFloorPlanEdge *edge in path.edges) {
+                               MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
+                               
+                               MCCFloorPlanImageLocation *translatedLocation =
+                               [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
+                                                                                 andY:location.y - self.floor1TopLeft.y];
+                               
+                               // Turn the floorplan location into lat-long
+                               coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
+                               ++i;
+                           }
+                           
+                           self.polyline = [MKPolyline polylineWithCoordinates:coords
+                                                                         count:numPoints];
+                           
+                           
+                           [self.mapView addOverlay:self.polyline];
+                       }];
+       }];
+
+}
+
+
 
 @end

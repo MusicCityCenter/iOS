@@ -34,6 +34,7 @@
     return _sharedClient;
 }
 
+
 - (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
     NSLog(@"fetch floorplan");
@@ -139,7 +140,7 @@
     NSLog(@"Location from iBeacons");
     // TODO
     
-    NSString *targetURL = [NSString stringWithFormat:@""];
+    NSString *targetURL = [NSString stringWithFormat:@"/"];
     
     // format: ?????
     

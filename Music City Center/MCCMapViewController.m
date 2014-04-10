@@ -21,7 +21,7 @@ static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
 
 
-@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *events; // MCCEvents
 @property (strong, nonatomic) NSMutableArray *eventSearchResults;
@@ -32,6 +32,11 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UITableView *searchTableView;
 @property (nonatomic) BOOL searching;
+
+// Beacons
+@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSArray *beacons;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -109,10 +114,25 @@ static CGFloat const kBlurOffset = 64.0f;
     return _searchBar;
 }
 
+- (CLBeaconRegion *)beaconRegion {
+    if (!_beaconRegion) {
+        NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"8DEEFBB9-F738-4297-8040-96668BB44281"];
+        _beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                           identifier:@"com.nashvillemusiccitycenter"];
+    }
+    return _beaconRegion;
+}
+
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startMonitoringForRegion:self.beaconRegion];
+    [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
     
     // Put the search bar in the navigation bar
     self.navigationItem.titleView = self.searchBar;
@@ -305,6 +325,21 @@ static CGFloat const kBlurOffset = 64.0f;
     }];
 }
 
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+    self.beacons = beacons;
+}
+
+
 #pragma mark - Helper Methods
 
 - (void)populateEventsAndRooms {
@@ -356,7 +391,7 @@ static CGFloat const kBlurOffset = 64.0f;
             MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
-            [floorViewController setPolylineFromFloorPlanLocation:location];
+            [floorViewController setPolylineFromFloorPlanLocation:location andBeacons:self.beacons];
         }
     }
 }

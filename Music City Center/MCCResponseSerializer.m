@@ -44,7 +44,10 @@
     // responseObject = floorPlan;
     
     NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
-    NSString *firstPathComponent = relativeURL.pathComponents[2];
+    NSString *firstPathComponent = @"";
+    if ([relativeURL.pathComponents count] >= 3) {
+        firstPathComponent = relativeURL.pathComponents[2];
+    }
     
     if ([firstPathComponent isEqualToString:@"floorplan"]) {
         // Example FloorPlan Mapping Response:
@@ -149,7 +152,7 @@
         NSLog(@"Turning response into FloorPlanLocation");
         
         MCCFloorPlanLocation *floorPlanLocation = [MCCFloorPlanLocation
-                                                   floorPlanLocationWithLocationId:@""
+                                                   floorPlanLocationWithLocationId:@"101"
                                                    andType:@""];
         
         responseObject = floorPlanLocation;

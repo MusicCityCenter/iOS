@@ -12,6 +12,6 @@
 
 @interface MCCFloorViewController : UIViewController
 
-- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location;
+- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location andBeacons:(NSArray *)beacons;
 
 @end
