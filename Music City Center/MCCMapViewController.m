@@ -255,14 +255,17 @@ static CGFloat const kBlurOffset = 64.0f;
         }];
     }
     self.searching = YES;
+    
     return YES;
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.searchTableView removeFromSuperview];
     [self endSearch];
 }
 
 -(void)endSearch {
+    self.searchBar.text = @"";
     [self.searchBar setShowsCancelButton:NO animated:YES];
     self.tabBarController.tabBar.hidden = NO;
     [UIView animateWithDuration:0.25f animations:^{
