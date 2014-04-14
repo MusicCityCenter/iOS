@@ -129,9 +129,7 @@
     
     NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
     
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:beaconData options:NSJSONWritingPrettyPrinted error:nil];
-    
-    locationData[@"beaconData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    locationData[@"beaconData"] = beaconData;
     
     CLLocation *curLocation = [locations lastObject];
     
@@ -142,10 +140,7 @@
     curLocData[@"horizontalAccuracy"] = [NSNumber numberWithDouble:curLocation.horizontalAccuracy];
     curLocData[@"verticalAccuracy"] = [NSNumber numberWithDouble:curLocation.verticalAccuracy];
     
-    
-    postData = [NSJSONSerialization dataWithJSONObject:curLocData options:NSJSONWritingPrettyPrinted error:nil];
-    
-    locationData[@"gpsData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    locationData[@"gpsData"] = curLocData;
     
     NSMutableDictionary *wifiData = [NSMutableDictionary dictionary];
     
@@ -157,10 +152,21 @@
         wifiData[@"bssid"] = netInfo[@"BSSID"];
     }
     
-    postData = [NSJSONSerialization dataWithJSONObject:wifiData options:NSJSONWritingPrettyPrinted error:nil];
-    locationData[@"wifiData"] = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+    locationData[@"wifiData"] = wifiData;
     
-    [[MCCClient sharedClient] locationFromiBeacons:locationData
+    NSMutableDictionary *serializedPostData = [NSMutableDictionary dictionary];
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:locationData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    serializedPostData[@"locationData"] = [[NSString alloc] initWithData:postData
+                                                                encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"sent data: %@", serializedPostData);
+    
+    [[MCCClient sharedClient] locationFromiBeacons:serializedPostData
+                                         floorPlan:@"full-test-1"
                                withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
                                    [self drawPolylineFromStartLocation:floorPlanLocation];
                                }];
