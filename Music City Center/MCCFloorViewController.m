@@ -163,7 +163,7 @@
     serializedPostData[@"locationData"] = [[NSString alloc] initWithData:postData
                                                                 encoding:NSUTF8StringEncoding];
     
-    NSLog(@"sent data: %@", serializedPostData);
+    NSLog(@"sent data: %@", serializedPostData[@"locationData"]);
     
     [[MCCClient sharedClient] locationFromiBeacons:serializedPostData
                                          floorPlan:@"full-test-1"
