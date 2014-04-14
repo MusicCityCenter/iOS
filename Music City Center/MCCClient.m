@@ -136,13 +136,12 @@
     return dataTask;
 }
 
--(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
+-(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData floorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
     NSLog(@"Location from iBeacons");
-    // TODO
     
-    NSString *targetURL = [NSString stringWithFormat:@"/"];
+    NSString *targetURL = [NSString stringWithFormat:@"floorplan/%@/location", floorPlanId];
     
-    // format: ?????
+    // format:
     
     NSURLSessionDataTask *dataTask = [self POST:targetURL
                                      parameters:beaconData
