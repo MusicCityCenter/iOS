@@ -75,13 +75,8 @@ static NSString * const kCellIdentifier = @"Cell";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PushEventDetail"]) {
         if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = [[MCCEvent alloc] init];
-            event = (MCCEvent *) sender;
-            
-            MCCEventDetailViewController *eventDetailViewController = [[MCCEventDetailViewController alloc] init];
-            eventDetailViewController = segue.destinationViewController;
-            [eventDetailViewController setEvent:event];
-            eventDetailViewController.event = event;
+            MCCEventDetailViewController *eventDetailViewController = segue.destinationViewController;
+            eventDetailViewController.event = sender;
         }
     }
 }
