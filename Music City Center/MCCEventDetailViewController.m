@@ -11,14 +11,17 @@
 #import "MCCFloorPlanLocation.h"
 #import "MCCFloorViewController.h"
 
-@implementation MCCEventDetailViewController
+@interface MCCEventDetailViewController ()
 
-@synthesize event1;
-@synthesize titleLabel;
-@synthesize roomLabel;
-@synthesize timeLabel;
-@synthesize descriptionLabel;
-@synthesize imageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roomLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@end
+
+@implementation MCCEventDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

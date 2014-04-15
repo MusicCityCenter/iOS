@@ -13,10 +13,5 @@
 
 @property (nonatomic, strong) NSString *tweet;
 @property (strong, nonatomic) MCCEvent *event1;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *roomLabel;
-@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
