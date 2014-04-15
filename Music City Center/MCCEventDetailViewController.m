@@ -20,11 +20,6 @@
 @synthesize descriptionLabel;
 @synthesize imageView;
 
-
-- (IBAction)routeClicked:(id)sender {
-    [self performSegueWithIdentifier:@"EventDetailRoute" sender:self.event1];
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
