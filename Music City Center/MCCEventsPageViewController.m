@@ -9,8 +9,6 @@
 #import "MCCEventsPageViewController.h"
 #import "MCCClient.h"
 #import "MCCEvent.h"
-#import "MCCMapViewController.h"
-#import "MCCFloorViewController.h"
 #import "MCCEventsTableViewController.h"
 #import "MCCEventDetailViewController.h"
 #import "MCCPageViewControllerDelegate.h"
