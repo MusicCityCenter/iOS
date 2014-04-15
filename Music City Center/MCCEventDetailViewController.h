@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCCEvent.h"
+
+@class MCCEvent;
 
 @interface MCCEventDetailViewController : UIViewController
 
