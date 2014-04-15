@@ -18,12 +18,6 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @interface MCCEventsPageViewController () <UISearchBarDelegate>
 
-@property (strong, nonatomic) NSArray *contents;
-@property (strong, nonatomic) NSArray *contentsToday;
-@property (strong, nonatomic) NSArray *contentsTomorrow;
-@property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UILabel *label;
-
 @property (strong, nonatomic) MCCPageViewControllerDelegate *pageViewControllerDelegate;
 @property (strong, nonatomic) MCCPageViewControllerDataSource *pageViewControllerDataSource;
 
