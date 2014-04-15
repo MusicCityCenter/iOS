@@ -69,10 +69,4 @@
     }
 }
 
-
-- (void)setEvent:(MCCEvent *)event0{
-    self.event1 = event0;
-    NSLog(@"There's an event set: %@", event0.name);
-}
-
 @end

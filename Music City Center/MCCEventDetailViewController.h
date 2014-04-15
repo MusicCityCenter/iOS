@@ -19,7 +19,4 @@
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-
-- (void)setEvent:(MCCEvent *)event0;
-
 @end
