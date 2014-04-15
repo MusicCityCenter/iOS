@@ -14,7 +14,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 @interface MCCEventsTableViewController ()
 
-@property (strong, nonatomic) NSArray *events;
+@property (nonatomic, copy) NSArray *events;
 
 @end
 
