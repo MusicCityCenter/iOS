@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D4FF35F18D82FCD00A02B69 /* MCCSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */; };
+		2D8909C718FD215A00B90364 /* MCCPageViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8909C618FD215A00B90364 /* MCCPageViewControllerDelegate.m */; };
 		2D9DD6F418E908930086498E /* MCCPageViewControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DD6F318E908930086498E /* MCCPageViewControllerDataSource.m */; };
 		2D9DD6F718E93D2B0086498E /* MCCEventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DD6F618E93D2B0086498E /* MCCEventsTableViewController.m */; };
 		2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */; };
@@ -59,6 +60,8 @@
 		2394C53480684646969EDC29 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCSettingsTableViewController.h; sourceTree = "<group>"; };
 		2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCSettingsTableViewController.m; sourceTree = "<group>"; };
+		2D8909C518FD215A00B90364 /* MCCPageViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCPageViewControllerDelegate.h; sourceTree = "<group>"; };
+		2D8909C618FD215A00B90364 /* MCCPageViewControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCPageViewControllerDelegate.m; sourceTree = "<group>"; };
 		2D9DD6F218E908930086498E /* MCCPageViewControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCPageViewControllerDataSource.h; sourceTree = "<group>"; };
 		2D9DD6F318E908930086498E /* MCCPageViewControllerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCCPageViewControllerDataSource.m; sourceTree = "<group>"; };
 		2D9DD6F518E93D2B0086498E /* MCCEventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCCEventsTableViewController.h; sourceTree = "<group>"; };
@@ -145,6 +148,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D8909C818FD2A0F00B90364 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				2D8909C518FD215A00B90364 /* MCCPageViewControllerDelegate.h */,
+				2D8909C618FD215A00B90364 /* MCCPageViewControllerDelegate.m */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		2D8909C918FD2A2D00B90364 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2D9DD6F218E908930086498E /* MCCPageViewControllerDataSource.h */,
+				2D9DD6F318E908930086498E /* MCCPageViewControllerDataSource.m */,
+			);
+			name = "Data Sources";
+			sourceTree = "<group>";
+		};
 		2DD8447218BC444C00B4296F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +214,8 @@
 			children = (
 				841DD66718B8B7F3009626B8 /* Nav */,
 				2DD8447218BC444C00B4296F /* Networking */,
+				2D8909C818FD2A0F00B90364 /* Delegates */,
+				2D8909C918FD2A2D00B90364 /* Data Sources */,
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
@@ -214,8 +237,6 @@
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
 				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
 				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
-				2D9DD6F218E908930086498E /* MCCPageViewControllerDataSource.h */,
-				2D9DD6F318E908930086498E /* MCCPageViewControllerDataSource.m */,
 				2D9DD6F518E93D2B0086498E /* MCCEventsTableViewController.h */,
 				2D9DD6F618E93D2B0086498E /* MCCEventsTableViewController.m */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
@@ -434,6 +455,7 @@
 				2D9F3ED118A1D8F700AA3F6C /* UIView+Screenshot.m in Sources */,
 				A0CC404B18F5CD1E001AD385 /* MCCConferencePickerViewController.m in Sources */,
 				2D9DD6F718E93D2B0086498E /* MCCEventsTableViewController.m in Sources */,
+				2D8909C718FD215A00B90364 /* MCCPageViewControllerDelegate.m in Sources */,
 				A00BA09218E244B9006D5F15 /* MCCEventDetailViewController.m in Sources */,
 				841DD67E18B8BF6B009626B8 /* MCCClient.m in Sources */,
 				4BF4026418BE98210067AD1A /* MCCFloorPlanImage.m in Sources */,

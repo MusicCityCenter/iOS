@@ -13,6 +13,7 @@
 #import "MCCFloorViewController.h"
 #import "MCCEventsTableViewController.h"
 #import "MCCEventDetailViewController.h"
+#import "MCCPageViewControllerDelegate.h"
 #import "MCCPageViewControllerDataSource.h"
 
 static NSString * const kCellIdentifier = @"Cell";
@@ -25,16 +26,24 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UILabel *label;
 
+@property (strong, nonatomic) MCCPageViewControllerDelegate *pageViewControllerDelegate;
 @property (strong, nonatomic) MCCPageViewControllerDataSource *pageViewControllerDataSource;
+
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *conferenceButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @end
 
 @implementation MCCEventsPageViewController
 
-#pragma mark - Custom Getter
+#pragma mark - Custom Getters
 
-- (IBAction)conferencePressed:(id)sender {
+- (MCCPageViewControllerDelegate *)pageViewControllerDelegate {
+    if (!_pageViewControllerDelegate) {
+        _pageViewControllerDelegate = [MCCPageViewControllerDelegate pageViewControllerDelegateWithSegmentedControl:self.segmentedControl];
+    }
+    
+    return _pageViewControllerDelegate;
 }
 
 - (MCCPageViewControllerDataSource *)pageViewControllerDataSource {
@@ -50,10 +59,12 @@ static NSString * const kCellIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.delegate = self.pageViewControllerDelegate;
     self.dataSource = self.pageViewControllerDataSource;
     
     MCCEventsTableViewController *initialEventsTableViewController = [[MCCEventsTableViewController alloc] init];
     initialEventsTableViewController.date = [NSDate date];
+    initialEventsTableViewController.pageNumber = 1;
     
     [self setViewControllers:@[initialEventsTableViewController]
                    direction:UIPageViewControllerNavigationDirectionForward

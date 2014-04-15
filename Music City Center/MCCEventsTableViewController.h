@@ -11,5 +11,6 @@
 @interface MCCEventsTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSDate *date;
+@property (nonatomic, assign) NSUInteger pageNumber;
 
 @end

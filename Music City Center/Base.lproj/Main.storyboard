@@ -619,6 +619,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="vxZ-Ba-Aaa" id="irW-mU-rav"/>
                         <segue destination="FlE-JK-x1k" kind="push" id="rU3-EF-X4d"/>
                     </connections>
                 </pageViewController>
