@@ -39,9 +39,6 @@
     //self.descriptionLabel.text = self.event1.details;
     self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event1.month, (long)self.event1.day, (long)self.event1.year];
     self.roomLabel.text = self.event1.locationId;
-    
-    //[self.labelOutlet setText:self.tweet];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +50,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"EventDetailRoute"]) {
         if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = (MCCEvent *) sender;
+            MCCEvent *event = (MCCEvent *)sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
             [floorViewController setPolylineFromEvent:event];
