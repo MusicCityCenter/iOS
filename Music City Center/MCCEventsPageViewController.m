@@ -51,6 +51,8 @@ static NSString * const kCellIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"Events";
+    
     self.delegate = self.pageViewControllerDelegate;
     self.dataSource = self.pageViewControllerDataSource;
     
