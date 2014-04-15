@@ -2,7 +2,7 @@
 //  MCCEventsViewController.h
 //  Music City Center
 //
-//  Created by Marissa Montgomery on 3/19/14.
+//  Created by Seth Friedman on 3/31/14.
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
