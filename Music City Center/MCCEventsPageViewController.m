@@ -60,7 +60,7 @@ static NSString * const kCellIdentifier = @"Cell";
     
     [self setViewControllers:@[initialEventsTableViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
-                    animated:YES
+                    animated:NO
                   completion:^(BOOL finished) {
                       // Completed
                   }];

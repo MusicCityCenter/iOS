@@ -231,7 +231,6 @@
 				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
 				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
 				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
-				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
@@ -239,6 +238,7 @@
 				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
 				2D9DD6F518E93D2B0086498E /* MCCEventsTableViewController.h */,
 				2D9DD6F618E93D2B0086498E /* MCCEventsTableViewController.m */,
+				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 			);
 			path = "Music City Center";
