@@ -190,7 +190,7 @@
         <!--Event Detail View Controller-->
         <scene sceneID="pbf-Q4-dux">
             <objects>
-                <viewController storyboardIdentifier="MCCEventDetailController" id="FlE-JK-x1k" customClass="MCCEventDetailViewController" sceneMemberID="viewController">
+                <viewController id="FlE-JK-x1k" customClass="MCCEventDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZO8-c7-fgR"/>
                         <viewControllerLayoutGuide type="bottom" id="jva-NM-f4n"/>
