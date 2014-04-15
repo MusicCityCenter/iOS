@@ -81,7 +81,7 @@ static NSString * const kCellIdentifier = @"Cell";
             MCCEventDetailViewController *eventDetailViewController = [[MCCEventDetailViewController alloc] init];
             eventDetailViewController = segue.destinationViewController;
             [eventDetailViewController setEvent:event];
-            eventDetailViewController.event1 = event;
+            eventDetailViewController.event = event;
         }
     }
 }

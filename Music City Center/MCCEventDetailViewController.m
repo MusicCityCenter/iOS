@@ -23,13 +23,17 @@
 
 @implementation MCCEventDetailViewController
 
-- (void)viewDidLoad
-{
+#pragma mark - View Controller Lifecycle
+
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = self.event1.name;
-    //self.descriptionLabel.text = self.event1.details;
-    self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event1.month, (long)self.event1.day, (long)self.event1.year];
-    self.roomLabel.text = self.event1.locationId;
+    
+    if (self.event) {
+        self.titleLabel.text = self.event.name;
+        //self.descriptionLabel.text = self.event1.details;
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event.month, (long)self.event.day, (long)self.event.year];
+        self.roomLabel.text = self.event.locationId;
+    }
 }
 
 - (void)didReceiveMemoryWarning
