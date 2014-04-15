@@ -166,6 +166,29 @@
 			name = "Data Sources";
 			sourceTree = "<group>";
 		};
+		2D8909CA18FD358400B90364 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A0D9A56C18ECAE110038A11C /* MCCFilterViewController.h */,
+				A0D9A56D18ECAE110038A11C /* MCCFilterViewController.m */,
+				A0CC404918F5CD1E001AD385 /* MCCConferencePickerViewController.h */,
+				A0CC404A18F5CD1E001AD385 /* MCCConferencePickerViewController.m */,
+				A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */,
+				A0F82EA518DA588600C6B658 /* MCCEventsPageViewController.m */,
+				2D9DD6F518E93D2B0086498E /* MCCEventsTableViewController.h */,
+				2D9DD6F618E93D2B0086498E /* MCCEventsTableViewController.m */,
+				A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */,
+				A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */,
+				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
+				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
+				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
+				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
+				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
+				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		2DD8447218BC444C00B4296F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,28 +239,13 @@
 				2DD8447218BC444C00B4296F /* Networking */,
 				2D8909C818FD2A0F00B90364 /* Delegates */,
 				2D8909C918FD2A2D00B90364 /* Data Sources */,
+				2D8909CA18FD358400B90364 /* View Controllers */,
 				4B8E50D918A04A93009F4266 /* MCCAppDelegate.h */,
 				4B8E50DA18A04A93009F4266 /* MCCAppDelegate.m */,
 				4B8E50DC18A04A93009F4266 /* Main.storyboard */,
-				A0D9A56C18ECAE110038A11C /* MCCFilterViewController.h */,
-				A0D9A56D18ECAE110038A11C /* MCCFilterViewController.m */,
-				A0CC404918F5CD1E001AD385 /* MCCConferencePickerViewController.h */,
-				A0CC404A18F5CD1E001AD385 /* MCCConferencePickerViewController.m */,
-				A00BA09018E244B9006D5F15 /* MCCEventDetailViewController.h */,
-				A00BA09118E244B9006D5F15 /* MCCEventDetailViewController.m */,
-				A0F82EA418DA588600C6B658 /* MCCEventsPageViewController.h */,
-				A0F82EA518DA588600C6B658 /* MCCEventsPageViewController.m */,
-				4B8E50DF18A04A93009F4266 /* MCCMapViewController.h */,
-				4B8E50E018A04A93009F4266 /* MCCMapViewController.m */,
-				4BBE291B18A0CD3700C38EB7 /* MCCFloorViewController.h */,
-				4BBE291C18A0CD3700C38EB7 /* MCCFloorViewController.m */,
 				A00BA09318E28A59006D5F15 /* southernwomenshowimage.png */,
 				2D9F3ECF18A1D8F700AA3F6C /* UIView+Screenshot.h */,
 				2D9F3ED018A1D8F700AA3F6C /* UIView+Screenshot.m */,
-				2D4FF35D18D82FCD00A02B69 /* MCCSettingsTableViewController.h */,
-				2D4FF35E18D82FCD00A02B69 /* MCCSettingsTableViewController.m */,
-				2D9DD6F518E93D2B0086498E /* MCCEventsTableViewController.h */,
-				2D9DD6F618E93D2B0086498E /* MCCEventsTableViewController.m */,
 				4B8E50E218A04A93009F4266 /* Images.xcassets */,
 				4B8E50D118A04A93009F4266 /* Supporting Files */,
 			);
