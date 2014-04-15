@@ -72,6 +72,15 @@ static NSString * const kCellIdentifier = @"EventCell";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MCCEvent *event = self.events[indexPath.row];
+    
+    if ([self.parentViewController isKindOfClass:[UIPageViewController class]]) {
+        [self.parentViewController performSegueWithIdentifier:@"PushEventDetail"
+                                                       sender:event];
+    }
+}
+
 /*
 #pragma mark - Navigation
 

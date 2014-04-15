@@ -620,7 +620,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="vxZ-Ba-Aaa" id="irW-mU-rav"/>
-                        <segue destination="FlE-JK-x1k" kind="push" id="rU3-EF-X4d"/>
+                        <segue destination="FlE-JK-x1k" kind="push" identifier="PushEventDetail" id="rU3-EF-X4d"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BFH-cU-u34" userLabel="First Responder" sceneMemberID="firstResponder"/>
