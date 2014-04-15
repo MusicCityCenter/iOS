@@ -11,12 +11,6 @@
 #import "MCCFloorPlanLocation.h"
 #import "MCCFloorViewController.h"
 
-
-@interface MCCEventDetailViewController ()
-
-
-@end
-
 @implementation MCCEventDetailViewController
 
 @synthesize event1;
