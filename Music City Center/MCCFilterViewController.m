@@ -133,6 +133,7 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
         if (tableView == _tableView){
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID];
             cell.textLabel.text = @"From";
+            cell.detailTextLabel.textColor = [UIColor blueColor];
             UITableViewCell *cellPicker = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
             UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:1];
             cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
@@ -140,6 +141,7 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
         } else {
             UITableViewCell *cell = [self.tableView2 dequeueReusableCellWithIdentifier:kPersonCellID2];
             cell.textLabel.text = @"To";
+            cell.detailTextLabel.textColor = [UIColor blueColor];
             UITableViewCell *cellPicker = [self.tableView2 dequeueReusableCellWithIdentifier:kDatePickerCellID2];
             UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:2];
             cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
