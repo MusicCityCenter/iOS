@@ -80,7 +80,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSInteger hourEnd = event.endTime/60;
     NSInteger minuteEnd = event.endTime%60;
 
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %d:%02d - %d:%02d", event.locationId, hourStart, minuteStart, hourEnd, minuteEnd];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Room %@ from %d:%02d - %d:%02d", event.locationId, hourStart, minuteStart, hourEnd, minuteEnd];
     cell.detailTextLabel.textColor = [UIColor blueColor];
     return cell;
 }
