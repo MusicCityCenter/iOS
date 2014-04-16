@@ -34,6 +34,11 @@
         self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event.month, (long)self.event.day, (long)self.event.year];
         self.roomLabel.text = self.event.locationId;
         self.descriptionLabel.text = self.event.details;
+        NSInteger hourStart = self.event.startTime/60;
+        NSInteger minuteStart = self.event.startTime%60;
+        NSInteger hourEnd = self.event.endTime/60;
+        NSInteger minuteEnd = self.event.endTime%60;
+        self.timeLabel.text = [NSString stringWithFormat:@"%d:%02d - %d:%02d", hourStart, minuteStart, hourEnd, minuteEnd];
     }
 }
 
