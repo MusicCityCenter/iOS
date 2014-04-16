@@ -56,6 +56,14 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.events count];
+    NSInteger count = 0;
+    for (MCCEvent *event in self.events){
+        if ((event.startTime/60 == section)){
+            count++;
+        }
+    }
+    NSLog(@"this called");
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,5 +88,24 @@ static NSString * const kCellIdentifier = @"EventCell";
                                                        sender:event];
     }
 }
+
+#pragma Table View Sections
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    //return [self.monthTitle count];
+    return 24;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    //return [self.monthTitle objectAtIndex:section];
+    NSArray *myArray = [[NSArray alloc] initWithObjects:@"12am", @"1am", @"2am", @"3am", @"4am", @"5am", @"6am", @"7am", @"8am", @"9am", @"10am", @"11am", @"12pm", @"1pm", @"2pm", @"3pm", @"4pm", @"5pm", @"6pm", @"7pm", @"8pm", @"9pm", @"10pm", @"11pm", nil];
+    NSString *headerTitle = myArray[section];
+    return headerTitle;
+}
+
+
+
 
 @end
