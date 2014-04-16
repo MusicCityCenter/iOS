@@ -33,6 +33,7 @@
         //self.descriptionLabel.text = self.event1.details;
         self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event.month, (long)self.event.day, (long)self.event.year];
         self.roomLabel.text = self.event.locationId;
+        self.descriptionLabel.text = self.event.details;
     }
 }
 

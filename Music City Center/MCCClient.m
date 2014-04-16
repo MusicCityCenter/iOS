@@ -124,7 +124,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Events"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
