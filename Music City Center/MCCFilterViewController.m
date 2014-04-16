@@ -24,6 +24,10 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
 @property (strong, nonatomic) IBOutlet UITableView *tableView2;
 @property (strong, nonatomic) MCCSecondFilterTableTableViewController *secondTableVC;
 @property (nonatomic) BOOL from;
+@property (nonatomic) IBOutlet UIDatePicker* datePicker;
+@property (nonatomic) IBOutlet UIDatePicker* datePicker2;
+@property (strong, nonatomic) NSDate *toDate;
+@property (strong, nonatomic) NSDate *fromDate;
 
 @end
 
@@ -129,18 +133,37 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
         if (tableView == _tableView){
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID];
             cell.textLabel.text = @"From";
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[NSDate date]];
+            UITableViewCell *cellPicker = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+            UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:1];
+            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
             return cell;
         } else {
             UITableViewCell *cell = [self.tableView2 dequeueReusableCellWithIdentifier:kPersonCellID2];
             cell.textLabel.text = @"To";
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[NSDate date]];
+            UITableViewCell *cellPicker = [self.tableView2 dequeueReusableCellWithIdentifier:kDatePickerCellID2];
+            UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:2];
+            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
             return cell;
         }
     }
     
     return cell;
 }
+
+- (IBAction)pickerDateChanged:(UIDatePicker *)sender {
+    
+    self.toDate = sender.date;
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID];
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.fromDate];
+}
+
+- (IBAction)pickerDateChanged2:(UIDatePicker *)sender {
+    
+    self.fromDate = sender.date;
+    UITableViewCell *cell = [self.tableView2 dequeueReusableCellWithIdentifier:kPersonCellID2];
+    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.toDate];
+}
+
 
 /*
 - (UITableViewCell *)createPickerCell:(NSDate *)date tableView:(UITableView *)tableView{
@@ -222,6 +245,10 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
 }
 
 - (void)hideExistingPicker {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
+    UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:1];
+    [self pickerDateChanged:targetedDatePicker];
+
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.datePickerIndexPath.row inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
@@ -230,6 +257,9 @@ static NSString *kDatePickerCellID2 = @"datePickerCell2";
 }
 
 - (void)hideExistingPicker2 {
+    UITableViewCell *cell = [self.tableView2 dequeueReusableCellWithIdentifier:kDatePickerCellID2];
+    UIDatePicker *targetedDatePicker = (UIDatePicker *)[cell viewWithTag:2];
+    [self pickerDateChanged2:targetedDatePicker];
     
     [self.tableView2 deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.datePickerIndexPath2.row inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
