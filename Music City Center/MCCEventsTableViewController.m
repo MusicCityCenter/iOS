@@ -58,7 +58,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     return [self.events count];
     NSInteger count = 0;
     for (MCCEvent *event in self.events){
-        if ((event.startTime/60 == section)){
+        if (((event.startTime/60) == section)){
             count++;
         }
     }
@@ -75,7 +75,12 @@ static NSString * const kCellIdentifier = @"EventCell";
     
     cell.textLabel.text = event.name;
     //cell.detailTextLabel.text = event.locationId;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Room %@", event.locationId];
+    NSInteger hourStart = event.startTime/60;
+    NSInteger minuteStart = event.startTime%60;
+    NSInteger hourEnd = event.endTime/60;
+    NSInteger minuteEnd = event.endTime%60;
+
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %d:%02d - %d:%02d", event.locationId, hourStart, minuteStart, hourEnd, minuteEnd];
     cell.detailTextLabel.textColor = [UIColor blueColor];
     return cell;
 }
