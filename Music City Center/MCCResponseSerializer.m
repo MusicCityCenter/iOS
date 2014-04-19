@@ -137,7 +137,8 @@
                                                   name:eventDictionary[@"name"]
                                                details:eventDictionary[@"description"]
                                              startTime:[eventDictionary[@"startTime"] integerValue]
-                                            andEndTime:[eventDictionary[@"endTime"] integerValue]];
+                                            endTime:[eventDictionary[@"endTime"] integerValue]
+                                            andConference:eventDictionary[@"conference"]];
             
             event.locationId = eventDictionary[@"floorplanLocationId"];
             [events addObject:event];

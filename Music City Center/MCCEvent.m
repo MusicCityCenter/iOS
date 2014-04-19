@@ -12,7 +12,7 @@
 
 #pragma mark - Designated Initializer
 
-- (instancetype)initWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name details:(NSString *)details startTime:(NSInteger)startTime andEndTime:(NSInteger)endTime{
+- (instancetype)initWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name details:(NSString *)details startTime:(NSInteger)startTime endTime:(NSInteger)endTime andConference:(NSString *)conference{
     self = [super init];
     
     if (self) {
@@ -23,6 +23,7 @@
         _details = details;
         _startTime = startTime;
         _endTime = endTime;
+        _conference = conference;
     }
     
     return self;
@@ -30,14 +31,15 @@
 
 #pragma mark - Factory Method
 
-+ (instancetype)eventWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name details:(NSString *)details startTime:(NSInteger)startTime andEndTime:(NSInteger)endTime {
++ (instancetype)eventWithMonth:(NSInteger)month day:(NSInteger)day year:(NSInteger)year name:(NSString *)name details:(NSString *)details startTime:(NSInteger)startTime endTime:(NSInteger)endTime andConference:(NSString *)conference{
     return [[self alloc] initWithMonth:(NSInteger)month
                                    day:(NSInteger)day
                                   year:(NSInteger)year
                                   name:(NSString *)name
                                details:(NSString *)details
                              startTime:(NSInteger)startTime
-                            andEndTime:(NSInteger)endTime];
+                            endTime:(NSInteger)endTime
+                            andConference:(NSString *)conference];
 }
 
 @end
