@@ -12,7 +12,7 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 
 @interface MCCConferencePickerViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *events;
+@property (strong, nonatomic) NSArray *conferences;
 
 @end
 
@@ -34,8 +34,8 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.events = [[NSArray alloc] init];
-    self.events = [NSArray arrayWithObjects:@"Conference A", @"Conference B", @"Conference C", @"Conference D", nil];
+    //self.conferences = [[NSArray alloc] init];
+    //self.conferences = [NSArray arrayWithObjects:@"Conference A", @"Conference B", @"Conference C", @"Conference D", nil];
     
     // Do any additional setup after loading the view.
 }
@@ -47,7 +47,7 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.events count];
+    return [self.conferences count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -55,11 +55,17 @@ static NSString *kCellIdentifier = @"ConferenceCell";
     //  forIndexPath:indexPath];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
     
-    NSString *thisText = self.events[indexPath.row];
+    NSString *thisText = self.conferences[indexPath.row];
     
     cell.textLabel.text = thisText;
 
     return cell;
+}
+
+- (void)conferencesToDisplay:(NSMutableArray *)conferenceList {
+    self.conferences = conferenceList;
+    [self.tableView reloadData];
+    NSLog(@"got here!!");
 }
 
 /*

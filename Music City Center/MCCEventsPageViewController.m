@@ -13,6 +13,7 @@
 #import "MCCEventDetailViewController.h"
 #import "MCCPageViewControllerDelegate.h"
 #import "MCCPageViewControllerDataSource.h"
+#import "MCCConferencePickerViewController.h"
 
 static NSString * const kCellIdentifier = @"Cell";
 
@@ -23,6 +24,10 @@ static NSString * const kCellIdentifier = @"Cell";
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *conferenceButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) NSArray *eventsYesterday;
+@property (strong, nonatomic) NSArray *eventsToday;
+@property (strong, nonatomic) NSArray *eventsTomorrow;
+
 
 @end
 
@@ -64,6 +69,28 @@ static NSString * const kCellIdentifier = @"Cell";
                    direction:UIPageViewControllerNavigationDirectionForward
                     animated:NO
                   completion:nil];
+    
+    NSTimeInterval day = 60*60*24;
+    NSDate *tomorrow = [[NSDate alloc]
+                           initWithTimeIntervalSinceNow:day];
+    NSDate *yesterday = [[NSDate alloc]
+                           initWithTimeIntervalSinceNow:-day];
+    NSDate *today = [NSDate date];
+    [[MCCClient sharedClient] events:@"full-test-1"
+                                  on:yesterday
+                 withCompletionBlock:^(NSArray *events) {
+                     self.eventsYesterday = events;
+                 }];
+    [[MCCClient sharedClient] events:@"full-test-1"
+                                  on:today
+                 withCompletionBlock:^(NSArray *events) {
+                     self.eventsToday = events;
+                 }];
+    [[MCCClient sharedClient] events:@"full-test-1"
+                                  on:tomorrow
+                 withCompletionBlock:^(NSArray *events) {
+                     self.eventsTomorrow = events;
+                 }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +107,31 @@ static NSString * const kCellIdentifier = @"Cell";
             MCCEventDetailViewController *eventDetailViewController = segue.destinationViewController;
             eventDetailViewController.event = sender;
         }
+    } else if ([segue.identifier isEqualToString:@"ConferenceModal"]) {
+        //MCCConferencePickerViewController *conferenceViewController = segue.destinationViewController;
+        NSMutableArray *conferenceList = [[NSMutableArray alloc] init];
+        //[myArray addObject:otherArray];
+        for (MCCEvent *event in self.eventsYesterday){
+            if ([conferenceList indexOfObject:event.conference] != NSNotFound) {
+                [conferenceList addObject:event.conference];
+            }
+        }
+        for (MCCEvent *event in self.eventsToday){
+            if ([conferenceList indexOfObject:event.conference] != NSNotFound) {
+                [conferenceList addObject:event.conference];
+            }
+        }
+        for (MCCEvent *event in self.eventsTomorrow){
+            if ([conferenceList indexOfObject:event.conference] != NSNotFound) {
+                [conferenceList addObject:event.conference];
+            }
+        }
+        [conferenceList addObject:@"test Conference 1"];
+        [conferenceList addObject:@"test Conference 2"];
+        
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        MCCConferencePickerViewController *controller = (MCCConferencePickerViewController *)navController.topViewController;
+        [controller conferencesToDisplay:conferenceList];
     }
 }
 

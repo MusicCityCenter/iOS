@@ -112,28 +112,6 @@ static NSString * const kCellIdentifier = @"EventCell";
     return headerTitle;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"PushMap"]) {
-        if ([sender isKindOfClass:[MCCEvent class]]) {
-            MCCEvent *event = (MCCEvent *) sender;
-            
-            MCCConferencePickerViewController *conferenceViewController = segue.destinationViewController;
-            NSMutableArray *conferenceList = [[NSMutableArray alloc] init];
-            //[myArray addObject:otherArray];
-            for (MCCEvent *event in self.events){
-                //if ([conferenceList indexOfObject:] != NSNotFound) {
-                    // object found
-                //}
-                //else {
-                    // object not found
-                //}
-            }
-
-            //[floorViewController setPolylineFromEvent:event];
-        }
-    }
-}
 
 
 

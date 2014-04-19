@@ -10,4 +10,6 @@
 
 @interface MCCConferencePickerViewController : UIViewController
 
+- (void)conferencesToDisplay:(NSMutableArray *)conferenceList;
+
 @end
