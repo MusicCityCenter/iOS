@@ -62,6 +62,9 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    if ((self.toDate != nil) && (self.fromDate != nil)){
+        
+    }
 }
 
 - (void)createDateFormatter {
@@ -135,7 +138,6 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     }
     
     UITableViewCell *cellA = [self.tableView cellForRowAtIndexPath:parentCellIndexPath];
-    
     cellA.detailTextLabel.text = [self.dateFormatter stringFromDate:sender.date];
 }
 
@@ -147,27 +149,32 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     UITableViewCell *cell;
         if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row && tableView ==  _tableView)){
             NSTimeInterval hour = 0;
-            NSDate *tomorrow = [[NSDate alloc]
+            NSDate *displayTime = [[NSDate alloc]
                                 initWithTimeIntervalSinceNow:hour];
             UIDatePicker *targetedDatePicker;
             UITableViewCell *cellTemp = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
             targetedDatePicker = (UIDatePicker *)[cellTemp viewWithTag:1];
-            [targetedDatePicker setDate:tomorrow animated:NO];
+            if (self.fromDate != nil){
+                displayTime = self.fromDate;
+            }
+            [targetedDatePicker setDate:displayTime animated:NO];
             [targetedDatePicker addTarget:self action:@selector(fromValueChanged:) forControlEvents: UIControlEventValueChanged];
             return cellTemp;
         } else if ([self datePickerIsShown3] && self.datePickerIndexPath3.row == indexPath.row && tableView == _tableView){
             NSTimeInterval hour = 0;
-            NSDate *tomorrow = [[NSDate alloc]
+            NSDate *displayTime = [[NSDate alloc]
                                 initWithTimeIntervalSinceNow:hour];
             UIDatePicker *targetedDatePicker;
             UITableViewCell *cellTemp = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID3];
             targetedDatePicker = (UIDatePicker *)[cellTemp viewWithTag:4];
-            [targetedDatePicker setDate:tomorrow animated:NO];
+            if (self.toDate != nil){
+                displayTime = self.toDate;
+            }
+            [targetedDatePicker setDate:displayTime animated:NO];
             [targetedDatePicker addTarget:self action:@selector(toValueChanged:) forControlEvents: UIControlEventValueChanged];
             return cellTemp;
         } else {
-
-        if (tableView == _tableView && indexPath.row == 0){
+        if (indexPath.row == 0){
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID];
             cell.textLabel.text = @"From";
             cell.detailTextLabel.textColor = [UIColor blueColor];
@@ -175,14 +182,13 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
             UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:1];
             cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
             return cell;
-        }else {
+        } else {
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID3];
             cell.textLabel.text = @"To";
             cell.detailTextLabel.textColor = [UIColor blueColor];
             UITableViewCell *cellPicker = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID3];
             UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:4];
             cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
-
             return cell;
         }
     }
@@ -191,11 +197,13 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 }
 
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView beginUpdates];
     if ([self datePickerIsShown] && (self.datePickerIndexPath.row - 1 == indexPath.row)){
         [self hideExistingPicker];
     } else if ([self datePickerIsShown3] && (self.datePickerIndexPath3.row - 1 == indexPath.row)){
+        NSLog(@"here");
         [self hideExistingPicker3];
     } else if ([self datePickerIsShown] && indexPath.row == 2){
         NSIndexPath *newPickerIndexPath = [self calculateIndexPathForNewPicker3:indexPath];
@@ -213,8 +221,8 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
         self.datePickerIndexPath3 = [NSIndexPath indexPathForRow:newPickerIndexPath.row + 1 inSection:0];
     } else {
         NSIndexPath *newPickerIndexPath = [self calculateIndexPathForNewPicker:indexPath];
-        if ([self datePickerIsShown]){
-            [self hideExistingPicker];
+        if ([self datePickerIsShown3]){
+            [self hideExistingPicker3];
         }
         [self showNewPickerAtIndex:newPickerIndexPath];
         self.datePickerIndexPath = [NSIndexPath indexPathForRow:newPickerIndexPath.row + 1 inSection:0];
@@ -236,7 +244,6 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 
 - (void)hideExistingPicker3 {
 
-    
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.datePickerIndexPath3.row inSection:0]]
                            withRowAnimation:UITableViewRowAnimationFade];
     self.datePickerIndexPath3 = nil;
@@ -245,28 +252,42 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 - (NSIndexPath *)calculateIndexPathForNewPicker:(NSIndexPath *)selectedIndexPath {
     
     NSIndexPath *newIndexPath;
+    
     if (([self datePickerIsShown]) && (self.datePickerIndexPath.row < selectedIndexPath.row)){
+        
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row - 1 inSection:0];
-    } else {
+        
+    }else {
+        
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row  inSection:0];
+        
     }
+    
     return newIndexPath;
 }
 
 
 - (NSIndexPath *)calculateIndexPathForNewPicker3:(NSIndexPath *)selectedIndexPath {
+    
     NSIndexPath *newIndexPath;
+    
     if (([self datePickerIsShown3]) && (self.datePickerIndexPath3.row < selectedIndexPath.row)){
+        
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row - 1 inSection:0];
+        
     }else {
+        
         newIndexPath = [NSIndexPath indexPathForRow:selectedIndexPath.row  inSection:0];
+        
     }
+    
     return newIndexPath;
 }
 
 - (void)showNewPickerAtIndex:(NSIndexPath *)indexPath {
     
     NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
+    
     [self.tableView insertRowsAtIndexPaths:indexPaths
                           withRowAnimation:UITableViewRowAnimationFade];
 }
@@ -275,6 +296,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 - (void)showNewPickerAtIndex3:(NSIndexPath *)indexPath {
     
     NSArray *indexPaths = @[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:0]];
+    
     [self.tableView insertRowsAtIndexPaths:indexPaths
                            withRowAnimation:UITableViewRowAnimationFade];
 }
