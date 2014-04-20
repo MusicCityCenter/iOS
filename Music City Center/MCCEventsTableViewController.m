@@ -76,7 +76,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0 || (section <= self.lowerTimeConstraint) || (section >= self.upperTimeConstraint)) {
+    if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0) {
         return 0;
     } else {
         return 20;

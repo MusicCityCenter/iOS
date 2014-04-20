@@ -133,7 +133,7 @@ static NSString * const kCellIdentifier = @"Cell";
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
     self.upperHour = [components hour];
     self.upperMinute = [components minute];
-    NSLog(@"upper bound: %d:%d", self.lowerHour, self.lowerMinute);
+    NSLog(@"upper bound: %d:%d", self.upperHour, self.upperMinute);
 }
 
 #pragma mark - Navigation

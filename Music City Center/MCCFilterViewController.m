@@ -50,8 +50,14 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     [self createDateFormatter];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
-    self.fromDate = [NSDate date];
-    self.toDate = [NSDate date];
+    NSTimeInterval gap1 = 60*60*6;
+    NSTimeInterval gap2 = 60*60*6-1;
+    NSDate *displayTime1 = [[NSDate alloc]
+                           initWithTimeIntervalSince1970:gap1];
+    NSDate *displayTime2 = [[NSDate alloc]
+                           initWithTimeIntervalSince1970:gap2];
+    self.fromDate = displayTime1;
+    self.toDate = displayTime2;
 }
 
 - (void)didReceiveMemoryWarning
@@ -159,7 +165,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     
     UITableViewCell *cell;
         if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row && tableView ==  _tableView)){
-            NSTimeInterval hour = 0;
+            NSTimeInterval hour = 60*60*6;
             NSDate *displayTime = [[NSDate alloc]
                                 initWithTimeIntervalSince1970:hour];
             UIDatePicker *targetedDatePicker;
@@ -168,7 +174,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
             if (self.fromDate != nil){
                 displayTime = self.fromDate;
             }
-            [targetedDatePicker setDate:displayTime animated:NO];
+            [targetedDatePicker setDate:self.fromDate animated:NO];
             [targetedDatePicker addTarget:self action:@selector(fromValueChanged:) forControlEvents: UIControlEventValueChanged];
             return cellTemp;
         } else if ([self datePickerIsShown3] && self.datePickerIndexPath3.row == indexPath.row && tableView == _tableView){
@@ -181,7 +187,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
             if (self.toDate != nil){
                 displayTime = self.toDate;
             }
-            [targetedDatePicker setDate:displayTime animated:NO];
+            [targetedDatePicker setDate:self.toDate animated:NO];
             [targetedDatePicker addTarget:self action:@selector(toValueChanged:) forControlEvents: UIControlEventValueChanged];
             return cellTemp;
         } else {
@@ -190,16 +196,16 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
             cell.textLabel.text = @"From";
             cell.detailTextLabel.textColor = [UIColor blueColor];
             UITableViewCell *cellPicker = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
-            UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:1];
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
+            //UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:1];
+            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.fromDate];
             return cell;
         } else {
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kPersonCellID3];
             cell.textLabel.text = @"To";
             cell.detailTextLabel.textColor = [UIColor blueColor];
             UITableViewCell *cellPicker = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID3];
-            UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:4];
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[targetedDatePicker date]];
+            //UIDatePicker *targetedDatePicker = (UIDatePicker *)[cellPicker viewWithTag:4];
+            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.toDate];
             return cell;
         }
     }
