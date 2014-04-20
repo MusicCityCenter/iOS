@@ -13,10 +13,19 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 @interface MCCConferencePickerViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *conferences;
+@property (strong, nonatomic) NSString *selectedConference;
+@property (nonatomic) BOOL cleared;
+
 
 @end
 
 @implementation MCCConferencePickerViewController
+
+- (IBAction)clearButtonPressed:(id)sender {
+    self.selectedConference = nil;
+    self.cleared = YES;
+    [self.tableView reloadData];
+}
 
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -34,6 +43,7 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.cleared = NO;
     //self.conferences = [[NSArray alloc] init];
     //self.conferences = [NSArray arrayWithObjects:@"Conference A", @"Conference B", @"Conference C", @"Conference D", nil];
     
@@ -58,6 +68,14 @@ static NSString *kCellIdentifier = @"ConferenceCell";
     NSString *thisText = self.conferences[indexPath.row];
     
     cell.textLabel.text = thisText;
+    
+    if (self.cleared){
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.row == self.conferences.count - 1){
+            self.cleared = NO;
+            [tableView reloadData];
+        }
+    }
 
     return cell;
 }
@@ -65,7 +83,11 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 - (void)conferencesToDisplay:(NSMutableArray *)conferenceList {
     self.conferences = conferenceList;
     [self.tableView reloadData];
-    NSLog(@"got here!!");
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedConference = self.conferences[indexPath.row];
+    NSLog(@"%@", self.selectedConference);
 }
 
 /*

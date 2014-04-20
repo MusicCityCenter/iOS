@@ -409,9 +409,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BsP-Lm-LEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1918" y="887"/>
+            <point key="canvasLocation" x="1918" y="963"/>
         </scene>
-        <!--Conference Picker View Controller - Conference-->
+        <!--Conference Picker View Controller - Conferences-->
         <scene sceneID="Ahk-7w-bto">
             <objects>
                 <viewController id="v4u-xT-9rT" customClass="MCCConferencePickerViewController" sceneMemberID="viewController">
@@ -445,7 +445,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Conference" id="qTs-gC-1au">
+                    <navigationItem key="navigationItem" title="Conferences" id="qTs-gC-1au">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="HF7-g5-eUG">
+                            <connections>
+                                <action selector="clearButtonPressed:" destination="v4u-xT-9rT" id="Qbq-FI-sS9"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="c3i-5u-QVB">
                             <connections>
                                 <action selector="doneButtonPressed:" destination="v4u-xT-9rT" id="diD-VX-c0X"/>
@@ -458,7 +463,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nad-tm-jG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2167" y="1879"/>
+            <point key="canvasLocation" x="1918" y="1773"/>
         </scene>
         <!--Table View Controller - More-->
         <scene sceneID="2Sf-KI-RLd">
@@ -722,7 +727,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z4b-Xj-vp3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1576" y="1879"/>
+            <point key="canvasLocation" x="1478" y="1773"/>
         </scene>
     </scenes>
     <resources>
