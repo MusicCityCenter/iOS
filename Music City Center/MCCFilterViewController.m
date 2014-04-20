@@ -63,8 +63,19 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     if ((self.toDate != nil) && (self.fromDate != nil)){
-        
+        //TODO
     }
+    NSLog(@"DismissModalviewController");
+    
+    
+    //raise notification about dismiss
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"MODELVIEW DISMISS1"
+     object:self.fromDate];
+    //raise notification about dismiss
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"MODELVIEW DISMISS2"
+     object:self.toDate];
 }
 
 - (void)createDateFormatter {
@@ -150,7 +161,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
         if ([self datePickerIsShown] && (self.datePickerIndexPath.row == indexPath.row && tableView ==  _tableView)){
             NSTimeInterval hour = 0;
             NSDate *displayTime = [[NSDate alloc]
-                                initWithTimeIntervalSinceNow:hour];
+                                initWithTimeIntervalSince1970:hour];
             UIDatePicker *targetedDatePicker;
             UITableViewCell *cellTemp = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
             targetedDatePicker = (UIDatePicker *)[cellTemp viewWithTag:1];
@@ -163,7 +174,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
         } else if ([self datePickerIsShown3] && self.datePickerIndexPath3.row == indexPath.row && tableView == _tableView){
             NSTimeInterval hour = 0;
             NSDate *displayTime = [[NSDate alloc]
-                                initWithTimeIntervalSinceNow:hour];
+                                initWithTimeIntervalSince1970:hour];
             UIDatePicker *targetedDatePicker;
             UITableViewCell *cellTemp = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID3];
             targetedDatePicker = (UIDatePicker *)[cellTemp viewWithTag:4];
@@ -195,6 +206,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     
     return cell;
 }
+
 
 
 

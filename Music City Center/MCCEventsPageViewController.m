@@ -27,6 +27,11 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (strong, nonatomic) NSArray *eventsYesterday;
 @property (strong, nonatomic) NSArray *eventsToday;
 @property (strong, nonatomic) NSArray *eventsTomorrow;
+@property (nonatomic) NSInteger lowerHour;
+@property (nonatomic) NSInteger lowerMinute;
+@property (nonatomic) NSInteger upperHour;
+@property (nonatomic) NSInteger upperMinute;
+
 
 
 @end
@@ -91,12 +96,44 @@ static NSString * const kCellIdentifier = @"Cell";
                  withCompletionBlock:^(NSArray *events) {
                      self.eventsTomorrow = events;
                  }];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fromDateSet:)
+                                                 name:@"MODELVIEW DISMISS1" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(toDateSet:)
+                                                 name:@"MODELVIEW DISMISS2" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+// --> Now create method in parent class as;
+// Now create yourNotificationHandler: like this in parent class
+-(void)fromDateSet:(NSNotification *)notice{
+    NSDate *date = [notice object];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+    self.lowerHour = [components hour];
+    self.lowerMinute = [components minute];
+    NSLog(@"oh heyyy %d:%d", self.lowerHour, self.lowerMinute);
+}
+
+-(void)toDateSet:(NSNotification *)notice{
+    NSDate *date = [notice object];
+    NSLog(@"yoooooo");
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+    self.upperHour = [components hour];
+    self.upperMinute = [components minute];
+    NSLog(@"upper bound: %d:%d", self.lowerHour, self.lowerMinute);
 }
 
 #pragma mark - Navigation

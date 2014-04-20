@@ -17,6 +17,9 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 @property (nonatomic, copy) NSArray *events;
 @property (nonatomic, copy) NSString *conference;
+@property (nonatomic) NSInteger lowerTimeConstraint;
+@property (nonatomic) NSInteger upperTimeConstraint;
+@property (nonatomic) BOOL constrained;
 
 @end
 
@@ -46,6 +49,7 @@ static NSString * const kCellIdentifier = @"EventCell";
                  withCompletionBlock:^(NSArray *events) {
                      self.events = events;
                  }];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,8 +73,10 @@ static NSString * const kCellIdentifier = @"EventCell";
     return count;
 }
 
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0) {
+    if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0 || (section <= self.lowerTimeConstraint) || (section >= self.upperTimeConstraint)) {
         return 0;
     } else {
         return 20;
