@@ -57,26 +57,32 @@ static NSString * const kCellIdentifier = @"EventCell";
 #pragma mark - Table View Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.events count];
+    //return [self.events count];
     NSInteger count = 0;
     for (MCCEvent *event in self.events){
         if (((event.startTime/60) == section)){
             count++;
         }
+        NSLog(@"the starttime/60:%d", (event.startTime/60));
     }
     NSLog(@"this called");
     return count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0) {
+        return 0;
+    } else {
+        return 20;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
-                                                          //  forIndexPath:indexPath];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
   
     MCCEvent *event = self.events[indexPath.row];
     
     cell.textLabel.text = event.name;
-    //cell.detailTextLabel.text = event.locationId;
     NSInteger hourStart = event.startTime/60;
     NSInteger minuteStart = event.startTime%60;
     NSInteger hourEnd = event.endTime/60;
