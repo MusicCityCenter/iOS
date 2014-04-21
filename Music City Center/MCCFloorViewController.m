@@ -118,7 +118,8 @@
                            
                            // Start with the start of the first edge
                            MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
-                           NSLog(@"%@",firstEdge.startLocation.locationId);
+                           NSLog(@"Starting at: %@",firstEdge.startLocation.locationId);
+                           NSLog(@"Ending at: %@", self.endLocation.locationId);
                            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
                            
                            MCCFloorPlanImageLocation *firstTranslatedLocation =

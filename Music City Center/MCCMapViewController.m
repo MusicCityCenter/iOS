@@ -39,6 +39,7 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSArray *beacons;
 @property (strong, nonatomic) CLLocation *currentLocation;
+@property (nonatomic) BOOL useBluetooth;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -135,12 +136,26 @@ static CGFloat const kBlurOffset = 64.0f;
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     
-    // Start monitoring Beacons
-    [self.locationManager startMonitoringForRegion:self.beaconRegion];
-    [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
+    // Check to see if BTLE is supported
+    self.useBluetooth = NO;
+    if ([CLLocationManager isMonitoringAvailableForClass:[self.beaconRegion class]] &&
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+        
+        self.useBluetooth = YES;
+    }
     
-    // Start getting GPS data
-    [self.locationManager startUpdatingLocation];
+    if (self.useBluetooth) {
+        NSLog(@"USING BLUETOOTH");
+        
+        // Start monitoring Beacons
+        [self.locationManager startMonitoringForRegion:self.beaconRegion];
+        [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
+        
+        // Start getting GPS data
+        [self.locationManager startUpdatingLocation];
+    } else {
+        NSLog(@"NOT USING BLUETOOTH");
+    }
     
     // Put the search bar in the navigation bar
     self.navigationItem.titleView = self.searchBar;
@@ -403,6 +418,7 @@ static CGFloat const kBlurOffset = 64.0f;
             MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
+            
             [floorViewController setPolylineFromFloorPlanLocation:location andLocationData:[self locationData]];
         }
     }
@@ -476,6 +492,10 @@ static CGFloat const kBlurOffset = 64.0f;
     NSLog(@"generated location data: %@", serializedPostData[@"locationData"]);
     
     return serializedPostData;
+    
+}
+
+- (BOOL)canUseBluetooth {
     
 }
 
