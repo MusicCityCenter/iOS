@@ -34,6 +34,10 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) UITableView *searchTableView;
 @property (nonatomic) BOOL searching;
 
+@property (nonatomic) BOOL findingStartLocation;
+@property (strong, nonatomic) MCCFloorPlanLocation *startLocation;
+@property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
+
 // Beacons
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -110,11 +114,20 @@ static CGFloat const kBlurOffset = 64.0f;
 -(UISearchBar *)searchBar {
     if (!_searchBar) {
         self.searchBar = [[UISearchBar alloc] init];
-        self.searchBar.placeholder = @"Search for Events or Rooms";
         self.searchBar.delegate = self;
     }
     
     return _searchBar;
+}
+
+-(void)setFindingStartLocation:(BOOL)findingStartLocation {
+    _findingStartLocation = findingStartLocation;
+    
+    if (_findingStartLocation) {
+        self.searchBar.placeholder = @"Find Current Location";
+    } else {
+        self.searchBar.placeholder = @"Search for Events or Rooms";
+    }
 }
 
 - (CLBeaconRegion *)beaconRegion {
@@ -131,6 +144,9 @@ static CGFloat const kBlurOffset = 64.0f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // We are not currently finding the start location
+    self.findingStartLocation = NO;
     
     // Create location manager
     self.locationManager = [[CLLocationManager alloc] init];
@@ -251,17 +267,37 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MCCFloorPlanLocation *location = nil;
+    
     if (indexPath.section == 0 && [self.eventSearchResults count] > 0) {
         MCCEvent *event = self.eventSearchResults[indexPath.row];
-        
-        [self performSegueWithIdentifier:@"PushMap"
-                                  sender:[MCCFloorPlanLocation floorPlanLocationWithLocationId:event.locationId
-                                                                                       andType:@"room"]];
+        location = [MCCFloorPlanLocation floorPlanLocationWithLocationId:event.locationId
+                                                                 andType:@"room"];
     } else {
-        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
-        
+        location = self.roomSearchResults[indexPath.row];
+    }
+    
+    if (self.findingStartLocation) {
+        self.startLocation = location;
         [self performSegueWithIdentifier:@"PushMap"
-                                  sender:location];
+                                  sender:self.endLocation];
+        
+    } else {
+        if (self.useBluetooth && [self.beacons count] > 0) {
+            [self performSegueWithIdentifier:@"PushMap"
+                                      sender:location];
+        } else {
+            self.findingStartLocation = YES;
+            [self searchBarCancelButtonClicked:self.searchBar];
+            self.endLocation = location;
+            [[[UIAlertView alloc] initWithTitle:@"No iBeacons Found"
+                                        message:@"Please search for your current location"
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil] show];
+
+        }
     }
     
     [self.searchTableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -422,18 +458,19 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PushMap"]) {
         if ([sender isKindOfClass:[MCCFloorPlanLocation class]]) {
+            
+            [self searchBarCancelButtonClicked:self.searchBar];
+            
             MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
             
             
-            if (self.useBluetooth) {
+            if (!self.findingStartLocation) {
                 [floorViewController setPolylineToFloorPlanLocation:location andLocationData:[self locationData]];
             } else {
-                // User manually enters his/her location
-                MCCFloorPlanLocation *startLocation = [MCCFloorPlanLocation floorPlanLocationWithLocationId:@"110" andType:@"room"];
-                
-                [floorViewController setPolylineToFloorPlanLocation:location fromFloorPlanLocation:startLocation];
+                self.findingStartLocation = NO;
+                [floorViewController setPolylineToFloorPlanLocation:location fromFloorPlanLocation:self.startLocation];
             }
         }
     }

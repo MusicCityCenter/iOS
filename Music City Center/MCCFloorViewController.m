@@ -25,10 +25,10 @@
 @property (strong, nonatomic) MCCFloorPlanImage *floor1;
 @property (strong, nonatomic) MCCFloorPlanImageLocation *floor1TopLeft;
 @property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
+@property (strong, nonatomic) NSDictionary *locationData;
 
 @property (strong, nonatomic) MKPolyline *polyline;
 
-@property (strong, nonatomic) NSDictionary *locationData;
 
 @end
 
@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.mapView.mapID = @"musiccitycenter.vqloko6r";
+    self.mapView.mapID = @"musiccitycenter.i1i5h4m1";
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
 
