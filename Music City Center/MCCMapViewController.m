@@ -367,7 +367,7 @@ static NSString * const floorPlanId = @"full-test-1";
     // The above is so that the gesture recognizer on the blurview can be accessed when there is no text in the search bar
     
     [self findMatches:searchText];
-    [self.searchTableView reloadData];g
+    [self.searchTableView reloadData];
 }
 
 #pragma mark - Blur Effect

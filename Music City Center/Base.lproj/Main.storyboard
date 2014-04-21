@@ -43,9 +43,6 @@
                                 <state key="normal" image="L4">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushLevel4" id="kPI-Mq-Zg1"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Js-KJ-VZo" userLabel="L3 Button">
                                 <rect key="frame" x="16" y="197" width="255" height="92"/>
@@ -53,12 +50,6 @@
                                 <state key="normal" image="L3">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-<<<<<<< HEAD
-=======
-                                <connections>
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushLevel3" id="c8f-rm-s2G"/>
-                                </connections>
->>>>>>> Add title for Floor view controller
                             </button>
                             <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gST-Fg-Qw2" userLabel="L2 Button">
                                 <rect key="frame" x="40" y="281" width="251" height="79"/>
@@ -66,9 +57,6 @@
                                 <state key="normal" image="L2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushLevel2" id="hIm-mj-9UH"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXN-16-m5y" userLabel="L1 Button">
                                 <rect key="frame" x="40" y="421" width="265" height="72"/>
@@ -77,11 +65,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-<<<<<<< HEAD
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushMap" id="xZC-2J-Snu"/>
-=======
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushLevel1" id="6bL-pB-oA0"/>
->>>>>>> Add title for Floor view controller
+                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushMap" id="6bL-pB-oA0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-1f-VwB" userLabel="L1M Button">
@@ -90,9 +74,6 @@
                                 <state key="normal" image="L1M">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushLevel1M" id="61y-g9-CRt"/>
-                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT2-6e-glG">
                                 <rect key="frame" x="20" y="147" width="55" height="21"/>
@@ -496,7 +477,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="6bL-pB-oA0"/>
-    </inferredMetricsTieBreakers>
 </document>
