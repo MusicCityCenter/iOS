@@ -270,7 +270,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MCCFloorPlanLocation *location = nil;
+    MCCFloorPlanLocation *location;
     
     if (indexPath.section == 0 && [self.eventSearchResults count] > 0) {
         MCCEvent *event = self.eventSearchResults[indexPath.row];
