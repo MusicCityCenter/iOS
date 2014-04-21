@@ -54,7 +54,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -85,7 +85,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding Shortest Path"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -125,7 +125,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding Events"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -158,7 +158,7 @@
                                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                             NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                             // Failure
-                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Current Location on the Floorplan"
+                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding Current Location"
                                                                         message:[NSString stringWithFormat:@"%@",error]
                                                                        delegate:nil
                                                               cancelButtonTitle:@"OK"
