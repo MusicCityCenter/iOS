@@ -141,18 +141,13 @@ static CGFloat const kBlurOffset = 64.0f;
     if ([CLLocationManager isMonitoringAvailableForClass:[self.beaconRegion class]] &&
         [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
         
-        self.useBluetooth = YES;
+        self.useBluetooth = [CLLocationManager isRangingAvailable];
     }
     
     if (self.useBluetooth) {
         NSLog(@"USING BLUETOOTH");
         
-        // Start monitoring Beacons
-        [self.locationManager startMonitoringForRegion:self.beaconRegion];
-        [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
-        
-        // Start getting GPS data
-        [self.locationManager startUpdatingLocation];
+        [self locationManager:self.locationManager didChangeAuthorizationStatus:kCLAuthorizationStatusAuthorized];
     } else {
         NSLog(@"NOT USING BLUETOOTH");
     }
@@ -366,6 +361,18 @@ static CGFloat const kBlurOffset = 64.0f;
     self.currentLocation = [locations lastObject];
 }
 
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorized) {
+        self.useBluetooth = [CLLocationManager isRangingAvailable];
+        
+        // Start monitoring Beacons
+        [self.locationManager startMonitoringForRegion:self.beaconRegion];
+        [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
+        
+        // Start getting GPS data
+        [self.locationManager startUpdatingLocation];
+    }
+}
 
 #pragma mark - Helper Methods
 
@@ -419,7 +426,15 @@ static CGFloat const kBlurOffset = 64.0f;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
             
-            [floorViewController setPolylineFromFloorPlanLocation:location andLocationData:[self locationData]];
+            
+            if (self.useBluetooth) {
+                [floorViewController setPolylineToFloorPlanLocation:location andLocationData:[self locationData]];
+            } else {
+                // User manually enters his/her location
+                MCCFloorPlanLocation *startLocation = [MCCFloorPlanLocation floorPlanLocationWithLocationId:@"110" andType:@"room"];
+                
+                [floorViewController setPolylineToFloorPlanLocation:location fromFloorPlanLocation:startLocation];
+            }
         }
     }
 }
@@ -492,10 +507,6 @@ static CGFloat const kBlurOffset = 64.0f;
     NSLog(@"generated location data: %@", serializedPostData[@"locationData"]);
     
     return serializedPostData;
-    
-}
-
-- (BOOL)canUseBluetooth {
     
 }
 

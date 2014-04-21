@@ -64,7 +64,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location andLocationData:(NSDictionary *)locationData {
+- (void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)location andLocationData:(NSDictionary *)locationData {
     
     // Save the incoming data
     self.endLocation = location;
@@ -76,6 +76,12 @@
                                }];
 }
 
+
+-(void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)endLocation fromFloorPlanLocation:(MCCFloorPlanLocation *)startLocation {
+    self.endLocation = endLocation;
+    
+    [self drawPolylineFromStartLocation:startLocation];
+}
 
 #pragma mark - MKMapViewDelegate
 
