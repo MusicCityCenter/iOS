@@ -166,14 +166,25 @@ static NSString * const floorPlanId = @"full-test-1";
                            for (MCCFloorPlanEdge *edge in path.edges) {
                                MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
                                
-                               MCCFloorPlanImageLocation *translatedLocation =
-                               [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
-                                                                                 andY:location.y - self.topLeft.y];
+                               if (location.x >= self.topLeft.x &&
+                                   location.y >= self.topLeft.y &&
+                                   location.x <= self.bottomRight.x &&
+                                   location.y <= self.bottomRight.y) {
+                                   
+                                   
+                                   MCCFloorPlanImageLocation *translatedLocation =
+                                   [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
+                                                                                     andY:location.y - self.topLeft.y];
                                
-                               // Turn the floorplan location into lat-long
-                               coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
-                               ++i;
+                                   // Turn the floorplan location into lat-long
+                                   coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
+                                   ++i;
+                               } else {
+                                   break;
+                               }
                            }
+                           
+                           numPoints = i;
                            
                            self.polyline = [MKPolyline polylineWithCoordinates:coords
                                                                          count:numPoints];
