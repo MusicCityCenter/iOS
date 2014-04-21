@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
+#import "MCCAppDelegate.h"
 #import "MCCFloorViewController.h"
 #import "MCCEvent.h"
 #import "MCCClient.h"
 #import "MCCNavPath.h"
 #import "MCCNavData.h"
+#import "MCCFloorPlan.h"
 #import "MCCFloorPlanEdge.h"
 #import "MCCFloorPlanImage.h"
 #import "MCCFloorPlanImageLocation.h"
@@ -18,21 +20,49 @@
 #import "MCCFloorPlanLocation.h"
 #import <MBXMapKit/MBXMapKit.h>
 
+
+static NSString * const floorPlanId = @"full-test-1";
+
 @interface MCCFloorViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 
-@property (strong, nonatomic) MCCFloorPlanImage *floor1;
-@property (strong, nonatomic) MCCFloorPlanImageLocation *floor1TopLeft;
+@property (strong, nonatomic) NSString *currentFloor;
+
+@property (strong, nonatomic) MCCFloorPlanImage *floorPlanImage;
+@property (strong, atomic) MCCFloorPlanImageLocation *topLeft;
+@property (strong, atomic) MCCFloorPlanImageLocation *bottomRight;
+
 @property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
 @property (strong, nonatomic) NSDictionary *locationData;
 
 @property (strong, nonatomic) MKPolyline *polyline;
 
-
 @end
 
 @implementation MCCFloorViewController
+
+# pragma mark - Custom Getters
+
+- (void)setCurrentFloor:(NSString *)currentFloor {
+    _currentFloor = currentFloor;
+    
+    MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    
+    self.topLeft = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-TL", _currentFloor]];
+    self.bottomRight = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-BR", _currentFloor]];
+    
+    NSInteger sizeX = self.bottomRight.x - self.topLeft.x;
+    NSInteger sizeY = self.bottomRight.y - self.topLeft.y;
+    
+    self.floorPlanImage = [MCCFloorPlanImage floorPlanImageWithSizeX:sizeX
+                                                               sizeY:sizeY
+                                                             topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
+                                                            topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
+                                                       andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
+
+}
 
 
 # pragma mark - View Controller Lifecycle
@@ -49,13 +79,7 @@
 //    self.mapView.mapType = MKMapTypeHybrid
 
     
-    self.floor1TopLeft = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:240
-                                                                           andY:3196];
-    self.floor1 = [MCCFloorPlanImage floorPlanImageWithSizeX:916
-                                                       sizeY:628
-                                                     topLeft:CLLocationCoordinate2DMake(36.158468, -86.777133)
-                                                    topRight:CLLocationCoordinate2DMake(36.156458, -86.775824)
-                                               andBottomLeft:CLLocationCoordinate2DMake(36.157835, -86.778613)];
+    self.currentFloor = @"1";
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +94,7 @@
     self.endLocation = location;
     
     [[MCCClient sharedClient] locationFromiBeacons:locationData
-                                         floorPlan:@"full-test-1"
+                                         floorPlan:floorPlanId
                                withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
                                    [self drawPolylineFromStartLocation:floorPlanLocation];
                                }];
@@ -108,10 +132,10 @@
     
     MCCClient *client = [MCCClient sharedClient];
     
-    [client fetchFloorPlan:@"full-test-1"
+    [client fetchFloorPlan:floorPlanId
        withCompletionBlock:^(MCCNavData *navData) {
            
-           [client shortestPathOnFloorPlan:@"full-test-1"
+           [client shortestPathOnFloorPlan:floorPlanId
                                       from:startLocation.locationId
                                         to:self.endLocation.locationId
                        withCompletionBlock:^(MCCNavPath *path) {
@@ -129,12 +153,12 @@
                            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
                            
                            MCCFloorPlanImageLocation *firstTranslatedLocation =
-                           [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.floor1TopLeft.x
-                                                                             andY:firstLocation.y - self.floor1TopLeft.y];
+                           [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.topLeft.x
+                                                                             andY:firstLocation.y - self.topLeft.y];
                            
                            
                            // Turn the floorplan location into lat-long
-                           coords[0] = [self.floor1 coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
+                           coords[0] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:firstTranslatedLocation];
                            
                            int i = 1;
                            
@@ -143,11 +167,11 @@
                                MCCFloorPlanImageLocation *location = [navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
                                
                                MCCFloorPlanImageLocation *translatedLocation =
-                               [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.floor1TopLeft.x
-                                                                                 andY:location.y - self.floor1TopLeft.y];
+                               [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
+                                                                                 andY:location.y - self.topLeft.y];
                                
                                // Turn the floorplan location into lat-long
-                               coords[i] = [self.floor1 coordinateFromFloorPlanImageLocation:translatedLocation];
+                               coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
                                ++i;
                            }
                            

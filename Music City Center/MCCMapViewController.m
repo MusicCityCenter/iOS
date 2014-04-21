@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
+#import "MCCAppDelegate.h"
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
 #import "MCCClient.h"
@@ -420,6 +421,9 @@ static CGFloat const kBlurOffset = 64.0f;
         self.events = events;
         
         [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
+            MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            appDelegate.navData = navData;
+            
             [self.rooms removeAllObjects];
             for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
                 if ([location.type isEqualToString:@"room"]) {
