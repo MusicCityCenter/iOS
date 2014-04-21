@@ -17,10 +17,8 @@
 #import "MCCFloorPlanImageMapping.h"
 #import "MCCFloorPlanLocation.h"
 #import <MBXMapKit/MBXMapKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import <SystemConfiguration/CaptiveNetwork.h>
 
-@interface MCCFloorViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MCCFloorViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 
@@ -30,9 +28,7 @@
 
 @property (strong, nonatomic) MKPolyline *polyline;
 
-// Beacons
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSArray *beacons;
+@property (strong, nonatomic) NSDictionary *locationData;
 
 @end
 
@@ -68,18 +64,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location andBeacons:(NSArray *)beacons {
+- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location andLocationData:(NSDictionary *)locationData {
     
     // Save the incoming data
     self.endLocation = location;
-    self.beacons = beacons;
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    
-    // Get the current location, then wait for the callback to send data to the server
-    [self.locationManager startUpdatingLocation];
-    
+    [[MCCClient sharedClient] locationFromiBeacons:locationData
+                                         floorPlan:@"full-test-1"
+                               withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
+                                   [self drawPolylineFromStartLocation:floorPlanLocation];
+                               }];
 }
 
 
@@ -100,77 +94,6 @@
     return renderer;
 }
 
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"LOCATION DATA RECEIVED");
-    
-    [self.locationManager stopUpdatingLocation];
-    
-    NSMutableArray *beaconData = [NSMutableArray array];
-    for (CLBeacon *beacon in self.beacons) {
-        NSMutableDictionary *thisBeacon = [NSMutableDictionary dictionary];
-        thisBeacon[@"uuid"] = beacon.proximityUUID.UUIDString;
-        thisBeacon[@"major"] = beacon.major;
-        thisBeacon[@"minor"] = beacon.minor;
-        thisBeacon[@"rssi"] = [NSNumber numberWithLong:beacon.rssi];
-        thisBeacon[@"accuracy"] = [NSNumber numberWithDouble:beacon.accuracy];
-        if (beacon.proximity == CLProximityUnknown) {
-            thisBeacon[@"distance"] = @"Unknown Proximity";
-        } else if (beacon.proximity == CLProximityImmediate) {
-            thisBeacon[@"distance"] = @"Immediate";
-        } else if (beacon.proximity == CLProximityNear) {
-            thisBeacon[@"distance"] = @"Near";
-        } else if (beacon.proximity == CLProximityFar) {
-            thisBeacon[@"distance"] = @"Far";
-        }
-        [beaconData addObject:thisBeacon];
-    }
-    
-    NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
-    
-    locationData[@"beaconData"] = beaconData;
-    
-    CLLocation *curLocation = [locations lastObject];
-    
-    NSMutableDictionary *curLocData = [NSMutableDictionary dictionary];
-    curLocData[@"latitude"] = [NSNumber numberWithDouble:curLocation.coordinate.latitude];
-    curLocData[@"longitude"] = [NSNumber numberWithDouble:curLocation.coordinate.longitude];
-    curLocData[@"altitude"] = [NSNumber numberWithDouble:curLocation.altitude];
-    curLocData[@"horizontalAccuracy"] = [NSNumber numberWithDouble:curLocation.horizontalAccuracy];
-    curLocData[@"verticalAccuracy"] = [NSNumber numberWithDouble:curLocation.verticalAccuracy];
-    
-    locationData[@"gpsData"] = curLocData;
-    
-    NSMutableDictionary *wifiData = [NSMutableDictionary dictionary];
-    
-    CFArrayRef interfaces = CNCopySupportedInterfaces();
-    
-    if (interfaces) {
-        NSDictionary *netInfo = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(interfaces, 0));
-        wifiData[@"ssid"] = netInfo[@"SSID"];
-        wifiData[@"bssid"] = netInfo[@"BSSID"];
-    }
-    
-    locationData[@"wifiData"] = wifiData;
-    
-    NSMutableDictionary *serializedPostData = [NSMutableDictionary dictionary];
-    
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:locationData
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
-    
-    serializedPostData[@"locationData"] = [[NSString alloc] initWithData:postData
-                                                                encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"sent data: %@", serializedPostData[@"locationData"]);
-    
-    [[MCCClient sharedClient] locationFromiBeacons:serializedPostData
-                                         floorPlan:@"full-test-1"
-                               withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
-                                   [self drawPolylineFromStartLocation:floorPlanLocation];
-                               }];
-}
 
 #pragma mark - Helper Methods
 

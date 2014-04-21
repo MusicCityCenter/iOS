@@ -44,12 +44,21 @@
     // responseObject = floorPlan;
     
     NSURL *relativeURL = [NSURL URLWithString:response.URL.relativePath];
-    NSString *firstPathComponent = @"";
-    if ([relativeURL.pathComponents count] >= 3) {
-        firstPathComponent = relativeURL.pathComponents[2];
-    }
+    NSString *firstPathComponent = relativeURL.pathComponents[2];
     
-    if ([firstPathComponent isEqualToString:@"floorplan"]) {
+    if ([firstPathComponent isEqualToString:@"floorplan"] && [relativeURL.pathComponents[4] isEqualToString:@"location"]) {
+    
+        NSLog(@"Turning response into FloorPlanLocation");
+        
+//        NSLog(@"received: %@", responseObject);
+        
+        MCCFloorPlanLocation *floorPlanLocation = [MCCFloorPlanLocation
+                                                   floorPlanLocationWithLocationId:responseObject[@"id"]
+                                                   andType:@""];
+        
+        responseObject = floorPlanLocation;
+        
+    } else if ([firstPathComponent isEqualToString:@"floorplan"]) {
         // Example FloorPlan Mapping Response:
         //{"mapping":{"imageUrl":"/mcc/image/floorplan/windsor","mapping":{"k":{"x":878,"y":556},"g":{"x":679,"y":541},"f":{"x":477,"y":524},"df":{"x":880,"y":359}}},"floorplan":{"locations":[{"id":"g","type":"room"},{"id":"df","type":"room"},{"id":"k","type":"room"},{"id":"f","type":"room"}],"edges":[{"start":"g","end":"k","length":0.0},{"start":"g","end":"f","length":0.0},{"start":"df","end":"k","length":0.0},{"start":"k","end":"g","length":0.0},{"start":"k","end":"df","length":0.0},{"start":"f","end":"g","length":0.0}],"types":{"name":"root","children":[{"name":"room"}]}}}
         
@@ -146,16 +155,6 @@
 
         responseObject = [events copy];
 
-    } else if ([firstPathComponent isEqualToString:@"beacons"]) {
-        // TODO : edit path
-        
-        NSLog(@"Turning response into FloorPlanLocation");
-        
-        MCCFloorPlanLocation *floorPlanLocation = [MCCFloorPlanLocation
-                                                   floorPlanLocationWithLocationId:@"101"
-                                                   andType:@""];
-        
-        responseObject = floorPlanLocation;
     }
     
     return responseObject;

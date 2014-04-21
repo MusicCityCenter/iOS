@@ -16,6 +16,7 @@
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
 #import <MapKit/MapKit.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
@@ -37,6 +38,7 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSArray *beacons;
+@property (strong, nonatomic) CLLocation *currentLocation;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -129,10 +131,16 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Create location manager
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
+    
+    // Start monitoring Beacons
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
     [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
+    
+    // Start getting GPS data
+    [self.locationManager startUpdatingLocation];
     
     // Put the search bar in the navigation bar
     self.navigationItem.titleView = self.searchBar;
@@ -339,6 +347,10 @@ static CGFloat const kBlurOffset = 64.0f;
     self.beacons = beacons;
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations lastObject];
+}
+
 
 #pragma mark - Helper Methods
 
@@ -391,9 +403,80 @@ static CGFloat const kBlurOffset = 64.0f;
             MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
-            [floorViewController setPolylineFromFloorPlanLocation:location andBeacons:self.beacons];
+            [floorViewController setPolylineFromFloorPlanLocation:location andLocationData:[self locationData]];
         }
     }
+}
+
+
+- (NSDictionary *)locationData {
+    
+    // Create dictionary for the data
+    NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
+    
+    // Get Beacon data
+    NSMutableArray *beaconData = [NSMutableArray array];
+    for (CLBeacon *beacon in self.beacons) {
+        NSMutableDictionary *thisBeacon = [NSMutableDictionary dictionary];
+        thisBeacon[@"uuid"] = beacon.proximityUUID.UUIDString;
+        thisBeacon[@"major"] = beacon.major;
+        thisBeacon[@"minor"] = beacon.minor;
+        thisBeacon[@"rssi"] = [NSNumber numberWithLong:beacon.rssi];
+        thisBeacon[@"accuracy"] = [NSNumber numberWithDouble:beacon.accuracy];
+        if (beacon.proximity == CLProximityUnknown) {
+            thisBeacon[@"distance"] = @"Unknown Proximity";
+        } else if (beacon.proximity == CLProximityImmediate) {
+            thisBeacon[@"distance"] = @"Immediate";
+        } else if (beacon.proximity == CLProximityNear) {
+            thisBeacon[@"distance"] = @"Near";
+        } else if (beacon.proximity == CLProximityFar) {
+            thisBeacon[@"distance"] = @"Far";
+        }
+        [beaconData addObject:thisBeacon];
+    }
+    
+    locationData[@"beaconData"] = beaconData;
+    
+    
+    // Get Location data
+    NSMutableDictionary *curLocData = [NSMutableDictionary dictionary];
+    curLocData[@"latitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.latitude];
+    curLocData[@"longitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.longitude];
+    curLocData[@"altitude"] = [NSNumber numberWithDouble:self.currentLocation.altitude];
+    curLocData[@"horizontalAccuracy"] = [NSNumber numberWithDouble:self.currentLocation.horizontalAccuracy];
+    curLocData[@"verticalAccuracy"] = [NSNumber numberWithDouble:self.currentLocation.verticalAccuracy];
+    
+    locationData[@"gpsData"] = curLocData;
+    
+    
+    // Get wifi data
+    NSMutableDictionary *wifiData = [NSMutableDictionary dictionary];
+    
+    CFArrayRef interfaces = CNCopySupportedInterfaces();
+    
+    if (interfaces) {
+        NSDictionary *netInfo = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(interfaces, 0));
+        wifiData[@"ssid"] = netInfo[@"SSID"];
+        wifiData[@"bssid"] = netInfo[@"BSSID"];
+    }
+    
+    locationData[@"wifiData"] = wifiData;
+
+    
+    // Serialize the JSON data into a string
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:locationData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    NSMutableDictionary *serializedPostData = [NSMutableDictionary dictionary];
+    serializedPostData[@"locationData"] = [[NSString alloc] initWithData:postData
+                                                                encoding:NSUTF8StringEncoding];
+    
+    
+    NSLog(@"generated location data: %@", serializedPostData[@"locationData"]);
+    
+    return serializedPostData;
+    
 }
 
 @end
