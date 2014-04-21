@@ -81,9 +81,12 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger hourStart = (event.startTime/60);
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
-                             [self.eventsSectioned insertObject:event atIndex:hourStart];
-                         }
+                         //if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                         NSMutableArray *section = self.eventsSectioned[hourStart];
+                         [section addObject:event];
+                         NSMutableArray *debug = self.eventsSectioned;
+                         NSLog(@"object added");
+                         //}
                          NSLog(@"here!: %@", event.name);
                      }
                      [self.tableView reloadData];
