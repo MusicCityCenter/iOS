@@ -51,12 +51,30 @@ static NSString * const kCellIdentifier = @"EventCell";
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
+
+
     
     // TODO - Change this from full-test-1
     [[MCCClient sharedClient] events:@"full-test-1"
                                   on:self.date
                  withCompletionBlock:^(NSArray *events) {
                      self.events = events;
+                     self.eventsSectioned = [[NSMutableArray alloc] init];
+                     NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
+                     for (int i = 0; i < 24; i++)
+                     {
+                         NSMutableArray *secondDimension = [[NSMutableArray alloc] init];
+                         [firstDimension addObject:secondDimension];
+                     }
+                     self.eventsSectioned = [NSMutableArray arrayWithArray:firstDimension];
+                     for (MCCEvent *event in events){
+                         NSString *what = event.name;
+                         NSInteger startTime = (NSInteger) event.startTime;
+                         NSInteger hour = (event.startTime/60);
+                         //[self.eventsSectioned insertObject:event atIndex:hour];
+                         NSLog(@"here!: %@", event.name);
+                     }
+                     [self.tableView reloadData];
                  }];
     /*
     NSSortDescriptor *sortDescriptor;
@@ -68,23 +86,13 @@ static NSString * const kCellIdentifier = @"EventCell";
     self.events = sortedArray;
      */
 
-    self.eventsSectioned = [NSMutableArray arrayWithCapacity:24];
-    NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 24; i++)
-    {
-        NSMutableArray *secondDimension = [[NSMutableArray alloc] init];
-        [firstDimension addObject:secondDimension];
-    }
-    self.eventsSectioned = [NSMutableArray arrayWithArray:firstDimension];
+
+    
     for (MCCEvent *event in self.events){
         [self.eventsSectioned insertObject:event atIndex:(event.startTime/60)];
         NSLog(@"here!: %@", event.name);
     }
-    for (NSMutableArray *array in self.eventsSectioned){
-        for (MCCEvent *event in array){
-            NSLog(@"hi: %@", event.name);
-        }
-    }
+
     
 }
 
@@ -122,7 +130,7 @@ static NSString * const kCellIdentifier = @"EventCell";
   
     MCCEvent *event = self.events[indexPath.row];
     NSLog(@"ummm%d", indexPath.row);
-    
+
     cell.textLabel.text = event.name;
     NSInteger hourStart = event.startTime/60;
     NSInteger minuteStart = event.startTime%60;
