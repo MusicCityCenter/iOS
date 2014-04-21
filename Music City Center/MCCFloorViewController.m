@@ -163,15 +163,15 @@ static NSString * const floorPlanId = @"full-test-1";
                          withCompletionBlock:^(MCCNavData *navData) {
                              self.navData = navData;
                              
-                             // Fencepost
-                             MCCFloorPlanEdge *firstEdge = [self.navData.floorPlan.edges firstObject];
-                             [self.mapView addAnnotation:[self pointAnnotationForEdge:firstEdge
-                                                                         withLocation:firstEdge.startLocation]];
-                             
-                             for (MCCFloorPlanEdge *edge in self.navData.floorPlan.edges) {
-                                 [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
-                                                                             withLocation:edge.endLocation]];
-                             }
+//                             // Fencepost
+//                             MCCFloorPlanEdge *firstEdge = [self.navData.floorPlan.edges firstObject];
+//                             [self.mapView addAnnotation:[self pointAnnotationForEdge:firstEdge
+//                                                                         withLocation:firstEdge.startLocation]];
+//                             
+//                             for (MCCFloorPlanEdge *edge in self.navData.floorPlan.edges) {
+//                                 [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
+//                                                                             withLocation:edge.endLocation]];
+//                             }
                         
                          }];
     
@@ -252,6 +252,9 @@ static NSString * const floorPlanId = @"full-test-1";
                            // Start with the start of the first edge
                            MCCFloorPlanEdge *currentEdge = [path.edges firstObject];
 
+//                           [self.mapView addAnnotation:[self pointAnnotationForEdge:currentEdge
+//                                                                       withLocation:currentEdge.startLocation]];
+                           
                            NSLog(@"Starting at: %@",currentEdge.startLocation.locationId);
                            NSLog(@"Ending at: %@", self.endLocation.locationId);
 
@@ -297,6 +300,11 @@ static NSString * const floorPlanId = @"full-test-1";
                                        previousDirection = currentDirection;
                                    }
                                    
+//                                   if (i == numPoints) {
+//                                       [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
+//                                                                                   withLocation:edge.endLocation]];
+//                                   }
+                                   
                                    currentEdge = edge;
                                  
                                } else {
@@ -304,7 +312,10 @@ static NSString * const floorPlanId = @"full-test-1";
                                }
                            }
                            
+                           
+                           
                            numPoints = i;
+                           
                            
                     
                            self.routePolyline = [MKPolyline polylineWithCoordinates:coords
