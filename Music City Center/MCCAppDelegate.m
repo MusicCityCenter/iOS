@@ -7,12 +7,19 @@
 //
 
 #import "MCCAppDelegate.h"
+#import "MCCClient.h"
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+
+static NSString * const floorPlanId = @"full-test-1";
 
 @implementation MCCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
+    [[MCCClient sharedClient] fetchFloorPlan:floorPlanId withCompletionBlock:^(MCCNavData *navData) {
+        self.navData = navData;
+    }];
     
     return YES;
 }

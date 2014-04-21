@@ -34,6 +34,7 @@
     return _sharedClient;
 }
 
+
 - (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *))completionBlock {
     // format: /mcc/floorplan/mapping/{floorplanId}
     NSLog(@"fetch floorplan");
@@ -53,7 +54,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Retrieving Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -84,7 +85,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding Shortest Path"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -124,7 +125,7 @@
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding Events"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"
@@ -132,6 +133,38 @@
                                            
                                        }];
     
+    return dataTask;
+}
+
+-(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData forFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
+    NSLog(@"Location from iBeacons");
+    
+    NSString *targetURL = [NSString stringWithFormat:@"floorplan/%@/location", floorPlanId];
+    
+    // format:
+    
+    NSURLSessionDataTask *dataTask = [self POST:targetURL
+                                     parameters:beaconData
+                                        success:^(NSURLSessionDataTask *task, id responseObject) {
+                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                            // Success
+                                            NSLog(@"Location fetched");
+                                            if (httpResponse.statusCode == 200) {
+                                                completionBlock(responseObject);
+                                            }
+                                        }
+                                        failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                            NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                            // Failure
+                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding Current Location"
+                                                                        message:[NSString stringWithFormat:@"%@",error]
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil] show];
+                                            
+                                        }];
     return dataTask;
 }
 

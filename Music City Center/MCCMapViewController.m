@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Music City Center. All rights reserved.
 //
 
+#import "MCCAppDelegate.h"
 #import "MCCMapViewController.h"
 #import "MCCFloorViewController.h"
 #import "MCCClient.h"
@@ -16,12 +17,14 @@
 #import "UIView+Screenshot.h"
 #import <GPUImage/GPUImage.h>
 #import <MapKit/MapKit.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
+static NSString * const floorPlanId = @"full-test-1";
 
 
-@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *events; // MCCEvents
 @property (strong, nonatomic) NSMutableArray *eventSearchResults;
@@ -32,6 +35,17 @@ static CGFloat const kBlurOffset = 64.0f;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UITableView *searchTableView;
 @property (nonatomic) BOOL searching;
+
+@property (nonatomic) BOOL findingStartLocation;
+@property (strong, nonatomic) MCCFloorPlanLocation *startLocation;
+@property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
+
+// Beacons
+@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSArray *beacons;
+@property (strong, nonatomic) CLLocation *currentLocation;
+@property (nonatomic) BOOL useBluetooth;
 
 @property (strong, nonatomic) GPUImageView *blurView;
 @property (strong, nonatomic) GPUImageiOSBlurFilter *blurFilter;
@@ -102,17 +116,59 @@ static CGFloat const kBlurOffset = 64.0f;
 -(UISearchBar *)searchBar {
     if (!_searchBar) {
         self.searchBar = [[UISearchBar alloc] init];
-        self.searchBar.placeholder = @"Search for Events or Rooms";
         self.searchBar.delegate = self;
     }
     
     return _searchBar;
 }
 
+-(void)setFindingStartLocation:(BOOL)findingStartLocation {
+    _findingStartLocation = findingStartLocation;
+    
+    if (_findingStartLocation) {
+        self.searchBar.placeholder = @"Find Current Location";
+    } else {
+        self.searchBar.placeholder = @"Search for Events or Rooms";
+    }
+}
+
+- (CLBeaconRegion *)beaconRegion {
+    if (!_beaconRegion) {
+        NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"8DEEFBB9-F738-4297-8040-96668BB44281"];
+        _beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                           identifier:@"com.nashvillemusiccitycenter"];
+    }
+    return _beaconRegion;
+}
+
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // We are not currently finding the start location
+    self.findingStartLocation = NO;
+    
+    // Create location manager
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    // Check to see if BTLE is supported
+    self.useBluetooth = NO;
+    if ([CLLocationManager isMonitoringAvailableForClass:[self.beaconRegion class]] &&
+        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+        
+        self.useBluetooth = [CLLocationManager isRangingAvailable];
+    }
+    
+    if (self.useBluetooth) {
+        NSLog(@"USING BLUETOOTH");
+        
+        [self locationManager:self.locationManager didChangeAuthorizationStatus:kCLAuthorizationStatusAuthorized];
+    } else {
+        NSLog(@"NOT USING BLUETOOTH");
+    }
     
     // Put the search bar in the navigation bar
     self.navigationItem.titleView = self.searchBar;
@@ -213,17 +269,37 @@ static CGFloat const kBlurOffset = 64.0f;
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MCCFloorPlanLocation *location;
+    
     if (indexPath.section == 0 && [self.eventSearchResults count] > 0) {
         MCCEvent *event = self.eventSearchResults[indexPath.row];
-        
-        [self performSegueWithIdentifier:@"PushMap"
-                                  sender:[MCCFloorPlanLocation floorPlanLocationWithLocationId:event.locationId
-                                                                                       andType:@"room"]];
+        location = [MCCFloorPlanLocation floorPlanLocationWithLocationId:event.locationId
+                                                                 andType:@"room"];
     } else {
-        MCCFloorPlanLocation *location = self.roomSearchResults[indexPath.row];
-        
+        location = self.roomSearchResults[indexPath.row];
+    }
+    
+    if (self.findingStartLocation) {
+        self.startLocation = location;
         [self performSegueWithIdentifier:@"PushMap"
-                                  sender:location];
+                                  sender:self.endLocation];
+        
+    } else {
+        if (self.useBluetooth && [self.beacons count] > 0) {
+            [self performSegueWithIdentifier:@"PushMap"
+                                      sender:location];
+        } else {
+            self.findingStartLocation = YES;
+            [self searchBarCancelButtonClicked:self.searchBar];
+            self.endLocation = location;
+            [[[UIAlertView alloc] initWithTitle:@"No iBeacons Found"
+                                        message:@"Please search for your current location"
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil] show];
+
+        }
     }
     
     [self.searchTableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -305,24 +381,55 @@ static CGFloat const kBlurOffset = 64.0f;
     }];
 }
 
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+    self.beacons = beacons;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    self.currentLocation = [locations lastObject];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorized) {
+        self.useBluetooth = [CLLocationManager isRangingAvailable];
+        
+        // Start monitoring Beacons
+        [self.locationManager startMonitoringForRegion:self.beaconRegion];
+        [self locationManager:self.locationManager didEnterRegion:self.beaconRegion];
+        
+        // Start getting GPS data
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
 #pragma mark - Helper Methods
 
 - (void)populateEventsAndRooms {
     // Populate contents array with events
-    MCCClient *client = [MCCClient sharedClient];
     
-    [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+    MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [self.rooms removeAllObjects];
+    for (MCCFloorPlanLocation *location in appDelegate.navData.floorPlan.locations) {
+        if ([location.type isEqualToString:@"room"]) {
+            [self.rooms addObject:location];
+        }
+    }
+    
+    [[MCCClient sharedClient] events:floorPlanId on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.events = events;
         
-        [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
-            [self.rooms removeAllObjects];
-            for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
-                if ([location.type isEqualToString:@"room"]) {
-                    [self.rooms addObject:location];
-                }
-            }
-            [self.searchDisplayController.searchResultsTableView reloadData];
-        }];
+        [self.searchDisplayController.searchResultsTableView reloadData];
     }];
 }
 
@@ -353,12 +460,95 @@ static CGFloat const kBlurOffset = 64.0f;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PushMap"]) {
         if ([sender isKindOfClass:[MCCFloorPlanLocation class]]) {
+            
+            [self searchBarCancelButtonClicked:self.searchBar];
+            
             MCCFloorPlanLocation *location = (MCCFloorPlanLocation *) sender;
             
             MCCFloorViewController *floorViewController = segue.destinationViewController;
-            [floorViewController setPolylineFromFloorPlanLocation:location];
+            
+            
+            if (!self.findingStartLocation) {
+                [floorViewController setPolylineToFloorPlanLocation:location andLocationData:[self locationData]];
+            } else {
+                self.findingStartLocation = NO;
+                [floorViewController setPolylineToFloorPlanLocation:location fromFloorPlanLocation:self.startLocation];
+            }
         }
     }
+}
+
+
+- (NSDictionary *)locationData {
+    
+    // Create dictionary for the data
+    NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
+    
+    // Get Beacon data
+    NSMutableArray *beaconData = [NSMutableArray arrayWithCapacity:[self.beacons count]];
+    
+    for (CLBeacon *beacon in self.beacons) {
+        NSMutableDictionary *thisBeacon = [NSMutableDictionary dictionary];
+        thisBeacon[@"uuid"] = beacon.proximityUUID.UUIDString;
+        thisBeacon[@"major"] = beacon.major;
+        thisBeacon[@"minor"] = beacon.minor;
+        thisBeacon[@"rssi"] = [NSNumber numberWithLong:beacon.rssi];
+        thisBeacon[@"accuracy"] = [NSNumber numberWithDouble:beacon.accuracy];
+        if (beacon.proximity == CLProximityUnknown) {
+            thisBeacon[@"distance"] = @"Unknown Proximity";
+        } else if (beacon.proximity == CLProximityImmediate) {
+            thisBeacon[@"distance"] = @"Immediate";
+        } else if (beacon.proximity == CLProximityNear) {
+            thisBeacon[@"distance"] = @"Near";
+        } else if (beacon.proximity == CLProximityFar) {
+            thisBeacon[@"distance"] = @"Far";
+        }
+        [beaconData addObject:thisBeacon];
+    }
+    
+    locationData[@"beaconData"] = beaconData;
+    
+    
+    // Get Location data
+    NSMutableDictionary *curLocData = [NSMutableDictionary dictionary];
+    
+    curLocData[@"latitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.latitude];
+    curLocData[@"longitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.longitude];
+    curLocData[@"altitude"] = [NSNumber numberWithDouble:self.currentLocation.altitude];
+    curLocData[@"horizontalAccuracy"] = [NSNumber numberWithDouble:self.currentLocation.horizontalAccuracy];
+    curLocData[@"verticalAccuracy"] = [NSNumber numberWithDouble:self.currentLocation.verticalAccuracy];
+    
+    locationData[@"gpsData"] = curLocData;
+    
+    
+    // Get wifi data
+    NSMutableDictionary *wifiData = [NSMutableDictionary dictionary];
+    
+    CFArrayRef interfaces = CNCopySupportedInterfaces();
+    
+    if (interfaces) {
+        NSDictionary *netInfo = (__bridge_transfer NSDictionary *)CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(interfaces, 0));
+        wifiData[@"ssid"] = netInfo[@"SSID"];
+        wifiData[@"bssid"] = netInfo[@"BSSID"];
+    }
+    
+    locationData[@"wifiData"] = wifiData;
+
+    
+    // Serialize the JSON data into a string
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:locationData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    NSMutableDictionary *serializedPostData = [NSMutableDictionary dictionary];
+    serializedPostData[@"locationData"] = [[NSString alloc] initWithData:postData
+                                                                encoding:NSUTF8StringEncoding];
+    
+    
+    NSLog(@"generated location data: %@", serializedPostData[@"locationData"]);
+    
+    return serializedPostData;
+    
 }
 
 @end

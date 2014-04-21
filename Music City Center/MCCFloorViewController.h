@@ -12,6 +12,8 @@
 
 @interface MCCFloorViewController : UIViewController
 
-- (void)setPolylineFromFloorPlanLocation:(MCCFloorPlanLocation *)location;
+- (void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)location andLocationData:(NSDictionary *)locationData;
+- (void)setPolylineToFloorPlanLocation:(MCCFloorPlanLocation *)endLocation fromFloorPlanLocation:(MCCFloorPlanLocation *)startLocation;
+
 
 @end

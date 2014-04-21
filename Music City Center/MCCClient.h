@@ -10,6 +10,7 @@
 
 @class MCCNavData;
 @class MCCNavPath;
+@class MCCFloorPlanLocation;
 
 @interface MCCClient : AFHTTPSessionManager
 
@@ -18,5 +19,7 @@
 - (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
 - (NSURLSessionDataTask *)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
 - (NSURLSessionDataTask *)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
+
+- (NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData forFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *floorPlanLocation))completionBlock;
 
 @end
