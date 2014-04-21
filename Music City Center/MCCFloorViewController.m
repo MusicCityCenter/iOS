@@ -244,12 +244,12 @@ static NSString * const floorPlanId = @"full-test-1";
                            CLLocationCoordinate2D coords[numPoints];
                            
                            // Start with the start of the first edge
-                           MCCFloorPlanEdge *firstEdge = [path.edges firstObject];
+                           MCCFloorPlanEdge *currentEdge = [path.edges firstObject];
 
-                           NSLog(@"Starting at: %@",firstEdge.startLocation.locationId);
+                           NSLog(@"Starting at: %@",currentEdge.startLocation.locationId);
                            NSLog(@"Ending at: %@", self.endLocation.locationId);
 
-                           MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:firstEdge.startLocation.locationId];
+                           MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:currentEdge.startLocation.locationId];
                            
                            MCCFloorPlanImageLocation *firstTranslatedLocation =
                            [MCCFloorPlanImageLocation floorPlanImageLocationWithX:firstLocation.x - self.topLeft.x
@@ -263,7 +263,7 @@ static NSString * const floorPlanId = @"full-test-1";
                            NSMutableArray *directions = [NSMutableArray arrayWithCapacity:[path.edges count]];
                            
                            
-                           MCCFloorPlanEdge *previousEdge;
+                           NSString *previousDirection;
                            
                            // Then do the end of all the other edges
                            for (MCCFloorPlanEdge *edge in path.edges) {
@@ -275,18 +275,24 @@ static NSString * const floorPlanId = @"full-test-1";
                                    location.y <= self.bottomRight.y) {
                                    
                                    
-                                   MCCFloorPlanImageLocation *translatedLocation =
-                                   [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
-                                                                                     andY:location.y - self.topLeft.y];
-                
-                                   // Turn the floorplan location into lat-long
-                                   coords[i] = [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
+                                   coords[i] = [self coordinateFromEdge:edge
+                                                     withFloorPlanImage:self.floorPlanImage
+                                                andTopLeftImageLocation:self.topLeft];
                                    ++i;
                                    
-                                   if (previousEdge)
-                                       [directions addObject:[self directionFromPreviousEdge:previousEdge toNextEdge:edge]];
+                                   // Make sure that if a user is passing through several straight edges that
+                                   // the directions don't say "Go straight" repeatedly
+                                   NSString *currentDirection = [self directionFromPreviousEdge:currentEdge
+                                                                                     toNextEdge:edge];
                                    
-                                   previousEdge = edge;
+                                   if (![previousDirection isEqualToString:@"Go straight"] || ![currentDirection isEqualToString:@"Go straight"]) {
+                                       [directions addObject:currentDirection];
+                                       
+                                       previousDirection = currentDirection;
+                                   }
+                                   
+                                   currentEdge = edge;
+                                 
                                } else {
                                    break;
                                }
