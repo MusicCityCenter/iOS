@@ -12,5 +12,9 @@
 
 @property (strong, nonatomic) NSDate *date;
 @property (nonatomic, assign) NSUInteger pageNumber;
+@property (nonatomic) NSInteger lowerHour;
+@property (nonatomic) NSInteger lowerMinute;
+@property (nonatomic) NSInteger upperHour;
+@property (nonatomic) NSInteger upperMinute;
 
 @end

@@ -14,6 +14,7 @@
 #import "MCCPageViewControllerDelegate.h"
 #import "MCCPageViewControllerDataSource.h"
 #import "MCCConferencePickerViewController.h"
+#import "MCCFilterViewController.h"
 
 static NSString * const kCellIdentifier = @"Cell";
 
@@ -69,6 +70,10 @@ static NSString * const kCellIdentifier = @"Cell";
     MCCEventsTableViewController *initialEventsTableViewController = [[MCCEventsTableViewController alloc] init];
     initialEventsTableViewController.date = [NSDate date];
     initialEventsTableViewController.pageNumber = 1;
+    initialEventsTableViewController.lowerHour = self.lowerHour;
+    initialEventsTableViewController.lowerMinute = self.lowerMinute;
+    initialEventsTableViewController.upperHour = self.upperHour;
+    initialEventsTableViewController.upperMinute = self.upperMinute;
     
     [self setViewControllers:@[initialEventsTableViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
@@ -102,6 +107,24 @@ static NSString * const kCellIdentifier = @"Cell";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(toDateSet:)
                                                  name:@"MODELVIEW DISMISS2" object:nil];
+    
+    /*NSTimeInterval gap1 = 60*60*6;
+    NSTimeInterval gap2 = 60*60*6-1;
+    NSDate *displayTime1 = [[NSDate alloc]
+                            initWithTimeIntervalSince1970:gap1];
+    NSDate *displayTime2 = [[NSDate alloc]
+                            initWithTimeIntervalSince1970:gap2];
+    self.fromDate = displayTime1;
+    self.toDate = displayTime2;*/
+    
+    if (!self.lowerHour){
+        self.lowerHour = 0;
+        self.lowerMinute = 0;
+    }
+    if (!self.upperHour){
+        self.upperHour = 23;
+        self.upperMinute = 59;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,8 +134,6 @@ static NSString * const kCellIdentifier = @"Cell";
 }
 
 
-// --> Now create method in parent class as;
-// Now create yourNotificationHandler: like this in parent class
 -(void)fromDateSet:(NSNotification *)notice{
     NSDate *date = [notice object];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -121,12 +142,11 @@ static NSString * const kCellIdentifier = @"Cell";
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
     self.lowerHour = [components hour];
     self.lowerMinute = [components minute];
-    NSLog(@"oh heyyy %d:%d", self.lowerHour, self.lowerMinute);
+    NSLog(@"lower bound: %d:%d", self.lowerHour, self.lowerMinute);
 }
 
 -(void)toDateSet:(NSNotification *)notice{
     NSDate *date = [notice object];
-    NSLog(@"yoooooo");
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -169,6 +189,18 @@ static NSString * const kCellIdentifier = @"Cell";
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         MCCConferencePickerViewController *controller = (MCCConferencePickerViewController *)navController.topViewController;
         [controller conferencesToDisplay:conferenceList];
+    } else if ([segue.identifier isEqualToString:@"PresentFilter"]) {
+        
+        
+        
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        MCCFilterViewController *controller = (MCCFilterViewController *)navController.topViewController;
+        NSInteger t1 = self.lowerHour;
+        NSInteger t2 = self.lowerMinute;
+        NSInteger t3 = self.upperHour;
+        NSInteger t4 = self.upperMinute;
+        [controller setBoundsforLowerHour:self.lowerHour lowerMinute:self.lowerMinute upperHour:self.upperHour upperMinute:self.upperMinute];
+
     }
 }
 

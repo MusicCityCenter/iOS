@@ -59,6 +59,14 @@ static NSString * const kCellIdentifier = @"EventCell";
                                   on:self.date
                  withCompletionBlock:^(NSArray *events) {
                      self.events = events;
+                     /*
+                     NSInteger objIdx = [self.eventsSectioned indexOfObject: myObject];
+                     if(objIdx != NSNotFound) {
+                         id myObj = [myArray objectAtIndex: objIdx];
+                         // Do some alter stuff here
+                     }*/
+    
+                     
                      self.eventsSectioned = [[NSMutableArray alloc] init];
                      NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
                      for (int i = 0; i < 24; i++)
@@ -70,8 +78,12 @@ static NSString * const kCellIdentifier = @"EventCell";
                      for (MCCEvent *event in events){
                          NSString *what = event.name;
                          NSInteger startTime = (NSInteger) event.startTime;
-                         NSInteger hour = (event.startTime/60);
-                         //[self.eventsSectioned insertObject:event atIndex:hour];
+                         NSInteger hourStart = (event.startTime/60);
+                         NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
+                         NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                             [self.eventsSectioned insertObject:event atIndex:hourStart];
+                         }
                          NSLog(@"here!: %@", event.name);
                      }
                      [self.tableView reloadData];
@@ -87,11 +99,7 @@ static NSString * const kCellIdentifier = @"EventCell";
      */
 
 
-    
-    for (MCCEvent *event in self.events){
-        [self.eventsSectioned insertObject:event atIndex:(event.startTime/60)];
-        NSLog(@"here!: %@", event.name);
-    }
+
 
     
 }

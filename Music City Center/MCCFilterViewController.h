@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCCFilterViewController : UIViewController 
+@interface MCCFilterViewController : UIViewController
 
+- (void)setBoundsforLowerHour:(NSInteger)lowerHour lowerMinute:(NSInteger)lowerMinute upperHour:(NSInteger)upperHour upperMinute:(NSInteger)upperMinute;
 @end

@@ -50,14 +50,7 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     [self createDateFormatter];
     UITableViewCell *pickerViewCellToCheck = [self.tableView dequeueReusableCellWithIdentifier:kDatePickerCellID];
     self.pickerCellRowHeight = pickerViewCellToCheck.frame.size.height;
-    NSTimeInterval gap1 = 60*60*6;
-    NSTimeInterval gap2 = 60*60*6-1;
-    NSDate *displayTime1 = [[NSDate alloc]
-                           initWithTimeIntervalSince1970:gap1];
-    NSDate *displayTime2 = [[NSDate alloc]
-                           initWithTimeIntervalSince1970:gap2];
-    self.fromDate = displayTime1;
-    self.toDate = displayTime2;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,14 +59,21 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setBoundsforLowerHour:(NSInteger)lowerHour lowerMinute:(NSInteger)lowerMinute upperHour:(NSInteger)upperHour upperMinute:(NSInteger)upperMinute{
+    NSTimeInterval timeOffset = 60*60*6;
+    NSTimeInterval lower = lowerHour*60*60 + lowerMinute*60 + timeOffset;
+    NSTimeInterval upper = upperHour*60*60 + upperMinute*60 + timeOffset;
+    self.fromDate = [[NSDate alloc]
+                     initWithTimeIntervalSince1970:lower];
+    self.toDate = [[NSDate alloc]
+                    initWithTimeIntervalSince1970:upper];
+}
+
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-    if ((self.toDate != nil) && (self.fromDate != nil)){
-        //TODO
-    }
+    NSDate *fromDate = self.fromDate;
+    NSDate *toDate = self.toDate;
     NSLog(@"DismissModalviewController");
-    
-    
     //raise notification about dismiss
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"MODELVIEW DISMISS1"
