@@ -88,7 +88,7 @@ static NSString * const kCellIdentifier = @"EventCell";
                      }
                      [self.tableView reloadData];
                  }];
-    /*
+    
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime"
                                                  ascending:YES];
@@ -96,7 +96,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSArray *sortedArray;
     sortedArray = [self.events sortedArrayUsingDescriptors:sortDescriptors];
     self.events = sortedArray;
-     */
+     
 
 
 
