@@ -57,6 +57,11 @@ static NSString * const kCellIdentifier = @"EventCell";
         self.upperHour = 23;
         self.upperMinute = 59;
     }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([prefs objectForKey:@"conference"] != nil){
+        self.conference = [prefs stringForKey:@"conference"];
+    }
+    
     [self.eventsSectioned removeAllObjects];
     self.eventsSectioned = [[NSMutableArray alloc] init];
     NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
@@ -156,6 +161,9 @@ static NSString * const kCellIdentifier = @"EventCell";
 - (void) refresh:(NSNotification *)notice{
     self.conference = [notice object];
     NSLog(@"Notification conference: %@", self.conference);
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *conference = self.conference;
+    [prefs setObject:conference forKey:@"conference"];
     [self refreshTable];
 }
 
