@@ -49,7 +49,7 @@ static NSString * const floorPlanId = @"full-test-1";
     
     MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     
-    
+
     self.topLeft = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-TL", _currentFloor]];
     self.bottomRight = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-BR", _currentFloor]];
     

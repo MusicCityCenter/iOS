@@ -21,6 +21,7 @@
 
 static NSString * const kCellIdentifier = @"Cell";
 static CGFloat const kBlurOffset = 64.0f;
+static NSString * const floorPlanId = @"full-test-1";
 
 
 @interface MCCMapViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate>
@@ -415,23 +416,20 @@ static CGFloat const kBlurOffset = 64.0f;
 
 - (void)populateEventsAndRooms {
     // Populate contents array with events
-    MCCClient *client = [MCCClient sharedClient];
     
-    [client events:@"full-test-1" on:[NSDate date] withCompletionBlock:^(NSArray *events) {
+    MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [self.rooms removeAllObjects];
+    for (MCCFloorPlanLocation *location in appDelegate.navData.floorPlan.locations) {
+        if ([location.type isEqualToString:@"room"]) {
+            [self.rooms addObject:location];
+        }
+    }
+    
+    [[MCCClient sharedClient] events:floorPlanId on:[NSDate date] withCompletionBlock:^(NSArray *events) {
         self.events = events;
         
-        [client fetchFloorPlan:@"full-test-1" withCompletionBlock:^(MCCNavData *navData) {
-            MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            appDelegate.navData = navData;
-            
-            [self.rooms removeAllObjects];
-            for (MCCFloorPlanLocation *location in navData.floorPlan.locations) {
-                if ([location.type isEqualToString:@"room"]) {
-                    [self.rooms addObject:location];
-                }
-            }
-            [self.searchDisplayController.searchResultsTableView reloadData];
-        }];
+        [self.searchDisplayController.searchResultsTableView reloadData];
     }];
 }
 
