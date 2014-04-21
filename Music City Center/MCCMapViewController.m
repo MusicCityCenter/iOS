@@ -485,7 +485,8 @@ static NSString * const floorPlanId = @"full-test-1";
     NSMutableDictionary *locationData = [NSMutableDictionary dictionary];
     
     // Get Beacon data
-    NSMutableArray *beaconData = [NSMutableArray array];
+    NSMutableArray *beaconData = [NSMutableArray arrayWithCapacity:[self.beacons count]];
+    
     for (CLBeacon *beacon in self.beacons) {
         NSMutableDictionary *thisBeacon = [NSMutableDictionary dictionary];
         thisBeacon[@"uuid"] = beacon.proximityUUID.UUIDString;
@@ -510,6 +511,7 @@ static NSString * const floorPlanId = @"full-test-1";
     
     // Get Location data
     NSMutableDictionary *curLocData = [NSMutableDictionary dictionary];
+    
     curLocData[@"latitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.latitude];
     curLocData[@"longitude"] = [NSNumber numberWithDouble:self.currentLocation.coordinate.longitude];
     curLocData[@"altitude"] = [NSNumber numberWithDouble:self.currentLocation.altitude];
