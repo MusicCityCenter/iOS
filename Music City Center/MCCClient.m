@@ -73,7 +73,7 @@
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Shortest Path On Floorplan fetched");
                                            if (httpResponse.statusCode == 200){
@@ -82,7 +82,7 @@
                                            // responseObject should already be an MCCNavPath object here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
                                            // Failure
                                            [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
                                                                        message:[NSString stringWithFormat:@"%@",error]
@@ -113,7 +113,7 @@
                                     parameters:nil
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
                                            // Success
                                            NSLog(@"Events fetched");
                                            if (httpResponse.statusCode == 200){
@@ -122,9 +122,50 @@
                                            // responseObject should already be an NSArray here thanks to MCCResponseSerializer
                                        } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
-                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
                                            // Failure
-                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Shortest Path on the Floorplan"
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Events"
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
+                                           
+                                       }];
+    
+    return dataTask;
+}
+
+//http://localhost:8080/mcc/conferences/{floorplanId}/on/{month}/{day}/{year}
+- (NSURLSessionDataTask *)conferences:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *))completionBlock {
+    NSLog(@"conferences for floorPlanId on date");
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit
+                                                                   fromDate:date];
+    
+    NSInteger year = [components year];
+    NSInteger month = [components month];
+    NSInteger day = [components day];
+    
+    // format: /conferences/{floorplanId}/on/{month}/{day}/{year}
+    NSString *targetUrl = [NSString stringWithFormat:@"conferences/%@/on/%li/%li/%li", floorPlanId, (long)month, (long)day, (long)year];
+    
+    NSLog(@"%@",targetUrl);
+    
+    NSURLSessionDataTask *dataTask = [self GET:targetUrl
+                                    parameters:nil
+                                       success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
+                                           // Success
+                                           NSLog(@"Events fetched");
+                                           if (httpResponse.statusCode == 200){
+                                               completionBlock(responseObject);
+                                           }
+                                           // responseObject should already be an NSArray here thanks to MCCResponseSerializer
+                                       } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %ld", (long)httpResponse.statusCode);
+                                           // Failure
+                                           [[[UIAlertView alloc] initWithTitle:@"Error Finding the Conferences"
                                                                        message:[NSString stringWithFormat:@"%@",error]
                                                                       delegate:nil
                                                              cancelButtonTitle:@"OK"

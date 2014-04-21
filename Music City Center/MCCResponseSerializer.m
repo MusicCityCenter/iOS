@@ -135,7 +135,10 @@
                                                    day:[eventDictionary[@"day"] integerValue]
                                                   year:[eventDictionary[@"year"] integerValue]
                                                   name:eventDictionary[@"name"]
-                                            andDetails:eventDictionary[@"details"]];
+                                               details:eventDictionary[@"description"]
+                                             startTime:[eventDictionary[@"startTime"] integerValue]
+                                            endTime:[eventDictionary[@"endTime"] integerValue]
+                                            andConference:eventDictionary[@"conference"]];
             
             event.locationId = eventDictionary[@"floorplanLocationId"];
             [events addObject:event];
