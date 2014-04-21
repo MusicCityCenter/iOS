@@ -50,9 +50,6 @@
                                 <state key="normal" image="L3">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="2R5-aG-0zK" kind="push" identifier="PushMap" id="c8f-rm-s2G"/>
-                                </connections>
                             </button>
                             <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gST-Fg-Qw2" userLabel="L2 Button">
                                 <rect key="frame" x="40" y="281" width="251" height="79"/>
@@ -67,6 +64,9 @@
                                 <state key="normal" image="L1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="2R5-aG-0zK" kind="push" id="xZC-2J-Snu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlL-1f-VwB" userLabel="L1M Button">
                                 <rect key="frame" x="40" y="358" width="253" height="66"/>
