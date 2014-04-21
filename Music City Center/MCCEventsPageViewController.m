@@ -201,15 +201,9 @@ static NSString * const kCellIdentifier = @"Cell";
         MCCConferencePickerViewController *controller = (MCCConferencePickerViewController *)navController.topViewController;
         [controller conferencesToDisplay:conferenceList];
     } else if ([segue.identifier isEqualToString:@"PresentFilter"]) {
-        
-        
-        
+  
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         MCCFilterViewController *controller = (MCCFilterViewController *)navController.topViewController;
-        NSInteger t1 = self.lowerHour;
-        NSInteger t2 = self.lowerMinute;
-        NSInteger t3 = self.upperHour;
-        NSInteger t4 = self.upperMinute;
         [controller setBoundsforLowerHour:self.lowerHour lowerMinute:self.lowerMinute upperHour:self.upperHour upperMinute:self.upperMinute];
 
     }

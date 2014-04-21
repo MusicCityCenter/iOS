@@ -20,7 +20,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 @property (nonatomic) NSInteger lowerTimeConstraint;
 @property (nonatomic) NSInteger upperTimeConstraint;
 @property (nonatomic) BOOL constrained;
-@property (nonatomic, copy) NSMutableArray *eventsSectioned;
+@property (strong, nonatomic) NSMutableArray *eventsSectioned;
 
 @end
 
@@ -48,6 +48,16 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (!self.lowerHour){
+        self.lowerHour = 0;
+        self.lowerMinute = 0;
+    }
+    if (!self.upperHour){
+        self.upperHour = 23;
+        self.upperMinute = 59;
+    }
+    [self.eventsSectioned removeAllObjects];
     self.eventsSectioned = [[NSMutableArray alloc] init];
     NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
     for (int i = 0; i < 24; i++)
@@ -59,23 +69,30 @@ static NSString * const kCellIdentifier = @"EventCell";
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
-
-
+/*
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTable:)
+                                                 name:@"MODELVIEW DISMISS1" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTable:)
+                                                 name:@"MODELVIEW DISMISS2" object:nil];
+    */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fromDateSet:)
+                                                 name:@"MODELVIEW DISMISS1" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(toDateSet:)
+                                                 name:@"MODELVIEW DISMISS2" object:nil];
     
     // TODO - Change this from full-test-1
     [[MCCClient sharedClient] events:@"full-test-1"
                                   on:self.date
                  withCompletionBlock:^(NSArray *events) {
                      self.events = events;
-                     /*
-                     NSInteger objIdx = [self.eventsSectioned indexOfObject: myObject];
-                     if(objIdx != NSNotFound) {
-                         id myObj = [myArray objectAtIndex: objIdx];
-                         // Do some alter stuff here
-                     }*/
-    
-                     
-
+                     for (int i = 0; i < 24; i++)
+                     {
+                         [self.eventsSectioned[i] removeAllObjects];
+                     }
                      for (MCCEvent *event in events){
                          NSString *what = event.name;
                          NSInteger startTime = (NSInteger) event.startTime;
@@ -83,12 +100,12 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger upperHour = self.upperHour;
-                         //if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
                              NSMutableArray *debug = self.eventsSectioned;
                              NSLog(@"object added");
-                         //}
+                         }
                          NSLog(@"here!: %@", event.name);
                      }
                      [self.tableView reloadData];
@@ -107,6 +124,59 @@ static NSString * const kCellIdentifier = @"EventCell";
     
 }
 
+-(void)fromDateSet:(NSNotification *)notice{
+    NSDate *date = [notice object];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+    self.lowerHour = [components hour];
+    self.lowerMinute = [components minute];
+    NSLog(@"lower bound: %d:%d", self.lowerHour, self.lowerMinute);
+    [self refreshTable];
+}
+
+-(void)toDateSet:(NSNotification *)notice{
+    NSDate *date = [notice object];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+    self.upperHour = [components hour];
+    self.upperMinute = [components minute];
+    NSLog(@"upper bound: %d:%d", self.upperHour, self.upperMinute);
+    [self refreshTable];
+}
+
+- (void) refreshTable{
+    // TODO - Change this from full-test-1
+    [[MCCClient sharedClient] events:@"full-test-1"
+                                  on:self.date
+                 withCompletionBlock:^(NSArray *events) {
+                     self.events = events;
+                     for (int i = 0; i < 24; i++)
+                     {
+                         [self.eventsSectioned[i] removeAllObjects];
+                     }
+                     for (MCCEvent *event in events){
+                         NSString *what = event.name;
+                         NSInteger startTime = (NSInteger) event.startTime;
+                         NSInteger hourStart = (event.startTime/60);
+                         NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
+                         NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
+                         NSInteger lowerHour = self.lowerHour;
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                             NSMutableArray *section = self.eventsSectioned[hourStart];
+                             [section addObject:event];
+                             NSMutableArray *debug = self.eventsSectioned;
+                             NSLog(@"object added");
+                         }
+                         NSLog(@"here!: %@", event.name);
+                     }
+                     [self.tableView reloadData];
+                 }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -123,9 +193,9 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSInteger count = 0;
     NSMutableArray *debugging = self.eventsSectioned;
     for (MCCEvent *event in self.eventsSectioned[section]){
-        //if (event.startTime >= lowerBound && event.startTime <= upperBound){
+        if (event.startTime >= lowerBound && event.startTime <= upperBound){
             count++;
-        //}
+        }
     }
     return count;
 }
