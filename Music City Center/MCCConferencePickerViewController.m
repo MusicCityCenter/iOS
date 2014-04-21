@@ -33,6 +33,7 @@ static NSString *kCellIdentifier = @"ConferenceCell";
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"CONFERENCE DISMISS"
      object:self.selectedConference];
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

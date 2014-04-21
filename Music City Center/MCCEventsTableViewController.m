@@ -83,6 +83,9 @@ static NSString * const kCellIdentifier = @"EventCell";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(toDateSet:)
                                                  name:@"MODELVIEW DISMISS2" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refresh:)
+                                                 name:@"CONFERENCE DISMISS" object:nil];
     
     // TODO - Change this from full-test-1
     [[MCCClient sharedClient] events:@"full-test-1"
@@ -100,7 +103,7 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger upperHour = self.upperHour;
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
                              NSMutableArray *debug = self.eventsSectioned;
@@ -118,6 +121,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSArray *sortedArray;
     sortedArray = [self.events sortedArrayUsingDescriptors:sortDescriptors];
     self.events = sortedArray;
+    NSLog(@"conference: %@", self.conference);
      
 
 
@@ -148,6 +152,12 @@ static NSString * const kCellIdentifier = @"EventCell";
     [self refreshTable];
 }
 
+- (void) refresh:(NSNotification *)notice{
+    self.conference = [notice object];
+    NSLog(@"Notification conference: %@", self.conference);
+    [self refreshTable];
+}
+
 - (void) refreshTable{
     // TODO - Change this from full-test-1
     [[MCCClient sharedClient] events:@"full-test-1"
@@ -165,13 +175,14 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger lowerHour = self.lowerHour;
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
+                             NSLog(@"Refresh conference: %@", self.conference);
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
                              NSMutableArray *debug = self.eventsSectioned;
-                             NSLog(@"object added");
+                             NSLog(@"Refresh: object added");
                          }
-                         NSLog(@"here!: %@", event.name);
+                         NSLog(@"Refresh: here!: %@", event.name);
                      }
                      [self.tableView reloadData];
                  }];
@@ -193,7 +204,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSInteger count = 0;
     NSMutableArray *debugging = self.eventsSectioned;
     for (MCCEvent *event in self.eventsSectioned[section]){
-        if (event.startTime >= lowerBound && event.startTime <= upperBound){
+        if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
             count++;
         }
     }
