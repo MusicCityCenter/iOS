@@ -7,7 +7,6 @@
 //
 
 #import "MCCFilterViewController.h"
-#import "MCCSecondFilterTableTableViewController.h"
 
 static NSString *kPersonCellID = @"personCell";
 static NSString *kPersonCellID2 = @"personCell2";
@@ -23,7 +22,6 @@ static NSString *kDatePickerCellID3 = @"datePickerCell3";
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) CGFloat pickerCellRowHeight;
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath3;
-@property (strong, nonatomic) MCCSecondFilterTableTableViewController *secondTableVC;
 @property (nonatomic) BOOL from;
 @property (nonatomic) IBOutlet UIDatePicker* datePicker;
 @property (strong, nonatomic) NSDate *toDate;
