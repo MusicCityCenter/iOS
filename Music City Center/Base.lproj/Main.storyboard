@@ -169,6 +169,10 @@
                                     <segue destination="OJ4-Cz-R7l" kind="modal" identifier="PresentDirections" id="0sE-e6-JcQ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RSQ-t9-U5k">
+                                <rect key="frame" x="40" y="116" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -184,6 +188,7 @@
                     <navigationItem key="navigationItem" id="0S0-vT-t8E"/>
                     <connections>
                         <outlet property="currentDirectionButton" destination="V2p-Rs-zIZ" id="RSi-W0-4yr"/>
+                        <outlet property="imageView" destination="RSQ-t9-U5k" id="61k-Gw-MYI"/>
                         <outlet property="mapView" destination="fKe-oR-PFe" id="7RK-Ee-Ncl"/>
                     </connections>
                 </viewController>

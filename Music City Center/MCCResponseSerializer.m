@@ -151,7 +151,8 @@
         }
 
         responseObject = [events copy];
-
+    } else if ([firstPathComponent isEqualToString:@"image"]) {
+        
     }
     
     return responseObject;

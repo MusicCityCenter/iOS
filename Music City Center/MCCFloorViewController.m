@@ -21,6 +21,7 @@
 #import <MBXMapKit/MBXMapKit.h>
 #import "MCCDirectionsTableViewController.h"
 #import "MCCArtAnnotation.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 
 static NSString * const floorPlanId = @"full-test-1";
@@ -30,6 +31,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 @property (weak, nonatomic) IBOutlet MBXMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *currentDirectionButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (strong, nonatomic) UIBarButtonItem *endButton;
 
@@ -118,6 +120,10 @@ static NSString * const floorPlanId = @"full-test-1";
         [self.currentDirectionButton setTitle:[self.directions firstObject]
                                      forState:UIControlStateNormal];
         self.navigationItem.rightBarButtonItem = self.endButton;
+        
+        // TODO - Fill edge image
+        /*[self.imageView setImageWithURL:{URL}
+                       placeholderImage:nil];*/
     } else {
         self.navigationItem.rightBarButtonItem = nil;
         [self.mapView removeOverlay:self.routePolyline];

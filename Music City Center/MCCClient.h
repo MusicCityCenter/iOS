@@ -17,9 +17,15 @@
 + (instancetype)sharedClient;
 
 - (NSURLSessionDataTask *)fetchFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCNavData *navData))completionBlock;
+
 - (NSURLSessionDataTask *)shortestPathOnFloorPlan:(NSString *)floorPlanId from:(NSString *)from to:(NSString *)endLocationId withCompletionBlock:(void (^)(MCCNavPath *path))completionBlock;
+
 - (NSURLSessionDataTask *)events:(NSString *)floorPlanId on:(NSDate *)date withCompletionBlock:(void (^)(NSArray *events))completionBlock;
 
+
 - (NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData forFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *floorPlanLocation))completionBlock;
+
+- (NSURLSessionDataTask *)fetchEdgeImageForFloorPlanId:(NSString *)floorPlanId startLocationId:(NSString *)startLocationId andEndLocationId:(NSString *)endLocationId withCompletionBlock:(void (^)(UIImage *edgeImage))completionBlock;
+
 
 @end
