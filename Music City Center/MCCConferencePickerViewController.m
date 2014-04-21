@@ -29,6 +29,10 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 
 - (IBAction)doneButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"CONFERENCE DISMISS"
+     object:self.selectedConference];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

@@ -32,7 +32,7 @@ static NSString * const kCellIdentifier = @"Cell";
 @property (nonatomic) NSInteger lowerMinute;
 @property (nonatomic) NSInteger upperHour;
 @property (nonatomic) NSInteger upperMinute;
-
+@property (strong, nonatomic) NSString *conference;
 
 
 @end
@@ -66,6 +66,15 @@ static NSString * const kCellIdentifier = @"Cell";
     
     self.delegate = self.pageViewControllerDelegate;
     self.dataSource = self.pageViewControllerDataSource;
+    
+    if (!self.lowerHour){
+        self.lowerHour = 0;
+        self.lowerMinute = 0;
+    }
+    if (!self.upperHour){
+        self.upperHour = 23;
+        self.upperMinute = 59;
+    }
     
     MCCEventsTableViewController *initialEventsTableViewController = [[MCCEventsTableViewController alloc] init];
     initialEventsTableViewController.date = [NSDate date];
@@ -107,6 +116,9 @@ static NSString * const kCellIdentifier = @"Cell";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(toDateSet:)
                                                  name:@"MODELVIEW DISMISS2" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(filterConference:)
+                                                 name:@"CONFERENCE DISMISS" object:nil];
     
     /*NSTimeInterval gap1 = 60*60*6;
     NSTimeInterval gap2 = 60*60*6-1;
@@ -117,15 +129,14 @@ static NSString * const kCellIdentifier = @"Cell";
     self.fromDate = displayTime1;
     self.toDate = displayTime2;*/
     
-    if (!self.lowerHour){
-        self.lowerHour = 0;
-        self.lowerMinute = 0;
-    }
-    if (!self.upperHour){
-        self.upperHour = 23;
-        self.upperMinute = 59;
-    }
+
 }
+
+
+-(void)filterConference:(NSNotification *)notice{
+    self.conference = [notice object];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
