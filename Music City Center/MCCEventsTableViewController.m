@@ -83,12 +83,12 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger upperHour = self.upperHour;
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound){
+                         //if (event.startTime >= lowerBound && event.startTime <= upperBound){
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
                              NSMutableArray *debug = self.eventsSectioned;
                              NSLog(@"object added");
-                         }
+                         //}
                          NSLog(@"here!: %@", event.name);
                      }
                      [self.tableView reloadData];
@@ -123,9 +123,9 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSInteger count = 0;
     NSMutableArray *debugging = self.eventsSectioned;
     for (MCCEvent *event in self.eventsSectioned[section]){
-        if (event.startTime >= lowerBound && event.startTime <= upperBound){
+        //if (event.startTime >= lowerBound && event.startTime <= upperBound){
             count++;
-        }
+        //}
     }
     return count;
 }
