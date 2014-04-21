@@ -39,7 +39,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 @property (strong, nonatomic) MKPolyline *polyline;
 
-@property (strong, nonatomic) NSDictionary *mapId;
+@property (strong, nonatomic) NSDictionary *mapIDs;
 
 @end
 
@@ -47,16 +47,16 @@ static NSString * const floorPlanId = @"full-test-1";
 
 # pragma mark - Custom Getters
 
--(NSDictionary *)mapId {
-    if (!_mapId) {
-        _mapId = @{@"1" : @"musiccitycenter.i1i5h4m1",
+-(NSDictionary *)mapIDs {
+    if (!_mapIDs) {
+        _mapIDs = @{@"1" : @"musiccitycenter.i1i5h4m1",
                    @"1M": @"",
                    @"2" : @"",
                    @"3" : @"",
                    @"4" : @""};
     }
     
-    return _mapId;
+    return _mapIDs;
 }
 
 - (void)setCurrentFloor:(NSString *)currentFloor {
@@ -87,7 +87,7 @@ static NSString * const floorPlanId = @"full-test-1";
     
     self.currentFloor = @"1";
     
-    self.mapView.mapID = self.mapId[self.currentFloor];
+    self.mapView.mapID = self.mapIDs[self.currentFloor];
     
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(36.1575, -86.777), MKCoordinateSpanMake(.004, .004));
 
