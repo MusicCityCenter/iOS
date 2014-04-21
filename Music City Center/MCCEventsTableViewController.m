@@ -48,6 +48,14 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.eventsSectioned = [[NSMutableArray alloc] init];
+    NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 24; i++)
+    {
+        NSMutableArray *secondDimension = [[NSMutableArray alloc] init];
+        [firstDimension addObject:secondDimension];
+    }
+    self.eventsSectioned = [NSMutableArray arrayWithArray:firstDimension];
     
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:kCellIdentifier];
@@ -67,14 +75,7 @@ static NSString * const kCellIdentifier = @"EventCell";
                      }*/
     
                      
-                     self.eventsSectioned = [[NSMutableArray alloc] init];
-                     NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
-                     for (int i = 0; i < 24; i++)
-                     {
-                         NSMutableArray *secondDimension = [[NSMutableArray alloc] init];
-                         [firstDimension addObject:secondDimension];
-                     }
-                     self.eventsSectioned = [NSMutableArray arrayWithArray:firstDimension];
+
                      for (MCCEvent *event in events){
                          NSString *what = event.name;
                          NSInteger startTime = (NSInteger) event.startTime;
@@ -82,10 +83,10 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          //if (event.startTime >= lowerBound && event.startTime <= upperBound){
-                         NSMutableArray *section = self.eventsSectioned[hourStart];
-                         [section addObject:event];
-                         NSMutableArray *debug = self.eventsSectioned;
-                         NSLog(@"object added");
+                             NSMutableArray *section = self.eventsSectioned[hourStart];
+                             [section addObject:event];
+                             NSMutableArray *debug = self.eventsSectioned;
+                             NSLog(@"object added");
                          //}
                          NSLog(@"here!: %@", event.name);
                      }
@@ -117,11 +118,14 @@ static NSString * const kCellIdentifier = @"EventCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return [self.events count];
+    NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
+    NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
     NSInteger count = 0;
-    for (MCCEvent *event in self.events){
-        if (((event.startTime/60) == section)){
+    NSMutableArray *debugging = self.eventsSectioned;
+    for (MCCEvent *event in self.eventsSectioned[section]){
+        //if (event.startTime >= lowerBound && event.startTime <= upperBound){
             count++;
-        }
+        //}
     }
     return count;
 }
@@ -139,7 +143,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
   
-    MCCEvent *event = self.events[indexPath.row];
+    MCCEvent *event = self.eventsSectioned[indexPath.section][indexPath.row];
     NSLog(@"ummm%d", indexPath.row);
 
     cell.textLabel.text = event.name;
