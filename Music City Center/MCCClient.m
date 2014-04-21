@@ -136,7 +136,7 @@
     return dataTask;
 }
 
--(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData floorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
+-(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData forFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
     NSLog(@"Location from iBeacons");
     
     NSString *targetURL = [NSString stringWithFormat:@"floorplan/%@/location", floorPlanId];

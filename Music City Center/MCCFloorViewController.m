@@ -108,7 +108,7 @@ static NSString * const floorPlanId = @"full-test-1";
     self.endLocation = location;
     
     [[MCCClient sharedClient] locationFromiBeacons:locationData
-                                         floorPlan:floorPlanId
+                                         forFloorPlan:floorPlanId
                                withCompletionBlock:^(MCCFloorPlanLocation *floorPlanLocation) {
                                    [self drawPolylineFromStartLocation:floorPlanLocation];
                                }];
