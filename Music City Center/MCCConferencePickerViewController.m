@@ -44,10 +44,6 @@ static NSString *kCellIdentifier = @"ConferenceCell";
 {
     [super viewDidLoad];
     self.cleared = NO;
-    //self.conferences = [[NSArray alloc] init];
-    //self.conferences = [NSArray arrayWithObjects:@"Conference A", @"Conference B", @"Conference C", @"Conference D", nil];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
