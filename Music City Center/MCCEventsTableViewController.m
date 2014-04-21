@@ -103,7 +103,8 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger upperHour = self.upperHour;
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
+                         
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound && (([self.conference isEqualToString:event.conference]) || (self.conference == nil))){
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
                              NSMutableArray *debug = self.eventsSectioned;
@@ -175,7 +176,9 @@ static NSString * const kCellIdentifier = @"EventCell";
                          NSInteger lowerBound = (self.lowerHour * 60 + self.lowerMinute);
                          NSInteger upperBound = (self.upperHour * 60 + self.upperMinute);
                          NSInteger lowerHour = self.lowerHour;
-                         if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
+                         NSString *debugConference = event.conference;
+                         NSString *selfConference = self.conference;
+                         if (event.startTime >= lowerBound && event.startTime <= upperBound && (([self.conference isEqualToString:event.conference]) || (self.conference == nil))){
                              NSLog(@"Refresh conference: %@", self.conference);
                              NSMutableArray *section = self.eventsSectioned[hourStart];
                              [section addObject:event];
@@ -204,7 +207,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     NSInteger count = 0;
     NSMutableArray *debugging = self.eventsSectioned;
     for (MCCEvent *event in self.eventsSectioned[section]){
-        if (event.startTime >= lowerBound && event.startTime <= upperBound && ((self.conference == event.conference) || !self.conference)){
+        if (event.startTime >= lowerBound && event.startTime <= upperBound && (([self.conference isEqualToString:event.conference]) || (self.conference == nil))){
             count++;
         }
     }
