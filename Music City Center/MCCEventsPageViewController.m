@@ -196,7 +196,6 @@ static NSString * const kCellIdentifier = @"Cell";
         }
         [conferenceList addObject:@"test Conference 1"];
         [conferenceList addObject:@"test Conference 2"];
-        [conferenceList addObject:@"<not listed>"];
         //TODO: Real conference data
         
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
