@@ -165,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FBY-WK-oxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966" y="52"/>
+            <point key="canvasLocation" x="1070" y="44"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6dC-vn-50f">
@@ -200,29 +200,25 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="155" translatesAutoresizingMaskIntoConstraints="NO" id="Eki-yY-7Hd">
-                                <rect key="frame" x="150" y="85" width="155" height="59"/>
+                                <rect key="frame" x="80" y="85" width="155" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="southernwomenshowimage.png" translatesAutoresizingMaskIntoConstraints="NO" id="Uem-Jf-AvV">
-                                <rect key="frame" x="13" y="78" width="129" height="124"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpL-st-FuQ">
-                                <rect key="frame" x="150" y="152" width="155" height="21"/>
+                                <rect key="frame" x="83" y="152" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUX-Ox-mHj">
-                                <rect key="frame" x="150" y="181" width="155" height="21"/>
+                                <rect key="frame" x="80" y="181" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="sdfsdfs" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="275" translatesAutoresizingMaskIntoConstraints="NO" id="wMn-XF-6J7">
-                                <rect key="frame" x="20" y="230" width="275" height="40"/>
+                                <rect key="frame" x="23" y="240" width="275" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -231,11 +227,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="upW-iB-N85">
-                        <barButtonItem key="rightBarButtonItem" title="Route" id="hdH-dO-6dS"/>
+                        <barButtonItem key="rightBarButtonItem" title="Route" id="hdH-dO-6dS">
+                            <connections>
+                                <segue destination="2R5-aG-0zK" kind="push" identifier="EventDetailRoute" id="L9b-lQ-rho"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="wMn-XF-6J7" id="CaJ-xz-bxD"/>
-                        <outlet property="imageView" destination="Uem-Jf-AvV" id="vzP-xI-x8C"/>
                         <outlet property="roomLabel" destination="wpL-st-FuQ" id="DcK-2z-OEC"/>
                         <outlet property="timeLabel" destination="hUX-Ox-mHj" id="LbC-6a-w85"/>
                         <outlet property="titleLabel" destination="Eki-yY-7Hd" id="6Bk-dc-5ne"/>
@@ -737,11 +736,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="L2" width="251" height="79"/>
         <image name="L3" width="255" height="92"/>
         <image name="L4" width="238" height="64"/>
-        <image name="southernwomenshowimage.png" width="155" height="171"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="L9b-lQ-rho"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -32,7 +32,7 @@
         self.titleLabel.text = self.event.name;
         //self.descriptionLabel.text = self.event1.details;
         self.timeLabel.text = [NSString stringWithFormat:@"%ld/%ld/%ld", (long)self.event.month, (long)self.event.day, (long)self.event.year];
-        self.roomLabel.text = self.event.locationId;
+        self.roomLabel.text = [NSString stringWithFormat:@"Room: %@",self.event.locationId];
         self.descriptionLabel.text = self.event.details;
         NSInteger hourStart = self.event.startTime/60;
         NSInteger minuteStart = self.event.startTime%60;
