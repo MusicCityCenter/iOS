@@ -20,6 +20,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 @property (nonatomic) NSInteger lowerTimeConstraint;
 @property (nonatomic) NSInteger upperTimeConstraint;
 @property (nonatomic) BOOL constrained;
+@property (nonatomic, copy) NSMutableArray *eventsSectioned;
 
 @end
 
@@ -33,6 +34,14 @@ static NSString * const kCellIdentifier = @"EventCell";
         
         [self.tableView reloadData];
     }
+}
+
+- (NSMutableArray *)eventsSectioned {
+    if (!_eventsSectioned) {
+        _eventsSectioned = [NSMutableArray array];
+    }
+    
+    return _eventsSectioned;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -49,6 +58,33 @@ static NSString * const kCellIdentifier = @"EventCell";
                  withCompletionBlock:^(NSArray *events) {
                      self.events = events;
                  }];
+    /*
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime"
+                                                 ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *sortedArray;
+    sortedArray = [self.events sortedArrayUsingDescriptors:sortDescriptors];
+    self.events = sortedArray;
+     */
+
+    self.eventsSectioned = [NSMutableArray arrayWithCapacity:24];
+    NSMutableArray *firstDimension = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 24; i++)
+    {
+        NSMutableArray *secondDimension = [[NSMutableArray alloc] init];
+        [firstDimension addObject:secondDimension];
+    }
+    self.eventsSectioned = [NSMutableArray arrayWithArray:firstDimension];
+    for (MCCEvent *event in self.events){
+        [self.eventsSectioned insertObject:event atIndex:(event.startTime/60)];
+        NSLog(@"here!: %@", event.name);
+    }
+    for (NSMutableArray *array in self.eventsSectioned){
+        for (MCCEvent *event in array){
+            NSLog(@"hi: %@", event.name);
+        }
+    }
     
 }
 
@@ -67,9 +103,7 @@ static NSString * const kCellIdentifier = @"EventCell";
         if (((event.startTime/60) == section)){
             count++;
         }
-        NSLog(@"the starttime/60:%d", (event.startTime/60));
     }
-    NSLog(@"this called");
     return count;
 }
 
@@ -87,6 +121,7 @@ static NSString * const kCellIdentifier = @"EventCell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier];
   
     MCCEvent *event = self.events[indexPath.row];
+    NSLog(@"ummm%d", indexPath.row);
     
     cell.textLabel.text = event.name;
     NSInteger hourStart = event.startTime/60;
@@ -96,6 +131,7 @@ static NSString * const kCellIdentifier = @"EventCell";
 
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Room %@ from %d:%02d - %d:%02d", event.locationId, hourStart, minuteStart, hourEnd, minuteEnd];
     cell.detailTextLabel.textColor = [UIColor blueColor];
+
     return cell;
 }
 
