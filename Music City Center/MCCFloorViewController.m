@@ -252,8 +252,8 @@ static NSString * const floorPlanId = @"full-test-1";
                            // Start with the start of the first edge
                            MCCFloorPlanEdge *currentEdge = [path.edges firstObject];
 
-//                           [self.mapView addAnnotation:[self pointAnnotationForEdge:currentEdge
-//                                                                       withLocation:currentEdge.startLocation]];
+                           [self.mapView addAnnotation:[self pointAnnotationForEdge:currentEdge
+                                                                       withLocation:currentEdge.startLocation]];
                            
                            NSLog(@"Starting at: %@",currentEdge.startLocation.locationId);
                            NSLog(@"Ending at: %@", self.endLocation.locationId);
@@ -300,10 +300,10 @@ static NSString * const floorPlanId = @"full-test-1";
                                        previousDirection = currentDirection;
                                    }
                                    
-//                                   if (i == numPoints) {
-//                                       [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
-//                                                                                   withLocation:edge.endLocation]];
-//                                   }
+                                   if (i == numPoints) {
+                                       [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
+                                                                                   withLocation:edge.endLocation]];
+                                   }
                                    
                                    currentEdge = edge;
                                  
