@@ -136,6 +136,7 @@
     return dataTask;
 }
 
+
 -(NSURLSessionDataTask *)locationFromiBeacons:(NSDictionary *)beaconData forFloorPlan:(NSString *)floorPlanId withCompletionBlock:(void (^)(MCCFloorPlanLocation *))completionBlock {
     NSLog(@"Location from iBeacons");
     
@@ -165,6 +166,32 @@
                                                               otherButtonTitles:nil] show];
                                             
                                         }];
+ 
+    return dataTask;
+}
+
+- (NSURLSessionDataTask *)fetchEdgeImageForFloorPlanId:(NSString *)floorPlanId startLocationId:(NSString *)startLocationId andEndLocationId:(NSString *)endLocationId withCompletionBlock:(void (^)(UIImage *edgeImage))completionBlock {
+    NSString *path = [NSString stringWithFormat:@"image/edge/%@/%@/%@", floorPlanId, startLocationId, endLocationId];
+    
+    NSURLSessionDataTask *dataTask = [self GET:path
+                                    parameters:nil
+                                       success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           
+                                           if (httpResponse.statusCode == 200) {
+                                               completionBlock(responseObject);
+                                           }
+                                       } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+                                           NSLog(@"Received HTTP %ld", httpResponse.statusCode);
+                                           // Failure
+                                           [[[UIAlertView alloc] initWithTitle:@"Edge Image Error"
+                                                                       message:[NSString stringWithFormat:@"%@",error]
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"OK"
+                                                             otherButtonTitles:nil] show];
+                                       }];
+    
     return dataTask;
 }
 

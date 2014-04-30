@@ -206,6 +206,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 #pragma mark - Table View Data Source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     NSInteger numberOfSections = 0;
@@ -215,6 +216,7 @@ static NSString * const floorPlanId = @"full-test-1";
     }
     if ([self.roomSearchResults count] > 0) {
         ++numberOfSections;
+
     }
     
     return numberOfSections;
@@ -317,7 +319,7 @@ static NSString * const floorPlanId = @"full-test-1";
     [self.searchBar setShowsCancelButton:YES animated:YES];
     self.tabBarController.tabBar.hidden = YES;
     [self populateEventsAndRooms];
-    
+
     if (!self.searching) {
     
         [self updateBlur];
@@ -348,6 +350,7 @@ static NSString * const floorPlanId = @"full-test-1";
         self.blurView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0);
         self.blurView.layer.contentsRect = CGRectMake(0.0f, 0.0f, 1.0f, 0.0f);
     }];
+
     [self.searchBar resignFirstResponder];
     self.searching = NO;
 }
@@ -433,6 +436,9 @@ static NSString * const floorPlanId = @"full-test-1";
     }];
 }
 
+
+#pragma mark - Helper Methods
+
 // Find all matching strings
 - (void)findMatches:(NSString *)searchText {
     [self.eventSearchResults removeAllObjects];
@@ -456,6 +462,7 @@ static NSString * const floorPlanId = @"full-test-1";
         }
     }
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PushMap"]) {
@@ -549,6 +556,25 @@ static NSString * const floorPlanId = @"full-test-1";
     
     return serializedPostData;
     
+}
+
+- (NSString *)titleStringForSegue:(UIStoryboardSegue *)segue {
+    NSString *segueIdentifier = segue.identifier;
+    NSString *title;
+    
+    if ([segueIdentifier isEqualToString:@"PushLevel4"]) {
+        title = @"Level 4";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel3"]) {
+        title = @"Level 3";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel2"]) {
+        title = @"Level 2";
+    } else if ([segueIdentifier isEqualToString:@"PushLevel1M"]) {
+        title = @"Level 1M";
+    } else { // PushLevel1
+        title = @"Level 1";
+    }
+    
+    return title;
 }
 
 @end
