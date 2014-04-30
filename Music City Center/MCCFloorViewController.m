@@ -35,7 +35,7 @@ static NSString * const floorPlanId = @"full-test-1";
 
 @property (strong, nonatomic) UIBarButtonItem *endButton;
 
-@property (strong, nonatomic) MCCNavData *navData;
+@property (weak, nonatomic) MCCNavData *navData;
 
 @property (nonatomic, getter = isRouting) BOOL routing;
 @property (nonatomic, copy) NSArray *directions;
@@ -48,6 +48,8 @@ static NSString * const floorPlanId = @"full-test-1";
 
 @property (strong, nonatomic) MCCFloorPlanLocation *endLocation;
 @property (strong, nonatomic) NSDictionary *locationData;
+
+@property (strong, nonatomic) NSMutableArray *annotations;
 
 @property (strong, nonatomic) MKPolyline *routePolyline;
 
@@ -73,12 +75,9 @@ static NSString * const floorPlanId = @"full-test-1";
 
 - (void)setCurrentFloor:(NSString *)currentFloor {
     _currentFloor = currentFloor;
-    
-    MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    
 
-    self.topLeft = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-TL", _currentFloor]];
-    self.bottomRight = [appDelegate.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-BR", _currentFloor]];
+    self.topLeft = [self.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-TL", _currentFloor]];
+    self.bottomRight = [self.navData.mapping coordinatesOfLocation:[NSString stringWithFormat:@"%@-BR", _currentFloor]];
     
     NSInteger sizeX = self.bottomRight.x - self.topLeft.x;
     NSInteger sizeY = self.bottomRight.y - self.topLeft.y;
@@ -94,6 +93,18 @@ static NSString * const floorPlanId = @"full-test-1";
 
 
 #pragma mark - Custom Getter
+
+-(NSMutableArray *)annotations {
+    if (!_annotations) {
+        _annotations = [NSMutableArray array];
+    }
+    return _annotations;
+}
+
+-(MCCNavData *)navData {
+    MCCAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    return appDelegate.navData;
+}
 
 - (UIBarButtonItem *)endButton {
     if (!_endButton) {
@@ -129,6 +140,8 @@ static NSString * const floorPlanId = @"full-test-1";
         [self.mapView removeOverlay:self.routePolyline];
         self.routePolyline = nil;
         self.directions = nil;
+        [self.mapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
     }
 }
 
@@ -137,8 +150,6 @@ static NSString * const floorPlanId = @"full-test-1";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.currentFloor = @"1";
-    
     self.mapView.mapID = self.mapIDs[self.currentFloor];
     
 
@@ -146,23 +157,23 @@ static NSString * const floorPlanId = @"full-test-1";
     self.mapView.delegate = self;
     
     // Hard code some art markers
-    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Guitar Picture"
-                                                              coordinate:CLLocationCoordinate2DMake(36.1585, -86.777)
-                                                                andImage:[UIImage imageNamed:@"guitar.jpg"]]];
-    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Music Picture"
-                                                              coordinate:CLLocationCoordinate2DMake(36.1575, -86.777)
-                                                                andImage:[UIImage imageNamed:@"music.jpg"]]];
-    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Trumpet Picture"
-                                                              coordinate:CLLocationCoordinate2DMake(36.1580, -86.777)
-                                                                andImage:[UIImage imageNamed:@"trumpet.jpg"]]];
+//    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Guitar Picture"
+//                                                              coordinate:CLLocationCoordinate2DMake(36.1585, -86.777)
+//                                                                andImage:[UIImage imageNamed:@"guitar.jpg"]]];
+//    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Music Picture"
+//                                                              coordinate:CLLocationCoordinate2DMake(36.1575, -86.777)
+//                                                                andImage:[UIImage imageNamed:@"music.jpg"]]];
+//    [self.mapView addAnnotation:[MCCArtAnnotation artAnnotationWithTitle:@"Trumpet Picture"
+//                                                              coordinate:CLLocationCoordinate2DMake(36.1580, -86.777)
+//                                                                andImage:[UIImage imageNamed:@"trumpet.jpg"]]];
     
     // TODO - Look into fetching these in parallel with the tile imagery by
     // modifying MBXMapKit.m.
     // See: https://github.com/mapbox/mbxmapkit/issues/75#issuecomment-37945403
-    [[MCCClient sharedClient] fetchFloorPlan:@"full-test-1"
-                         withCompletionBlock:^(MCCNavData *navData) {
-                             self.navData = navData;
-                             
+//    [[MCCClient sharedClient] fetchFloorPlan:@"full-test-1"
+//                         withCompletionBlock:^(MCCNavData *navData) {
+//                             self.navData = navData;
+//                             
 //                             // Fencepost
 //                             MCCFloorPlanEdge *firstEdge = [self.navData.floorPlan.edges firstObject];
 //                             [self.mapView addAnnotation:[self pointAnnotationForEdge:firstEdge
@@ -172,8 +183,8 @@ static NSString * const floorPlanId = @"full-test-1";
 //                                 [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
 //                                                                             withLocation:edge.endLocation]];
 //                             }
-                        
-                         }];
+//                        
+//                         }];
     
     self.routing = NO;
 
@@ -233,6 +244,8 @@ static NSString * const floorPlanId = @"full-test-1";
 -(void)drawPolylineFromStartLocation:(MCCFloorPlanLocation *)startLocation {
     NSLog(@"Generating polyline");
     
+    self.currentFloor = @"1";
+    
     MCCClient *client = [MCCClient sharedClient];
     
     [client fetchFloorPlan:floorPlanId
@@ -252,10 +265,9 @@ static NSString * const floorPlanId = @"full-test-1";
                            // Start with the start of the first edge
                            MCCFloorPlanEdge *currentEdge = [path.edges firstObject];
 
-                           [self.mapView addAnnotation:[self pointAnnotationForEdge:currentEdge
-                                                                       withLocation:currentEdge.startLocation]];
+                           [self.mapView addAnnotation:[self pointAnnotationForLocation:currentEdge.startLocation withTitle:@"Start"]];
                            
-                           NSLog(@"Starting at: %@",currentEdge.startLocation.locationId);
+                           NSLog(@"Starting at: %@", currentEdge.startLocation.locationId);
                            NSLog(@"Ending at: %@", self.endLocation.locationId);
 
                            MCCFloorPlanImageLocation *firstLocation = [navData.mapping coordinatesOfLocation:currentEdge.startLocation.locationId];
@@ -284,9 +296,7 @@ static NSString * const floorPlanId = @"full-test-1";
                                    location.y <= self.bottomRight.y) {
                                    
                                    
-                                   coords[i] = [self coordinateFromEdge:edge
-                                                     withFloorPlanImage:self.floorPlanImage
-                                                andTopLeftImageLocation:self.topLeft];
+                                   coords[i] = [self coordinateFromEdge:edge];
                                    ++i;
                                    
                                    // Make sure that if a user is passing through several straight edges that
@@ -301,8 +311,7 @@ static NSString * const floorPlanId = @"full-test-1";
                                    }
                                    
                                    if (i == numPoints) {
-                                       [self.mapView addAnnotation:[self pointAnnotationForEdge:edge
-                                                                                   withLocation:edge.endLocation]];
+                                       [self.mapView addAnnotation:[self pointAnnotationForLocation:edge.endLocation withTitle:@"End"]];
                                    }
                                    
                                    currentEdge = edge;
@@ -360,23 +369,40 @@ static NSString * const floorPlanId = @"full-test-1";
 }
 
 
-- (CLLocationCoordinate2D)coordinateFromEdge:(MCCFloorPlanEdge *)edge withFloorPlanImage:(MCCFloorPlanImage *)floorPlanImage andTopLeftImageLocation:(MCCFloorPlanImageLocation *)topLeftImageLocation {
+- (CLLocationCoordinate2D)coordinateFromEdge:(MCCFloorPlanEdge *)edge {
     MCCFloorPlanImageLocation *location = [self.navData.mapping coordinatesOfLocation:edge.endLocation.locationId];
     
-    MCCFloorPlanImageLocation *translatedLocation = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - topLeftImageLocation.x
-                                                                                                      andY:location.y - topLeftImageLocation.y];
+    MCCFloorPlanImageLocation *translatedLocation = [MCCFloorPlanImageLocation floorPlanImageLocationWithX:location.x - self.topLeft.x
+                                                                                                      andY:location.y - self.topLeft.y];
     
     // Turn the floorplan location into lat/long
-    return [floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
+    return [self.floorPlanImage coordinateFromFloorPlanImageLocation:translatedLocation];
 }
 
-- (MKPointAnnotation *)pointAnnotationForEdge:(MCCFloorPlanEdge *)edge withLocation:(MCCFloorPlanLocation *)location {
+//- (MKPointAnnotation *)pointAnnotationForEdge:(MCCFloorPlanEdge *)edge withLocation:(MCCFloorPlanLocation *)location {
+//    MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
+//    // TODO - Don't hardcore this floor and top left
+//    pointAnnotation.coordinate = [self coordinateFromEdge:edge
+//                                       withFloorPlanImage:self.floorPlanImage
+//                                  andTopLeftImageLocation:self.topLeft];
+//    pointAnnotation.title = location.locationId;
+//    
+//    return pointAnnotation;
+//}
+
+- (MKPointAnnotation *)pointAnnotationForLocation:(MCCFloorPlanLocation *)location withTitle:(NSString *)title {
     MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
-    // TODO - Don't hardcore this floor and top left
-    pointAnnotation.coordinate = [self coordinateFromEdge:edge
-                                       withFloorPlanImage:self.floorPlanImage
-                                  andTopLeftImageLocation:self.topLeft];
-    pointAnnotation.title = location.locationId;
+    
+    MCCFloorPlanImageLocation *imageLocation = [self.navData.mapping coordinatesOfLocation:location.locationId];
+    
+    imageLocation.x -= self.topLeft.x;
+    imageLocation.y -= self.topLeft.y;
+    
+    pointAnnotation.coordinate = [self.floorPlanImage coordinateFromFloorPlanImageLocation:imageLocation];
+    
+    pointAnnotation.title = title;
+    
+    [self.annotations addObject:pointAnnotation];
     
     return pointAnnotation;
 }
